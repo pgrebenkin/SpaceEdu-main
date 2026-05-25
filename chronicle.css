@@ -17,7 +17,7 @@ body { font-family: 'Titillium Web', sans-serif; background: var(--bg); color: v
 
 /* ── NAVBAR ── */
 .navbar { background-color: var(--bg) !important; border-bottom: 1px solid rgba(255,255,255,1); box-shadow: 0 2px 10px rgba(0,0,0,0.3); padding: 15px 0; }
-.navbar .nav-link { font-family:'Audiowide',sans-serif; font-size:1rem; text-transform:uppercase; letter-spacing:1px; color:white !important; }
+.navbar .nav-link { font-family:'Audiowide',sans-serif; font-size:1.1rem; text-transform:uppercase; letter-spacing:1px; color:white !important; }
 .navbar .nav-link:hover { color:#ccc !important; }
 .navbar .nav-link.active { border-bottom:2px solid white; font-weight:bold; }
 .navbar .nav-link.disabled { color:#888 !important; opacity:0.6; pointer-events:none; }

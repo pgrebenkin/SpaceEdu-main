@@ -63,7 +63,7 @@ gtag('config', 'G-NYCJN3RC3F');
 </button>
 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 <div class="navbar-nav ms-auto">
-<a class="nav-link active" aria-current="page" href="/">Home</a>
+<a class="nav-link" href="/">Home</a>
 <a class="nav-link" href="/#about">About</a>
 <a class="nav-link" href="/chronicle">Chronicle</a>
 <a class="nav-link disabled" aria-disabled="true">Galaxy Journal</a>
@@ -72,6 +72,19 @@ gtag('config', 'G-NYCJN3RC3F');
 </div>
 </div>
 </nav>
+<script>
+(function() {
+var path = window.location.pathname.replace(/\/$/, '') || '/';
+document.querySelectorAll('.navbar-nav .nav-link').forEach(function(link) {
+var href = link.getAttribute('href');
+if (!href || href.startsWith('#') || href.startsWith('/#')) return;
+var clean = href.replace(/\/$/, '') || '/';
+if (clean === path || (clean !== '/' && path.startsWith(clean + '/'))) {
+link.classList.add('active');
+}
+});
+})();
+</script>
 <section class="hero-section">
 <div class="container h-100">
 <div class="row h-100 align-items-center">
@@ -207,7 +220,7 @@ if (!activeFound) {
 if (window.scrollY < 100) {
 navLinks.forEach(link => {
 link.classList.remove('active');
-if (link.getAttribute('href') === "#") {
+if (link.getAttribute('href') === "/") {
 link.classList.add('active');
 }
 });
