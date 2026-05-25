@@ -9,36 +9,311 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;700;900&family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/chronicle.css">
+    <style>
+        :root {
+            --bg: #232323;
+            --bg-banner: #232323;
+            --bg-blue: #1d2951;
+            --text: #ffffff;
+            --muted: rgba(255,255,255,0.45);
+            --border: rgba(255,255,255,0.08);
+            --holo: #00d4ff;
+            --leo: #00d4ff;
+            --meo: #f97316;
+            --geo: #fbbf24;
+            --green: #39ff14;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Titillium Web', sans-serif; background: var(--bg); color: var(--text); margin:0; padding:0; }
+
+        /* ── NAVBAR ── */
+        .navbar { background-color: var(--bg) !important; border-bottom: 1px solid rgba(255,255,255,1); box-shadow: 0 2px 10px rgba(0,0,0,0.3); padding: 15px 0; }
+        .navbar .nav-link { font-family:'Audiowide',sans-serif; font-size:1rem; text-transform:uppercase; letter-spacing:1px; color:white !important; }
+        .navbar .nav-link:hover { color:#ccc !important; }
+        .navbar .nav-link.active { border-bottom:2px solid white; font-weight:bold; }
+        .navbar .nav-link.disabled { color:#888 !important; opacity:0.6; pointer-events:none; }
+        .nav-logo { height:60px; transition:transform 0.3s; }
+        .nav-logo:hover { transform:scale(1.05); }
+
+        /* ── BANNER WRAPPER ── */
+        .chronicle-banner {
+            background: var(--bg-banner);
+            position: relative;
+            overflow: hidden;
+            min-height: calc(100vh - 91px); /* 91px = navbar height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Starfield */
+        .chronicle-banner::before {
+            content:''; position:absolute; inset:0; pointer-events:none;
+            background-image:
+                radial-gradient(1px 1px at 3% 12%, rgba(255,255,255,0.9) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 9% 70%, rgba(255,255,255,0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 17% 25%, rgba(255,255,255,0.7) 0%, transparent 100%),
+                radial-gradient(1px 1px at 28% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 35% 8%, rgba(255,255,255,0.8) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 45% 80%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 52% 35%, rgba(255,255,255,0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 60% 62%, rgba(255,255,255,0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 68% 18%, rgba(255,255,255,0.7) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 78% 45%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 85% 78%, rgba(255,255,255,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 92% 22%, rgba(255,255,255,0.8) 0%, transparent 100%),
+                radial-gradient(1px 1px at 96% 55%, rgba(255,255,255,0.35) 0%, transparent 100%),
+                radial-gradient(1px 1px at 22% 90%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 72% 88%, rgba(255,255,255,0.4) 0%, transparent 100%);
+        }
+
+        /* ── STATUS BAR ── */
+        .status-bar {
+            display:flex; align-items:center; gap:24px;
+            padding:7px 24px;
+            font-family:'Orbitron',sans-serif; font-size:9.5px;
+            color:rgba(255,255,255,0.55); letter-spacing:0.12em;
+            border-bottom:1px solid rgba(255,255,255,0.08);
+        }
+        .status-glow {
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.5);
+        }
+        .status-sep { opacity:0.2; }
+        .status-right { margin-left:auto; }
+
+        /* ── MAIN BANNER AREA ── */
+        .banner-main {
+            display:flex; align-items:center;
+            gap:0; padding:40px 24px 36px;
+            position:relative;
+            flex:1;
+        }
+
+        /* ── LEFT: TEXT ── */
+        .banner-left {
+            flex:0 0 44%;
+            padding-right:24px;
+            position:relative; z-index:2;
+        }
+
+        .chr-spaceedu {
+            font-family:'Audiowide',sans-serif;
+            font-size:10px; letter-spacing:0.45em;
+            color:rgba(255,255,255,0.55); margin-bottom:6px;
+            text-transform:uppercase;
+        }
+
+        .chr-title {
+            font-family:'Orbitron',sans-serif;
+            font-size: clamp(48px, 8vw, 128px);
+            font-weight:900; letter-spacing:0.06em;
+            color:#ffffff;
+            line-height:0.92; margin-bottom:14px;
+            text-shadow:0 0 40px rgba(255,255,255,0.08);
+        }
+
+        .chr-sub {
+            font-family:'Orbitron',sans-serif;
+            font-size:clamp(10px, 1.2vw, 13px);
+            letter-spacing:0.22em; color:rgba(255,255,255,0.6);
+            text-transform:uppercase; margin-bottom:32px;
+        }
+
+        .chr-cats {
+            display:flex; flex-direction:column; gap:5px;
+            margin-bottom:28px;
+        }
+
+        .chr-cat {
+            display:flex; align-items:center; gap:10px;
+            font-family:'Orbitron',sans-serif;
+            font-size:10px; letter-spacing:0.12em;
+            color:rgba(255,255,255,0.5);
+        }
+
+        .chr-cat-dot {
+            width:7px; height:7px; flex-shrink:0;
+            background:#ffffff;
+            box-shadow:0 0 8px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        /* Subscription placeholder */
+        .sub-placeholder {
+            border:1px dashed rgba(255,255,255,0.15);
+            padding:12px 16px;
+            display:flex; align-items:center; gap:10px;
+            font-family:'Orbitron',sans-serif;
+            font-size:9px; letter-spacing:0.12em;
+            color:rgba(255,255,255,0.3);
+            border-radius:2px;
+            max-width:320px;
+        }
+        .sub-placeholder i { font-size:14px; color:rgba(255,255,255,0.3); }
+
+        /* ── RIGHT: GLOBE ── */
+        .banner-right {
+            flex:1;
+            display:flex; align-items:center; justify-content:center;
+            overflow:visible; position:relative;
+        }
+
+        .globe-wrapper {
+            position:relative;
+            width:520px; height:520px;
+            overflow:visible;
+        }
+
+        #globe-canvas { display:block; }
+
+        .orbit-svg {
+            position:absolute; top:0; left:0;
+            width:520px; height:520px;
+            overflow:visible; pointer-events:none;
+        }
+
+        /* orbit labels */
+        .orbit-label {
+            font-family:'Orbitron',sans-serif;
+            font-size:10px; letter-spacing:0.12em; font-weight:700;
+        }
+
+        /* ── NEWS TICKER ── */
+        .news-ticker {
+            display:flex; align-items:center;
+            background:rgba(0,212,255,0.05);
+            border-top:1px solid rgba(0,212,255,0.15);
+            height:36px; overflow:hidden;
+        }
+
+        .ticker-label {
+            font-family:'Orbitron',sans-serif;
+            font-size:9px; letter-spacing:0.2em;
+            color:var(--green); background:rgba(0,0,0,0.4);
+            padding:0 16px; height:100%; display:flex;
+            align-items:center; white-space:nowrap;
+            border-right:1px solid rgba(0,212,255,0.15);
+            flex-shrink:0;
+        }
+
+        .ticker-track { flex:1; overflow:hidden; height:100%; }
+
+        .ticker-inner {
+            display:flex; align-items:center; height:100%;
+            white-space:nowrap;
+            animation:ticker-scroll 40s linear infinite;
+        }
+
+        .ticker-inner:hover { animation-play-state:paused; }
+
+        @keyframes ticker-scroll {
+            from { transform:translateX(0); }
+            to   { transform:translateX(-50%); }
+        }
+
+        .ticker-item {
+            font-family:'Orbitron',sans-serif;
+            font-size:9.5px; letter-spacing:0.1em;
+            color:rgba(255,255,255,0.6); padding:0 40px;
+        }
+
+        .ticker-item::before { content:'•  '; color:var(--holo); }
+
+        /* ── FILTER BAR ── */
+        .filter-bar {
+            background:#f2f2f2; border-bottom:1px solid rgba(0,0,0,0.1);
+            padding:10px 0; position:sticky; top:92px; z-index:90;
+        }
+
+        .filter-inner { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+
+        .filter-label {
+            font-family:'Audiowide',sans-serif; font-size:9px;
+            color:#999; letter-spacing:0.12em; text-transform:uppercase; margin-right:2px;
+        }
+
+        .filter-btn {
+            font-family:'Titillium Web',sans-serif; font-size:12px; font-weight:600;
+            padding:4px 14px; border-radius:20px; border:1px solid rgba(0,0,0,0.15);
+            background:transparent; color:#888; cursor:pointer;
+            transition:all 0.18s; text-transform:uppercase; letter-spacing:0.05em;
+        }
+        .filter-btn:hover { border-color:rgba(0,0,0,0.35); color:#232323; }
+        .filter-btn.active { background:#232323; border-color:#232323; color:white; }
+
+        /* ── ARTICLE STREAM ── */
+        .stream-section { padding:36px 0 64px; background:#ffffff; }
+
+        .day-header { display:flex; align-items:center; gap:14px; margin-bottom:4px; margin-top:36px; }
+        .day-header:first-child { margin-top:0; }
+        .day-label { font-family:'Orbitron',sans-serif; font-size:10px; font-weight:700; color:rgba(0,0,0,0.3); text-transform:uppercase; letter-spacing:0.18em; white-space:nowrap; }
+        .day-line { flex:1; height:1px; background:rgba(0,0,0,0.08); }
+        .day-count { font-size:11px; color:rgba(0,0,0,0.25); font-family:'Titillium Web',sans-serif; }
+
+        .article-card { padding:16px 0; border-bottom:1px solid rgba(0,0,0,0.07); transition:all 0.15s; }
+        .article-card:hover { background:rgba(0,0,0,0.018); padding-left:12px; border-radius:4px; border-bottom-color:transparent; }
+
+        .article-meta { display:flex; align-items:center; gap:8px; margin-bottom:9px; flex-wrap:wrap; }
+        .source-name { font-family:'Audiowide',sans-serif; font-size:9px; color:rgba(0,0,0,0.38); text-transform:uppercase; letter-spacing:0.06em; }
+
+        .cat-badge { font-family:'Titillium Web',sans-serif; font-size:10px; padding:2px 9px; border-radius:10px; text-transform:uppercase; letter-spacing:0.06em; font-weight:700; }
+        .cat-general  { background:rgba(100,100,110,0.08); color:#777; }
+        .cat-launches { background:rgba(220,60,50,0.09);   color:#c0392b; }
+        .cat-science  { background:rgba(40,130,210,0.1);   color:#2471a3; }
+        .cat-analysis { background:rgba(140,80,170,0.1);   color:#7d3c98; }
+        .cat-nasa     { background:rgba(39,174,96,0.1);    color:#1e8449; }
+        .cat-earth    { background:rgba(20,170,140,0.1);   color:#148f77; }
+        .cat-europe   { background:rgba(210,170,10,0.1);   color:#b7950b; }
+        .cat-press    { background:rgba(150,150,150,0.08); color:#999; }
+
+        .article-time { font-size:11px; color:rgba(0,0,0,0.55); margin-left:auto; font-family:'Titillium Web',sans-serif; white-space:nowrap; }
+        .article-title { font-family:'Titillium Web',sans-serif; font-size:17px; font-weight:700; color:#1a1a1a; line-height:1.35; text-decoration:none; display:block; margin-bottom:7px; transition:color 0.15s; }
+        .article-title:hover { color:var(--bg-blue); }
+        .article-summary { font-size:14px; color:rgba(0,0,0,0.52); line-height:1.6; margin-bottom:9px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+        .read-more { font-size:12px; color:#1d2951; text-decoration:none; letter-spacing:0.04em; transition:color 0.15s; }
+        .read-more:hover { color:#000; }
+
+        /* ── FOOTER ── */
+        footer { border-top:1px solid rgba(255,255,255,1); background:var(--bg); font-family:'Audiowide',sans-serif; }
+        .footer-email { transition:all 0.3s ease; letter-spacing:0.05em; }
+        .footer-email:hover { color:#00d0ff !important; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width:900px) {
+            .banner-main { flex-direction:column; padding:24px 16px 0; }
+            .banner-left { flex:none; width:100%; padding-right:0; text-align:center; }
+            .banner-right { padding:20px 0 0; }
+            .globe-wrapper { width:320px; height:320px; }
+            .orbit-svg { width:320px; height:320px; }
+            #globe-canvas { width:320px; height:320px; }
+        }
+    </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-
-<!-- <nav class="navbar navbar-expand-lg navbar-dark fixed-top"> -->
+<!-- ── NAVBAR ── -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-            <img src="/img/spaceedu-site-logo-main-161-60.webp" alt="SpaceEdu Logo" class="nav-logo" width="161" height="60">
+        <a class="navbar-brand" href="https://spaceedu.org">
+            <img src="https://spaceedu.org/img/spaceedu-site-logo-main-161-60.webp"
+                 alt="SpaceEdu Logo" class="nav-logo" width="161" height="60"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+            <span style="display:none;font-family:'Orbitron',sans-serif;font-size:18px;color:white;">SPACEEDU</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navChronicle">
             <span class="navbar-toggler-icon"></span>
-        </button> -->
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav ms-auto">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-            <a class="nav-link" href="/#about">About</a>
-            <a class="nav-link" href="/chronicle">Chronicle</a>
-            <a class="nav-link disabled" aria-disabled="true">Galaxy Journal</a>
-            <a class="nav-link" href="#contact">Contact</a>
-          </div>
+        </button>
+        <div class="collapse navbar-collapse" id="navChronicle">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="https://spaceedu.org">Home</a>
+                <a class="nav-link" href="https://spaceedu.org#about">About</a>
+                <a class="nav-link active" href="/chronicle">Chronicle</a>
+                <a class="nav-link disabled" aria-disabled="true">Galaxy Journal</a>
+                <a class="nav-link" href="https://spaceedu.org#contact">Contact</a>
+            </div>
         </div>
     </div>
 </nav>
-
 
 <!-- ── BANNER ── -->
 <section class="chronicle-banner">
@@ -50,7 +325,8 @@
         <span>21 SOURCES <span class="status-glow">ACTIVE</span></span>
         <span class="status-sep">|</span>
         <span>PARSER: <span class="status-glow">RUNNING</span></span>
-        <span class="status-right">LAST UPDATED AT <span class="status-glow" id="stardate"></span></span>
+        <span class="status-right">LAST UPDATED AT <span class="status-glow">25.05.2026 11:00 UTC
+        </span></span>
     </div>
 
     <!-- Main area -->
@@ -62,231 +338,274 @@
             <div class="chr-title">CHRONICLE</div>
             <div class="chr-sub">Daily Space News</div>
 
+            <div class="chr-cats">
+                <div class="chr-cat">
+                    <div class="chr-cat-dot"></div>
+                    <span>21 SOURCES ACTIVE</span>
+                </div>
+                <div class="chr-cat">
+                    <div class="chr-cat-dot"></div>
+                    <span>1497 ARTICLES TOTAL</span>
+                </div>
+                <div class="chr-cat">
+                    <div class="chr-cat-dot"></div>
+                    <span>7 ARTICLES TODAY</span>
+                </div>
+            </div>
 
+            <div class="sub-placeholder">
+                <i class="bi bi-envelope-fill"></i>
+                EMAIL DIGEST · COMING SOON
+            </div>
         </div>
 
         <!-- RIGHT: Globe -->
         <div class="banner-right">
             <div class="globe-wrapper">
                 <canvas id="globe-canvas" width="520" height="520"></canvas>
-
-
             </div>
         </div>
 
     </div>
 
-
-
 </section>
 
 <!-- ── FILTER BAR ── -->
+
 <div class="filter-bar">
     <div class="container">
         <div class="filter-inner">
             <span class="filter-label">Filter</span>
             <button class="filter-btn active" onclick="filterCat(this,'all')">All</button>
-            <button class="filter-btn" onclick="filterCat(this,'launches')">Launches</button>
-            <button class="filter-btn" onclick="filterCat(this,'science')">Science</button>
-            <button class="filter-btn" onclick="filterCat(this,'general')">General</button>
-            <button class="filter-btn" onclick="filterCat(this,'analysis')">Analysis</button>
-            <button class="filter-btn" onclick="filterCat(this,'nasa')">NASA</button>
-            <button class="filter-btn" onclick="filterCat(this,'earth')">Earth Obs</button>
-            <button class="filter-btn" onclick="filterCat(this,'europe')">Europe</button>
+            
+            <button class="filter-btn" onclick="filterCat(this,'analysis')">
+                Analysis
+            </button>
+            
+            <button class="filter-btn" onclick="filterCat(this,'astronomy')">
+                Astronomy
+            </button>
+            
+            <button class="filter-btn" onclick="filterCat(this,'earth_observation')">
+                Earth Obs
+            </button>
+            
+            <button class="filter-btn" onclick="filterCat(this,'europe')">
+                Europe
+            </button>
+            
+            <button class="filter-btn" onclick="filterCat(this,'general')">
+                General
+            </button>
+            
+            <button class="filter-btn" onclick="filterCat(this,'international')">
+                International
+            </button>
+            
+            <button class="filter-btn" onclick="filterCat(this,'launches')">
+                Launches
+            </button>
+            
+            <button class="filter-btn" onclick="filterCat(this,'nasa')">
+                NASA
+            </button>
+            
+            <button class="filter-btn" onclick="filterCat(this,'press_releases')">
+                Press
+            </button>
+            
+            <button class="filter-btn" onclick="filterCat(this,'science')">
+                Science
+            </button>
+            
         </div>
     </div>
 </div>
 
 <!-- ── ARTICLE STREAM ── -->
+
 <section class="stream-section">
     <div class="container">
 
         <div class="day-header">
             <span class="day-label">Today</span>
             <div class="day-line"></div>
-            <span class="day-count">9 articles</span>
+            <span class="day-count">7 articles</span>
         </div>
 
-        <div class="article-card" data-cat="launches">
-            <div class="article-meta">
-                <span class="source-name">Spaceflight Now</span>
-                <span class="cat-badge cat-launches">Launches</span>
-                <span class="article-time">14:32</span>
-            </div>
-            <a href="#" class="article-title">SpaceX Falcon 9 Deploys 23 Starlink Satellites; Booster Completes Tenth Flight</a>
-            <p class="article-summary">The rocket launched from Cape Canaveral Space Force Station, delivering the batch to low Earth orbit. Booster B1076 landed on the droneship Of Course I Still Love You approximately eight minutes after liftoff.</p>
-            <a href="#" class="read-more">Read more →</a>
-        </div>
-
-        <div class="article-card" data-cat="science">
-            <div class="article-meta">
-                <span class="source-name">Universe Today</span>
-                <span class="cat-badge cat-science">Science</span>
-                <span class="article-time">13:15</span>
-            </div>
-            <a href="#" class="article-title">James Webb Telescope Detects Water Vapor in Atmosphere of Rocky Exoplanet</a>
-            <p class="article-summary">Using its Near Infrared Spectrograph, Webb observed exoplanet K2-18b and detected spectral signatures of water vapor alongside dimethyl sulfide — a molecule produced only by living organisms on Earth.</p>
-            <a href="#" class="read-more">Read more →</a>
-        </div>
-
+        
         <div class="article-card" data-cat="general">
             <div class="article-meta">
-                <span class="source-name">SpaceNews</span>
-                <span class="cat-badge cat-general">General</span>
-                <span class="article-time">11:48</span>
+                <span class="source-name">Space.com News</span>
+                <span class="cat-badge cat-general">
+                    General
+                </span>
+                <span class="article-time" data-utc="2026-05-25T10:00:00Z">
+                    10:00
+                </span>
             </div>
-            <a href="#" class="article-title">Blue Origin Secures $3.4B NASA Contract for Lunar Lander Development</a>
-            <p class="article-summary">NASA selected Blue Origin's Blue Moon lander for a second Human Landing System contract, providing competition to SpaceX Starship HLS and ensuring redundancy for Artemis crewed lunar landing missions.</p>
-            <a href="#" class="read-more">Read more →</a>
+            <a href="https://www.space.com/astronomy/mars/scientists-want-to-send-a-roly-poly-robot-filled-with-dandelion-drones-to-investigate-hidden-tunnels-on-mars" class="article-title" target="_blank" rel="noopener">Scientists want to send a roly-poly robot filled with &#39;dandelion drones&#39; to investigate hidden tunnels on Mars</a>
+            
+            <p class="article-summary">Engineers are increasingly turning to the concept of "biomimicry" for the next generation of Mars robots.</p>
+            
+            <a href="https://www.space.com/astronomy/mars/scientists-want-to-send-a-roly-poly-robot-filled-with-dandelion-drones-to-investigate-hidden-tunnels-on-mars" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-
-        <div class="article-card" data-cat="nasa">
-            <div class="article-meta">
-                <span class="source-name">NASA Breaking News</span>
-                <span class="cat-badge cat-nasa">NASA</span>
-                <span class="article-time">10:30</span>
-            </div>
-            <a href="#" class="article-title">Artemis III Crew Announced: Four Astronauts Selected for First Crewed Lunar Landing Since Apollo</a>
-            <p class="article-summary">NASA revealed the four-person crew targeting the lunar south pole in late 2026, where permanently shadowed craters hold significant water ice deposits critical for future exploration.</p>
-            <a href="#" class="read-more">Read more →</a>
-        </div>
-
-        <div class="article-card" data-cat="earth">
-            <div class="article-meta">
-                <span class="source-name">NASA Earth Observatory</span>
-                <span class="cat-badge cat-earth">Earth Obs</span>
-                <span class="article-time">09:05</span>
-            </div>
-            <a href="#" class="article-title">Satellite Data Reveals Unprecedented Glacial Retreat in Greenland Over the Past Decade</a>
-            <p class="article-summary">Ten years of radar and optical imagery shows Greenland's coastal glaciers retreating 40% faster than models predicted, contributing an estimated 1.2mm annually to global sea level rise.</p>
-            <a href="#" class="read-more">Read more →</a>
-        </div>
-
-        <div class="day-header">
-            <span class="day-label">Yesterday</span>
-            <div class="day-line"></div>
-            <span class="day-count">14 articles</span>
-        </div>
-
-        <div class="article-card" data-cat="analysis">
-            <div class="article-meta">
-                <span class="source-name">The Space Review</span>
-                <span class="cat-badge cat-analysis">Analysis</span>
-                <span class="article-time">18:20</span>
-            </div>
-            <a href="#" class="article-title">The Economics of Reusability: SpaceX's Cost Advantage Is Wider Than Official Numbers Suggest</a>
-            <p class="article-summary">Analysis of launch cost structures across major providers shows Falcon 9's cost per kilogram to LEO declined 78% since 2015 — a gap competitors are unlikely to close before 2028.</p>
-            <a href="#" class="read-more">Read more →</a>
-        </div>
-
-        <div class="article-card" data-cat="europe">
-            <div class="article-meta">
-                <span class="source-name">European Spaceflight</span>
-                <span class="cat-badge cat-europe">Europe</span>
-                <span class="article-time">15:44</span>
-            </div>
-            <a href="#" class="article-title">Ariane 6 Completes Second Successful Commercial Launch, European Access Back on Track</a>
-            <p class="article-summary">The flight delivered four satellites to geostationary transfer orbit with precision accuracy. ESA's Director General called it "a turning point" for European autonomous access to space.</p>
-            <a href="#" class="read-more">Read more →</a>
-        </div>
-
+        
         <div class="article-card" data-cat="science">
             <div class="article-meta">
-                <span class="source-name">Phys.org</span>
-                <span class="cat-badge cat-science">Science</span>
-                <span class="article-time">12:10</span>
+                <span class="source-name">Phys.org Space Exploration</span>
+                <span class="cat-badge cat-science">
+                    Science
+                </span>
+                <span class="article-time" data-utc="2026-05-25T08:10:01Z">
+                    08:10
+                </span>
             </div>
-            <a href="#" class="article-title">New Study Maps Full 3D Structure of Milky Way's Magnetic Field Using Pulsar Timing Data</a>
-            <p class="article-summary">Researchers combined observations from 1,400 pulsars to construct the most detailed map of the galactic magnetic field, revealing unexpected structures that challenge current models of cosmic ray propagation.</p>
-            <a href="#" class="read-more">Read more →</a>
+            <a href="https://phys.org/news/2026-05-china-crewed-space-flight-moon.html" class="article-title" target="_blank" rel="noopener">China launches crewed space flight as part of moon ambitions</a>
+            
+            <p class="article-summary">China launched its crewed Shenzhou-23 spacecraft and eased it into a successful docking with a space station early Monday as part of Beijing's ambitions to send humans to the moon by 2030, state media said.</p>
+            
+            <a href="https://phys.org/news/2026-05-china-crewed-space-flight-moon.html" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-
-        <div class="article-card" data-cat="launches">
-            <div class="article-meta">
-                <span class="source-name">NASASpaceflight.com</span>
-                <span class="cat-badge cat-launches">Launches</span>
-                <span class="article-time">08:55</span>
-            </div>
-            <a href="#" class="article-title">Rocket Lab Electron Launches NROL-123 Mission for National Reconnaissance Office</a>
-            <p class="article-summary">The mission lifted off from Launch Complex 1 in New Zealand, delivering a classified payload to a precise orbit. The booster was not recovered due to payload orbital requirements.</p>
-            <a href="#" class="read-more">Read more →</a>
-        </div>
-
-        <div class="day-header">
-            <span class="day-label">Earlier</span>
-            <div class="day-line"></div>
-            <span class="day-count">828 articles</span>
-        </div>
-
-        <div class="article-card" data-cat="general">
-            <div class="article-meta">
-                <span class="source-name">Ars Technica Space</span>
-                <span class="cat-badge cat-general">General</span>
-                <span class="article-time">May 20 · 22:15</span>
-            </div>
-            <a href="#" class="article-title">Starship's Sixth Integrated Flight Test Achieves Full Mission Success With Booster Catch</a>
-            <p class="article-summary">Super Heavy returned to the launch site and was caught by the Mechazilla arm for the second time. The upper stage completed reentry and splashed down within 200 meters of the target in the Indian Ocean.</p>
-            <a href="#" class="read-more">Read more →</a>
-        </div>
-
-        <div class="article-card" data-cat="analysis">
+        
+        <div class="article-card" data-cat="international">
             <div class="article-meta">
                 <span class="source-name">SpaceWatch Global</span>
-                <span class="cat-badge cat-analysis">Analysis</span>
-                <span class="article-time">May 20 · 17:30</span>
+                <span class="cat-badge cat-general">
+                    International
+                </span>
+                <span class="article-time" data-utc="2026-05-25T08:00:00Z">
+                    08:00
+                </span>
             </div>
-            <a href="#" class="article-title">China's Tiangong Expansion: What the New Xuntian Module Means for Long-Duration Missions</a>
-            <p class="article-summary">The optical module gives China a space telescope with a field of view 300 times larger than Hubble, operating in the same orbit as Tiangong for periodic servicing — a fundamentally different approach to space astronomy.</p>
-            <a href="#" class="read-more">Read more →</a>
+            <a href="https://spacewatch.global/2026/05/spacewatchgl-opinion-orbital-ai-compute-why-spacex-thinks-the-future-of-ai-infrastructure-may-leave-earth/" class="article-title" target="_blank" rel="noopener">#SpaceWatchGL Opinion: Orbital AI compute –  Why SpaceX thinks the Future of AI Infrastructure may leave Earth</a>
+            
+            <p class="article-summary">Written by Lucas Buthion   SpaceX’s IPO filing does not just outline a new business line. It reveals a long-term bet that AI growth will outpace Earth’s ability to power it. Orbital compute is framed not as science fiction, but as a potential next layer of infrastructure, built on the assumption tha</p>
+            
+            <a href="https://spacewatch.global/2026/05/spacewatchgl-opinion-orbital-ai-compute-why-spacex-thinks-the-future-of-ai-infrastructure-may-leave-earth/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
+        
+        <div class="article-card" data-cat="international">
+            <div class="article-meta">
+                <span class="source-name">SpaceWatch Global</span>
+                <span class="cat-badge cat-general">
+                    International
+                </span>
+                <span class="article-time" data-utc="2026-05-25T06:00:00Z">
+                    06:00
+                </span>
+            </div>
+            <a href="https://spacewatch.global/2026/05/nasa-sets-coverage-for-expedition-74s-roscosmos-spacewalk-outside-space-station/" class="article-title" target="_blank" rel="noopener">NASA Sets Coverage for Expedition 74’s Roscosmos Spacewalk Outside Space Station</a>
+            
+            <p class="article-summary">On Wednesday, May 27, NASA will provide live coverage as two Roscosmos cosmonauts conduct a spacewalk outside the International Space Station. The spacewalk will tentatively begin at approximately 10:15 a.m. EDT (2:15 p.m. UTC) and last roughly five hours.</p>
+            
+            <a href="https://spacewatch.global/2026/05/nasa-sets-coverage-for-expedition-74s-roscosmos-spacewalk-outside-space-station/" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
+        
+        <div class="article-card" data-cat="international">
+            <div class="article-meta">
+                <span class="source-name">SpaceWatch Global</span>
+                <span class="cat-badge cat-general">
+                    International
+                </span>
+                <span class="article-time" data-utc="2026-05-25T06:00:00Z">
+                    06:00
+                </span>
+            </div>
+            <a href="https://spacewatch.global/2026/05/esa-hosts-continental-space-agencies-for-first-joint-meeting-in-noordwijk-the-netherlands/" class="article-title" target="_blank" rel="noopener">ESA hosts Continental Space Agencies for First Joint Meeting in Noordwijk, the Netherlands</a>
+            
+            <p class="article-summary">The European Space Agency has hosted representatives from the African Space Agency, the Latin American and Caribbean Space Agency and the Asia-Pacific Space Cooperation Organization in Noordwijk, the Netherlands for a first joint meeting.
+
+Building on last year’s celebrations of ESA’s 50th anniversa</p>
+            
+            <a href="https://spacewatch.global/2026/05/esa-hosts-continental-space-agencies-for-first-joint-meeting-in-noordwijk-the-netherlands/" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
+        
+        <div class="article-card" data-cat="international">
+            <div class="article-meta">
+                <span class="source-name">SpaceWatch Global</span>
+                <span class="cat-badge cat-general">
+                    International
+                </span>
+                <span class="article-time" data-utc="2026-05-25T06:00:00Z">
+                    06:00
+                </span>
+            </div>
+            <a href="https://spacewatch.global/2026/05/germanys-new-telescope-system-for-leo-and-geo-space-surveillance-nears-completion/" class="article-title" target="_blank" rel="noopener">Germany’s New Telescope System for LEO and GEO Space Surveillance Nears Completion</a>
+            
+            <p class="article-summary">Following the German Armed Forces' subcontract to the Baader Planetarium for a new telescope space surveillance system in 2024, two 1-meter telescopes have successfully passed their Site Acceptance Test at their installation site in Meßstetten, confirming that the installed system is almost ready fo</p>
+            
+            <a href="https://spacewatch.global/2026/05/germanys-new-telescope-system-for-leo-and-geo-space-surveillance-nears-completion/" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
+        
+        <div class="article-card" data-cat="earth_observation">
+            <div class="article-meta">
+                <span class="source-name">NASA Earth Observatory</span>
+                <span class="cat-badge cat-earth">
+                    Earth Obs
+                </span>
+                <span class="article-time" data-utc="2026-05-25T04:01:00Z">
+                    04:01
+                </span>
+            </div>
+            <a href="https://science.nasa.gov/earth/earth-observatory/an-early-decoration-day-celebration/" class="article-title" target="_blank" rel="noopener">An Early “Decoration Day” Celebration</a>
+            
+            <p class="article-summary">In a precursor to Memorial Day, people in Charleston, South Carolina, honored fallen Civil War troops with flowers, songs, and marches at an event at a racetrack on May 1, 1865. 
+ The post  An Early “Decoration Day” Celebration  appeared first on  NASA Science .</p>
+            
+            <a href="https://science.nasa.gov/earth/earth-observatory/an-early-decoration-day-celebration/" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
+        
 
     </div>
 </section>
 
+<!-- ── FOOTER ── -->
 <footer id="contact" class="py-3 my-4">
     <div class="container">
         <div class="row align-items-center">
-            <!-- Логотип слева -->
             <div class="col-md-4 d-flex align-items-center">
-                <a href="/">
-                    <img src="/img/spaceedu-site-logo-main-161-60.webp" alt="SpaceEdu Logo" class="nav-logo" style="filter: brightness(1); opacity: 1;" width="161" height="60">
+                <img src="https://spaceedu.org/img/spaceedu-site-logo-main-161-60.webp"
+                     alt="SpaceEdu Logo" class="nav-logo"
+                     style="filter:brightness(1);opacity:1;" width="161" height="60"
+                     onerror="this.style.display='none'">
+            </div>
+            <div class="col-md-4 text-center">
+                <a href="mailto:connect@spaceedu.org" class="footer-email text-white text-decoration-none">
+                    <i class="bi bi-envelope me-2"></i>connect@spaceedu.org
                 </a>
             </div>
-            <!-- Центральная часть (email) -->
-            <div class="col-md-4 text-center">
-              <a href="mailto:connect@spaceedu.org" class="footer-email text-white text-decoration-none">
-                <i class="bi bi-envelope me-2"></i>connect@spaceedu.org</a>
-            </div>
-            <!-- Иконка Facebook справа -->
             <div class="col-md-4 d-flex justify-content-end">
                 <ul class="nav list-unstyled">
                     <li class="ms-3">
-                        <a class="text-white" href="https://www.facebook.com/spaceedu" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                            <i class="bi bi-facebook" style="font-size: 2.0rem;"></i>
+                        <a class="text-white" href="https://www.facebook.com/spaceedu"
+                           aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-facebook" style="font-size:2.0rem;"></i>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="mt-3 text-center text-white small" style="font-size: 0.8rem; opacity: 0.8;">
-          © <span id="copyright-year">2018-2025</span> SpaceEdu Project. All rights reserved.
+        <div class="mt-3 text-center text-white small" style="font-size:0.8rem;opacity:0.8;">
+            © <span id="copyright-year">2018–2025</span> SpaceEdu Project. All rights reserved.
         </div>
     </div>
 </footer>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 // ── UTILS ──
 document.getElementById('copyright-year').textContent = '2018–' + new Date().getFullYear();
 
-const now = new Date();
-document.getElementById('stardate').textContent =
-    String(now.getDate()).padStart(2,'0') + '.' +
-    String(now.getMonth()+1).padStart(2,'0') + '.' + now.getFullYear() + ' ' +
-    String(now.getHours()).padStart(2,'0') + ':' +
-    String(now.getMinutes()).padStart(2,'0') + ' UTC';
+// ── TIMEZONE CONVERSION FOR ARTICLE TIMES ──
+document.querySelectorAll('.article-time[data-utc]').forEach(function(el) {
+    var d = new Date(el.dataset.utc);
+    if (!isNaN(d)) {
+        el.textContent = d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+    }
+});
 
+// ── CATEGORY FILTER ──
 function filterCat(btn, cat) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
