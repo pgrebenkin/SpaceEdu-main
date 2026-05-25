@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;700;900&family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/chronicle.css">
     <style>
         :root {
             --bg: #232323;
@@ -27,21 +29,12 @@
         * { box-sizing: border-box; }
         body { font-family: 'Titillium Web', sans-serif; background: var(--bg); color: var(--text); margin:0; padding:0; }
 
-        /* ── NAVBAR ── */
-        .navbar { background-color: var(--bg) !important; border-bottom: 1px solid rgba(255,255,255,1); box-shadow: 0 2px 10px rgba(0,0,0,0.3); padding: 15px 0; }
-        .navbar .nav-link { font-family:'Audiowide',sans-serif; font-size:1rem; text-transform:uppercase; letter-spacing:1px; color:white !important; }
-        .navbar .nav-link:hover { color:#ccc !important; }
-        .navbar .nav-link.active { border-bottom:2px solid white; font-weight:bold; }
-        .navbar .nav-link.disabled { color:#888 !important; opacity:0.6; pointer-events:none; }
-        .nav-logo { height:60px; transition:transform 0.3s; }
-        .nav-logo:hover { transform:scale(1.05); }
-
         /* ── BANNER WRAPPER ── */
         .chronicle-banner {
             background: var(--bg-banner);
             position: relative;
             overflow: hidden;
-            min-height: calc(100vh - 91px); /* 91px = navbar height */
+            min-height: calc(100vh - 91px);
             display: flex;
             flex-direction: column;
         }
@@ -166,59 +159,6 @@
 
         #globe-canvas { display:block; }
 
-        .orbit-svg {
-            position:absolute; top:0; left:0;
-            width:520px; height:520px;
-            overflow:visible; pointer-events:none;
-        }
-
-        /* orbit labels */
-        .orbit-label {
-            font-family:'Orbitron',sans-serif;
-            font-size:10px; letter-spacing:0.12em; font-weight:700;
-        }
-
-        /* ── NEWS TICKER ── */
-        .news-ticker {
-            display:flex; align-items:center;
-            background:rgba(0,212,255,0.05);
-            border-top:1px solid rgba(0,212,255,0.15);
-            height:36px; overflow:hidden;
-        }
-
-        .ticker-label {
-            font-family:'Orbitron',sans-serif;
-            font-size:9px; letter-spacing:0.2em;
-            color:var(--green); background:rgba(0,0,0,0.4);
-            padding:0 16px; height:100%; display:flex;
-            align-items:center; white-space:nowrap;
-            border-right:1px solid rgba(0,212,255,0.15);
-            flex-shrink:0;
-        }
-
-        .ticker-track { flex:1; overflow:hidden; height:100%; }
-
-        .ticker-inner {
-            display:flex; align-items:center; height:100%;
-            white-space:nowrap;
-            animation:ticker-scroll 40s linear infinite;
-        }
-
-        .ticker-inner:hover { animation-play-state:paused; }
-
-        @keyframes ticker-scroll {
-            from { transform:translateX(0); }
-            to   { transform:translateX(-50%); }
-        }
-
-        .ticker-item {
-            font-family:'Orbitron',sans-serif;
-            font-size:9.5px; letter-spacing:0.1em;
-            color:rgba(255,255,255,0.6); padding:0 40px;
-        }
-
-        .ticker-item::before { content:'•  '; color:var(--holo); }
-
         /* ── FILTER BAR ── */
         .filter-bar {
             background:#f2f2f2; border-bottom:1px solid rgba(0,0,0,0.1);
@@ -273,47 +213,43 @@
         .read-more { font-size:12px; color:#1d2951; text-decoration:none; letter-spacing:0.04em; transition:color 0.15s; }
         .read-more:hover { color:#000; }
 
-        /* ── FOOTER ── */
-        footer { border-top:1px solid rgba(255,255,255,1); background:var(--bg); font-family:'Audiowide',sans-serif; }
-        .footer-email { transition:all 0.3s ease; letter-spacing:0.05em; }
-        .footer-email:hover { color:#00d0ff !important; }
-
         /* ── RESPONSIVE ── */
         @media (max-width:900px) {
             .banner-main { flex-direction:column; padding:24px 16px 0; }
             .banner-left { flex:none; width:100%; padding-right:0; text-align:center; }
             .banner-right { padding:20px 0 0; }
             .globe-wrapper { width:320px; height:320px; }
-            .orbit-svg { width:320px; height:320px; }
             #globe-canvas { width:320px; height:320px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ── NAVBAR ── -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+
+<!-- <nav class="navbar navbar-expand-lg navbar-dark fixed-top"> -->
     <div class="container-fluid">
-        <a class="navbar-brand" href="https://spaceedu.org">
-            <img src="https://spaceedu.org/img/spaceedu-site-logo-main-161-60.webp"
-                 alt="SpaceEdu Logo" class="nav-logo" width="161" height="60"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-            <span style="display:none;font-family:'Orbitron',sans-serif;font-size:18px;color:white;">SPACEEDU</span>
+        <a class="navbar-brand" href="/">
+            <img src="/img/spaceedu-site-logo-main-161-60.webp" alt="SpaceEdu Logo" class="nav-logo" width="161" height="60">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navChronicle">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navChronicle">
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="https://spaceedu.org">Home</a>
-                <a class="nav-link" href="https://spaceedu.org#about">About</a>
-                <a class="nav-link active" href="/chronicle">Chronicle</a>
-                <a class="nav-link disabled" aria-disabled="true">Galaxy Journal</a>
-                <a class="nav-link" href="https://spaceedu.org#contact">Contact</a>
-            </div>
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-auto">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <a class="nav-link" href="/#about">About</a>
+            <a class="nav-link" href="/chronicle">Chronicle</a>
+            <a class="nav-link disabled" aria-disabled="true">Galaxy Journal</a>
+            <a class="nav-link" href="#contact">Contact</a>
+          </div>
         </div>
     </div>
 </nav>
+
 
 <!-- ── BANNER ── -->
 <section class="chronicle-banner">
@@ -612,43 +548,40 @@ Building on last year’s celebrations of ESA’s 50th anniversa</p>
     </div>
 </section>
 
-<!-- ── FOOTER ── -->
 <footer id="contact" class="py-3 my-4">
     <div class="container">
         <div class="row align-items-center">
+            <!-- Логотип слева -->
             <div class="col-md-4 d-flex align-items-center">
-                <img src="https://spaceedu.org/img/spaceedu-site-logo-main-161-60.webp"
-                     alt="SpaceEdu Logo" class="nav-logo"
-                     style="filter:brightness(1);opacity:1;" width="161" height="60"
-                     onerror="this.style.display='none'">
-            </div>
-            <div class="col-md-4 text-center">
-                <a href="mailto:connect@spaceedu.org" class="footer-email text-white text-decoration-none">
-                    <i class="bi bi-envelope me-2"></i>connect@spaceedu.org
+                <a href="/">
+                    <img src="/img/spaceedu-site-logo-main-161-60.webp" alt="SpaceEdu Logo" class="nav-logo" style="filter: brightness(1); opacity: 1;" width="161" height="60">
                 </a>
             </div>
+            <!-- Центральная часть (email) -->
+            <div class="col-md-4 text-center">
+              <a href="mailto:connect@spaceedu.org" class="footer-email text-white text-decoration-none">
+                <i class="bi bi-envelope me-2"></i>connect@spaceedu.org</a>
+            </div>
+            <!-- Иконка Facebook справа -->
             <div class="col-md-4 d-flex justify-content-end">
                 <ul class="nav list-unstyled">
                     <li class="ms-3">
-                        <a class="text-white" href="https://www.facebook.com/spaceedu"
-                           aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                            <i class="bi bi-facebook" style="font-size:2.0rem;"></i>
+                        <a class="text-white" href="https://www.facebook.com/spaceedu" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-facebook" style="font-size: 2.0rem;"></i>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="mt-3 text-center text-white small" style="font-size:0.8rem;opacity:0.8;">
-            © <span id="copyright-year">2018–2025</span> SpaceEdu Project. All rights reserved.
+        <div class="mt-3 text-center text-white small" style="font-size: 0.8rem; opacity: 0.8;">
+          © <span id="copyright-year">2018-2025</span> SpaceEdu Project. All rights reserved.
         </div>
     </div>
 </footer>
 
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// ── UTILS ──
-document.getElementById('copyright-year').textContent = '2018–' + new Date().getFullYear();
-
 // ── TIMEZONE CONVERSION FOR ARTICLE TIMES ──
 document.querySelectorAll('.article-time[data-utc]').forEach(function(el) {
     var d = new Date(el.dataset.utc);
@@ -674,32 +607,24 @@ function filterCat(btn, cat) {
     const W = 520, H = 520;
     const cx = 260, cy = 260, R = 242;
 
-    // Simplified continent polygons [lat, lon]
     const CONTINENTS = [
-        // North America
         [[72,-68],[73,-95],[68,-140],[55,-132],[48,-124],[40,-124],[32,-117],
          [25,-110],[20,-105],[16,-92],[10,-83],[8,-77],[14,-83],[18,-88],
          [20,-87],[24,-82],[30,-81],[35,-76],[41,-70],[47,-53],[55,-58],[62,-64],[68,-65],[72,-68]],
-        // South America
         [[12,-72],[10,-62],[5,-52],[0,-50],[-5,-35],[-10,-37],[-23,-43],
          [-34,-52],[-55,-65],[-56,-68],[-46,-75],[-35,-73],[-20,-70],
          [-18,-81],[-5,-81],[5,-77],[10,-75],[12,-72]],
-        // Greenland
         [[83,-60],[83,-15],[76,-18],[72,-22],[68,-24],[65,-38],[65,-52],[70,-55],[76,-68],[83,-60]],
-        // Europe
         [[71,28],[71,15],[65,14],[60,5],[58,-5],[52,-5],[48,-5],[44,0],
          [40,2],[38,15],[40,20],[38,26],[42,28],[46,30],[52,28],[58,24],[64,25],[70,22],[71,28]],
-        // Africa
         [[37,10],[37,37],[22,37],[10,42],[0,42],[-5,40],[-10,40],
          [-15,35],[-20,35],[-35,27],[-34,18],[-22,14],[-10,13],
          [-5,8],[0,9],[5,1],[5,-5],[0,-8],[5,-17],[4,-3],
          [12,14],[20,15],[28,15],[30,32],[37,10]],
-        // Asia
         [[72,140],[72,60],[65,50],[55,30],[50,30],[42,28],[38,36],
          [28,34],[20,38],[10,42],[5,78],[8,80],[15,80],[20,87],
          [25,90],[30,100],[35,105],[40,125],[45,135],[50,140],
          [55,155],[65,170],[72,170],[72,140]],
-        // Australia
         [[-15,130],[-15,136],[-12,142],[-18,148],[-25,153],[-35,150],
          [-38,145],[-38,140],[-32,137],[-32,125],[-22,114],[-18,122],[-15,130]],
     ];
@@ -717,13 +642,11 @@ function filterCat(btn, cat) {
         return CONTINENTS.some(p => pointInPoly(lat, lon, p));
     }
 
-    // Precompute land map at 4° resolution
     const LAND = {};
     for (let la = -90; la <= 90; la += 4)
         for (let lo = -180; lo < 180; lo += 4)
             LAND[`${la},${lo}`] = isLand(la, lo);
 
-    // Projection: orthographic, center at (lon0, lat0)
     let lon0 = -20 * Math.PI/180;
     const lat0 = 15 * Math.PI/180;
 
@@ -740,14 +663,11 @@ function filterCat(btn, cat) {
 
     function draw() {
         ctx.clearRect(0, 0, W, H);
-
-        // Globe fill
         ctx.beginPath();
         ctx.arc(cx, cy, R, 0, Math.PI*2);
         ctx.fillStyle = 'rgba(35, 35, 35, 1)';
         ctx.fill();
 
-        // Dots (continent vs ocean)
         for (let la = -90; la <= 90; la += 4) {
             for (let lo = -180; lo < 180; lo += 4) {
                 const p = project(la, lo);
@@ -760,9 +680,7 @@ function filterCat(btn, cat) {
             }
         }
 
-        // Wireframe lines
         ctx.lineWidth = 0.6;
-
         for (let la = -60; la <= 60; la += 30) {
             ctx.beginPath(); ctx.strokeStyle = 'rgba(255,255,255,0.18)';
             let first = true;
@@ -774,7 +692,6 @@ function filterCat(btn, cat) {
             }
             ctx.stroke();
         }
-
         for (let lo = -180; lo < 180; lo += 30) {
             ctx.beginPath(); ctx.strokeStyle = 'rgba(255,255,255,0.15)';
             let first = true;
@@ -794,10 +711,9 @@ function filterCat(btn, cat) {
         ctx.stroke();
     }
 
-    // Slow rotation
     function animate() {
         draw();
-        lon0 += 0.0004; // ~1.4°/sec = full rotation ~4.5 min
+        lon0 += 0.0004;
         requestAnimationFrame(animate);
     }
     animate();
