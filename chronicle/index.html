@@ -464,7 +464,7 @@ body { font-family: 'Titillium Web', sans-serif; background: var(--bg); color: v
 
 /* ── NAVBAR ── */
 .navbar { background-color: var(--bg) !important; border-bottom: 1px solid rgba(255,255,255,1); box-shadow: 0 2px 10px rgba(0,0,0,0.3); padding: 15px 0; }
-.navbar .nav-link { font-family:'Audiowide',sans-serif; font-size:1rem; text-transform:uppercase; letter-spacing:1px; color:white !important; }
+.navbar .nav-link { font-family:'Audiowide',sans-serif; font-size:1.1rem; text-transform:uppercase; letter-spacing:1px; color:white !important; }
 .navbar .nav-link:hover { color:#ccc !important; }
 .navbar .nav-link.active { border-bottom:2px solid white; font-weight:bold; }
 .navbar .nav-link.disabled { color:#888 !important; opacity:0.6; pointer-events:none; }
@@ -743,7 +743,7 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
         </button> -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ms-auto">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <a class="nav-link" href="/">Home</a>
             <a class="nav-link" href="/#about">About</a>
             <a class="nav-link" href="/chronicle">Chronicle</a>
             <a class="nav-link disabled" aria-disabled="true">Galaxy Journal</a>
@@ -752,6 +752,19 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
         </div>
     </div>
 </nav>
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '') || '/';
+  document.querySelectorAll('.navbar-nav .nav-link').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('/#')) return;
+    var clean = href.replace(/\/$/, '') || '/';
+    if (clean === path || (clean !== '/' && path.startsWith(clean + '/'))) {
+      link.classList.add('active');
+    }
+  });
+})();
+</script>
 
 
 <!-- ── BANNER ── -->
@@ -764,7 +777,7 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
         <span>21 SOURCES <span class="status-glow">ACTIVE</span></span>
         <span class="status-sep">|</span>
         <span>PARSER: <span class="status-glow">RUNNING</span></span>
-        <span class="status-right">LAST UPDATED AT <span class="status-glow">May 25, 2026 · 19:00 UTC
+        <span class="status-right">LAST UPDATED AT <span class="status-glow">May 25, 2026 · 21:00 UTC
         </span></span>
     </div>
 
@@ -784,11 +797,11 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
                 </div>
                 <div class="chr-cat">
                     <div class="chr-cat-dot"></div>
-                    <span>1507 ARTICLES TOTAL</span>
+                    <span>1510 ARTICLES TOTAL</span>
                 </div>
                 <div class="chr-cat">
                     <div class="chr-cat-dot"></div>
-                    <span>17 ARTICLES TODAY</span>
+                    <span>20 ARTICLES TODAY</span>
                 </div>
             </div>
 
@@ -869,9 +882,58 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
         <div class="day-header">
             <span class="day-label">Today</span>
             <div class="day-line"></div>
-            <span class="day-count">17 articles</span>
+            <span class="day-count">20 articles</span>
         </div>
 
+        
+        <div class="article-card" data-cat="science">
+            <div class="article-meta">
+                <span class="source-name">Universe Today</span>
+                <span class="cat-badge cat-science">
+                    Science
+                </span>
+                <span class="article-time" data-utc="2026-05-25T20:28:05Z" title="20:28 UTC">20:28 UTC
+                </span>
+            </div>
+            <a href="https://www.universetoday.com/articles/ultrahigh-energy-cosmic-rays-may-be-ultraheavy-in-origin" class="article-title" target="_blank" rel="noopener">Ultrahigh-energy Cosmic Rays May Be Ultraheavy in Origin</a>
+            
+            <p class="article-summary">New research led by Penn State scientists suggests that some of the highest-energy cosmic rays may consist of atomic nuclei heavier than iron and could help narrow down the cosmic sources capable of accelerating these particles.</p>
+            
+            <a href="https://www.universetoday.com/articles/ultrahigh-energy-cosmic-rays-may-be-ultraheavy-in-origin" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
+        
+        <div class="article-card" data-cat="general">
+            <div class="article-meta">
+                <span class="source-name">NPR Space</span>
+                <span class="cat-badge cat-general">
+                    General
+                </span>
+                <span class="article-time" data-utc="2026-05-25T20:23:27Z" title="20:23 UTC">20:23 UTC
+                </span>
+            </div>
+            <a href="https://www.npr.org/2026/05/25/nx-s1-5827107/the-space-nerd-club-discusses-new-findings-from-the-james-webb-telescope" class="article-title" target="_blank" rel="noopener">The Space Nerd Club discusses new findings from the James Webb telescope</a>
+            
+            <p class="article-summary">New findings from the James Webb Space Telescope include cloudy weather on an exoplanet, and clues to the origins of one of Neptune's moons.</p>
+            
+            <a href="https://www.npr.org/2026/05/25/nx-s1-5827107/the-space-nerd-club-discusses-new-findings-from-the-james-webb-telescope" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
+        
+        <div class="article-card" data-cat="astronomy">
+            <div class="article-meta">
+                <span class="source-name">EarthSky</span>
+                <span class="cat-badge cat-science">
+                    Astronomy
+                </span>
+                <span class="article-time" data-utc="2026-05-25T20:15:57Z" title="20:15 UTC">20:15 UTC
+                </span>
+            </div>
+            <a href="https://earthsky.org/astronomy-essentials/when-is-the-next-blue-moon/" class="article-title" target="_blank" rel="noopener">Blue Moon – and smallest moon of 2026 – on May 30-31</a>
+            
+            <p class="article-summary">There's a full Blue Moon overnight on May 30-31, 2026. A Blue Moon is the 2nd of 2 full moons in a calendar month or the 3rd of 4 full moons in a single season. 
+ The post  Blue Moon – and smallest moon of 2026 – on May 30-31  first appeared on  EarthSky .</p>
+            
+            <a href="https://earthsky.org/astronomy-essentials/when-is-the-next-blue-moon/" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
         
         <div class="article-card" data-cat="science">
             <div class="article-meta">
@@ -1091,6 +1153,24 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
                 <span class="article-time" data-utc="2026-05-25T06:00:00Z" title="06:00 UTC">06:00 UTC
                 </span>
             </div>
+            <a href="https://spacewatch.global/2026/05/esa-hosts-continental-space-agencies-for-first-joint-meeting-in-noordwijk-the-netherlands/" class="article-title" target="_blank" rel="noopener">ESA hosts Continental Space Agencies for First Joint Meeting in Noordwijk, the Netherlands</a>
+            
+            <p class="article-summary">The European Space Agency has hosted representatives from the African Space Agency, the Latin American and Caribbean Space Agency and the Asia-Pacific Space Cooperation Organization in Noordwijk, the Netherlands for a first joint meeting.
+
+Building on last year’s celebrations of ESA’s 50th anniversa</p>
+            
+            <a href="https://spacewatch.global/2026/05/esa-hosts-continental-space-agencies-for-first-joint-meeting-in-noordwijk-the-netherlands/" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
+        
+        <div class="article-card" data-cat="international">
+            <div class="article-meta">
+                <span class="source-name">SpaceWatch Global</span>
+                <span class="cat-badge cat-general">
+                    International
+                </span>
+                <span class="article-time" data-utc="2026-05-25T06:00:00Z" title="06:00 UTC">06:00 UTC
+                </span>
+            </div>
             <a href="https://spacewatch.global/2026/05/nasa-sets-coverage-for-expedition-74s-roscosmos-spacewalk-outside-space-station/" class="article-title" target="_blank" rel="noopener">NASA Sets Coverage for Expedition 74’s Roscosmos Spacewalk Outside Space Station</a>
             
             <p class="article-summary">On Wednesday, May 27, NASA will provide live coverage as two Roscosmos cosmonauts conduct a spacewalk outside the International Space Station. The spacewalk will tentatively begin at approximately 10:15 a.m. EDT (2:15 p.m. UTC) and last roughly five hours.</p>
@@ -1112,24 +1192,6 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             <p class="article-summary">Following the German Armed Forces' subcontract to the Baader Planetarium for a new telescope space surveillance system in 2024, two 1-meter telescopes have successfully passed their Site Acceptance Test at their installation site in Meßstetten, confirming that the installed system is almost ready fo</p>
             
             <a href="https://spacewatch.global/2026/05/germanys-new-telescope-system-for-leo-and-geo-space-surveillance-nears-completion/" class="read-more" target="_blank" rel="noopener">Read more →</a>
-        </div>
-        
-        <div class="article-card" data-cat="international">
-            <div class="article-meta">
-                <span class="source-name">SpaceWatch Global</span>
-                <span class="cat-badge cat-general">
-                    International
-                </span>
-                <span class="article-time" data-utc="2026-05-25T06:00:00Z" title="06:00 UTC">06:00 UTC
-                </span>
-            </div>
-            <a href="https://spacewatch.global/2026/05/esa-hosts-continental-space-agencies-for-first-joint-meeting-in-noordwijk-the-netherlands/" class="article-title" target="_blank" rel="noopener">ESA hosts Continental Space Agencies for First Joint Meeting in Noordwijk, the Netherlands</a>
-            
-            <p class="article-summary">The European Space Agency has hosted representatives from the African Space Agency, the Latin American and Caribbean Space Agency and the Asia-Pacific Space Cooperation Organization in Noordwijk, the Netherlands for a first joint meeting.
-
-Building on last year’s celebrations of ESA’s 50th anniversa</p>
-            
-            <a href="https://spacewatch.global/2026/05/esa-hosts-continental-space-agencies-for-first-joint-meeting-in-noordwijk-the-netherlands/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
         
         <div class="article-card" data-cat="earth_observation">
