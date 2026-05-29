@@ -1,20 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
-/* ── CHRONICLE CTA BANNER ──────────────────────────────────────────────── */
 .cta-section {
-  background: #ffffff;
-  padding: 60px 0;
+background: #ffffff;
+padding: 60px 0;
 }
 .cta-wrap {
-  background: #0a0a0a;
-  border: 1px solid #333;
-  padding: 48px 40px 40px;
-  font-family: 'Share Tech Mono', monospace;
-  position: relative;
-  overflow: hidden;
-  max-width: 900px;
-  width: 100%;
-  margin: 0 auto;
+background: #0a0a0a;
+border: 1px solid #333;
+padding: 48px 40px 40px;
+font-family: 'Share Tech Mono', monospace;
+position: relative;
+overflow: hidden;
+max-width: 900px;
+width: 100%;
+margin: 0 auto;
 }
 .cta-corner { position: absolute; width: 16px; height: 16px; border-color: #fff; border-style: solid; }
 .cta-corner.tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; }
@@ -39,9 +37,7 @@
 .ticker-sep { color: #333; flex-shrink: 0; }
 .cta-btn { font-family: 'Share Tech Mono', monospace; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #0a0a0a; background: #fff; border: none; padding: 12px 28px; cursor: pointer; transition: opacity 0.2s; }
 .cta-btn:hover { opacity: 0.85; }
-
-/* ── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 767px) {
-  .cta-right { display: none; }
-  .cta-wrap { padding: 32px 24px 28px; }
+.cta-right { display: none; }
+.cta-wrap { padding: 32px 24px 28px; }
 }
