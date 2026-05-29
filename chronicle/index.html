@@ -75,14 +75,30 @@
     }
     </script>
 
+    <!-- Preload Bootstrap Icons font -->
+    <link rel="preload" href="/css/fonts/bootstrap-icons.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Bootstrap CSS (synchronous — controls page grid) -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-icons.min.css">
+
+    <!-- Bootstrap Icons (async) -->
+    <link rel="preload" href="/css/bootstrap-icons.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/bootstrap-icons.min.css"></noscript>
+
+    <!-- Google Fonts (async) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;700;900&family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/chronicle.css">
-    <link rel="stylesheet" href="/css/chronicle-cta.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;700;900&family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;700;900&family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap"></noscript>
+
+    <!-- Site CSS (async) -->
+    <link rel="preload" href="/css/style.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+    <link rel="preload" href="/css/chronicle.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/chronicle.css"></noscript>
+    <link rel="preload" href="/css/chronicle-cta.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/chronicle-cta.css"></noscript>
+
     <style>
         /* Base Styles */
  :root {
