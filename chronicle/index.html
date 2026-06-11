@@ -976,71 +976,77 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
 </section>
 
 <!-- ── FILTER BAR ── -->
-
 <div class="filter-bar">
     <div class="container">
         <div class="filter-inner">
-            <span class="filter-label">Filter</span>
-            <button class="filter-btn active" onclick="filterCat(this,'all')">All</button>
+            <span class="filter-label">Topic</span>
+            <button class="filter-btn active" data-filter="all">All</button>
             
-            <button class="filter-btn" onclick="filterCat(this,'analysis')">
-                Analysis
-            </button>
+            <button class="filter-btn" data-filter="topic:launches">Launches &amp; Missions</button>
             
-            <button class="filter-btn" onclick="filterCat(this,'astronomy')">
-                Astronomy
-            </button>
+            <button class="filter-btn" data-filter="topic:business">Business &amp; Funding</button>
             
-            <button class="filter-btn" onclick="filterCat(this,'earth_observation')">
-                Earth Obs
-            </button>
+            <button class="filter-btn" data-filter="topic:science">Science &amp; Astrophysics</button>
             
-            <button class="filter-btn" onclick="filterCat(this,'europe')">
-                Europe
-            </button>
+            <button class="filter-btn" data-filter="topic:moon">Moon &amp; Artemis</button>
             
-            <button class="filter-btn" onclick="filterCat(this,'general')">
-                General
-            </button>
+            <button class="filter-btn" data-filter="topic:mars">Mars</button>
             
-            <button class="filter-btn" onclick="filterCat(this,'international')">
-                International
-            </button>
+            <span class="filter-sep">|</span>
             
-            <button class="filter-btn" onclick="filterCat(this,'launches')">
-                Launches
-            </button>
+            <button class="filter-btn filter-btn-region" id="btn-china">China</button>
             
-            <button class="filter-btn" onclick="filterCat(this,'nasa')">
-                NASA
-            </button>
             
-            <button class="filter-btn" onclick="filterCat(this,'press_releases')">
-                Press
-            </button>
-            
-            <button class="filter-btn" onclick="filterCat(this,'science')">
-                Science
-            </button>
+            <div class="filter-more-wrap">
+                <button class="filter-btn" id="filter-more-btn">More &#9662;</button>
+                <div class="filter-dropdown" id="filter-dropdown">
+                    
+                    <button class="filter-btn filter-dd-btn" data-filter="topic:astronomy">Sky &amp; Observing</button>
+                    
+                    <button class="filter-btn filter-dd-btn" data-filter="topic:defense">Defense &amp; Security</button>
+                    
+                    <button class="filter-btn filter-dd-btn" data-filter="topic:satellites">Satellites &amp; Connectivity</button>
+                    
+                    <button class="filter-btn filter-dd-btn" data-filter="topic:stations">Space Stations</button>
+                    
+                    <button class="filter-btn filter-dd-btn" data-filter="topic:earth_observation">Earth Observation</button>
+                    
+                    <button class="filter-btn filter-dd-btn" data-filter="topic:policy">Policy &amp; Regulation</button>
+                    
+                    
+                    <div class="filter-divider"></div>
+                    
+                    <button class="filter-btn filter-dd-btn filter-btn-popcult" data-filter="topic:entertainment">Pop Culture</button>
+                    
+                    
+                </div>
+            </div>
             
         </div>
     </div>
 </div>
 
 <!-- ── ARTICLE STREAM ── -->
-
 <section class="stream-section">
     <div class="container">
         <h1 class="day-label" style="font-size:1.1rem; margin-bottom:6px; color:#1a1a1a;">SpaceEdu Chronicle</h1>
-        <p class="article-summary" style="margin-bottom:0; color:#1a1a1a; max-width:100%;">SpaceEdu Chronicle is a live space news aggregator covering SpaceX launches, NASA missions, rocket launches and space industry updates from trusted sources worldwide. Updated every hour.</p>
+        <p class="article-summary" style="margin-bottom:24px; color:#1a1a1a; max-width:100%;">SpaceEdu Chronicle is a live space news aggregator covering SpaceX launches, NASA missions, rocket launches and space industry updates from trusted sources worldwide. Updated every hour.</p>
 
         
-        <div class="article-card" data-cat="nasa">
+
+        
+        <div class="day-header" style="margin-top:0">
+            <span class="day-label">Thursday, June 11</span>
+            <div class="day-line"></div>
+            <span class="day-count">1 article</span>
+        </div>
+
+        <div class="article-card"
+             data-topics="stations"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">NASA Breaking News</span>
-                <span class="cat-badge cat-nasa">
-                    NASA
-                </span>
+                <span class="cat-badge cat-stations" data-tooltip="Space Stations">Space Stations</span>
                 <span class="article-time" data-utc="2026-06-11T04:01:00Z" title="04:01 UTC">04:01 UTC
                 </span>
             </div>
@@ -1051,12 +1057,19 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             <a href="https://science.nasa.gov/earth/earth-observatory/air-pollutions-daily-pulse-over-the-northeast/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
         
-        <div class="article-card" data-cat="launches">
+        
+        <div class="day-header">
+            <span class="day-label">Wednesday, June 10</span>
+            <div class="day-line"></div>
+            <span class="day-count">24 articles</span>
+        </div>
+
+        <div class="article-card"
+             data-topics="business,moon,stations,servicing"
+             data-regions="usa">
             <div class="article-meta">
                 <span class="source-name">Spaceflight Now</span>
-                <span class="cat-badge cat-launches">
-                    Launches
-                </span>
+                <span class="cat-badge cat-business" data-tooltip="Business &amp; Funding · Moon &amp; Artemis · Space Stations · In-Space Servicing · USA">Business &amp; Funding</span>
                 <span class="article-time" data-utc="2026-06-10T23:21:51Z" title="23:21 UTC">23:21 UTC
                 </span>
             </div>
@@ -1066,13 +1079,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://spaceflightnow.com/2026/06/10/nasa-chief-defends-selection-of-all-male-artemis-iii-crew/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="business,moon,stations"
+             data-regions="usa">
             <div class="article-meta">
                 <span class="source-name">SpaceNews</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-business" data-tooltip="Business &amp; Funding · Moon &amp; Artemis · Space Stations · USA">Business &amp; Funding</span>
                 <span class="article-time" data-utc="2026-06-10T22:22:07Z" title="22:22 UTC">22:22 UTC
                 </span>
             </div>
@@ -1083,13 +1095,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://spacenews.com/artemis-3-commander-confident-crew-will-be-ready-for-2027-mission/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="science">
+        <div class="article-card"
+             data-topics="business,moon"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">Universe Today</span>
-                <span class="cat-badge cat-science">
-                    Science
-                </span>
+                <span class="cat-badge cat-business" data-tooltip="Business &amp; Funding · Moon &amp; Artemis">Business &amp; Funding</span>
                 <span class="article-time" data-utc="2026-06-10T22:04:00Z" title="22:04 UTC">22:04 UTC
                 </span>
             </div>
@@ -1099,13 +1110,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.universetoday.com/articles/building-in-space-with-laser-origami" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="launches">
+        <div class="article-card"
+             data-topics="launches,business"
+             data-regions="usa">
             <div class="article-meta">
                 <span class="source-name">NASASpaceflight.com</span>
-                <span class="cat-badge cat-launches">
-                    Launches
-                </span>
+                <span class="cat-badge cat-launches" data-tooltip="Launches &amp; Missions · Business &amp; Funding · USA">Launches &amp; Missions</span>
                 <span class="article-time" data-utc="2026-06-10T21:51:42Z" title="21:51 UTC">21:51 UTC
                 </span>
             </div>
@@ -1116,13 +1126,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.nasaspaceflight.com/2026/06/stoke-nova-update/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="science">
+        <div class="article-card"
+             data-topics="science"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">Universe Today</span>
-                <span class="cat-badge cat-science">
-                    Science
-                </span>
+                <span class="cat-badge cat-science" data-tooltip="Science &amp; Astrophysics">Science &amp; Astrophysics</span>
                 <span class="article-time" data-utc="2026-06-10T21:35:22Z" title="21:35 UTC">21:35 UTC
                 </span>
             </div>
@@ -1132,13 +1141,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.universetoday.com/articles/on-the-hunt-for-cosmic-dawn-and-the-universes-very-first-stars" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="nasa">
+        <div class="article-card"
+             data-topics="science"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">NASA Breaking News</span>
-                <span class="cat-badge cat-nasa">
-                    NASA
-                </span>
+                <span class="cat-badge cat-science" data-tooltip="Science &amp; Astrophysics">Science &amp; Astrophysics</span>
                 <span class="article-time" data-utc="2026-06-10T21:23:02Z" title="21:23 UTC">21:23 UTC
                 </span>
             </div>
@@ -1148,13 +1156,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://science.nasa.gov/blog/curiosity-blog-sols-4913-4919-planetary-explorers-freewheeling-to-the-yardang-unit/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="business,science,entertainment"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">Space.com News</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-business" data-tooltip="Business &amp; Funding · Science &amp; Astrophysics · Pop Culture">Business &amp; Funding</span>
                 <span class="article-time" data-utc="2026-06-10T21:00:00Z" title="21:00 UTC">21:00 UTC
                 </span>
             </div>
@@ -1164,13 +1171,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.space.com/astronomy/black-holes/james-webb-space-telescope-finds-evidence-the-mysterious-little-red-dots-are-black-hole-stars" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="business,mars,stations"
+             data-regions="usa">
             <div class="article-meta">
                 <span class="source-name">NPR Space</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-business" data-tooltip="Business &amp; Funding · Mars · Space Stations · USA">Business &amp; Funding</span>
                 <span class="article-time" data-utc="2026-06-10T20:33:58Z" title="20:33 UTC">20:33 UTC
                 </span>
             </div>
@@ -1180,13 +1186,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.npr.org/2026/06/10/nx-s1-5846835/a-hardworking-spacecraft-in-mars-orbit-has-gone-dark" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="nasa">
+        <div class="article-card"
+             data-topics=""
+             data-regions="usa">
             <div class="article-meta">
                 <span class="source-name">NASA Breaking News</span>
-                <span class="cat-badge cat-nasa">
-                    NASA
-                </span>
+                <span class="cat-badge cat-launches" data-tooltip="USA">Nasa</span>
                 <span class="article-time" data-utc="2026-06-10T20:32:25Z" title="20:32 UTC">20:32 UTC
                 </span>
             </div>
@@ -1196,13 +1201,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.nasa.gov/news-release/nasa-awards-contract-for-construction-services-in-california/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="moon,entertainment"
+             data-regions="usa">
             <div class="article-meta">
                 <span class="source-name">Space.com News</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-moon" data-tooltip="Moon &amp; Artemis · Pop Culture · USA">Moon &amp; Artemis</span>
                 <span class="article-time" data-utc="2026-06-10T20:00:00Z" title="20:00 UTC">20:00 UTC
                 </span>
             </div>
@@ -1212,13 +1216,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.space.com/space-exploration/artemis/nasa-chief-defends-all-male-artemis-3-astronaut-crew-amid-backlash-i-dont-think-anyone-should-be-reading-into-this" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="science">
+        <div class="article-card"
+             data-topics="science"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">Universe Today</span>
-                <span class="cat-badge cat-science">
-                    Science
-                </span>
+                <span class="cat-badge cat-science" data-tooltip="Science &amp; Astrophysics">Science &amp; Astrophysics</span>
                 <span class="article-time" data-utc="2026-06-10T19:56:00Z" title="19:56 UTC">19:56 UTC
                 </span>
             </div>
@@ -1228,13 +1231,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.universetoday.com/articles/david-kipping-has-a-new-take-on-the-existence-of-advanced-life-in-the-universe-and-the-numbers-are-n" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="business,defense"
+             data-regions="usa">
             <div class="article-meta">
                 <span class="source-name">SpaceNews</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-business" data-tooltip="Business &amp; Funding · Defense &amp; Security · USA">Business &amp; Funding</span>
                 <span class="article-time" data-utc="2026-06-10T19:39:20Z" title="19:39 UTC">19:39 UTC
                 </span>
             </div>
@@ -1245,13 +1247,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://spacenews.com/house-appropriators-back-55-5-billion-space-force-budget-omit-reconciliation-funds/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="entertainment"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">Space.com News</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-entertainment" data-tooltip="Pop Culture">Pop Culture</span>
                 <span class="article-time" data-utc="2026-06-10T19:00:00Z" title="19:00 UTC">19:00 UTC
                 </span>
             </div>
@@ -1261,13 +1262,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.space.com/entertainment/space-movies-shows/voltron-legendary-defender-turns-10-today-and-we-think-this-mecha-robot-reboot-was-just-as-good-as-power-rangers-and-transformers" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="science">
+        <div class="article-card"
+             data-topics="science,stations"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">Universe Today</span>
-                <span class="cat-badge cat-science">
-                    Science
-                </span>
+                <span class="cat-badge cat-science" data-tooltip="Science &amp; Astrophysics · Space Stations">Science &amp; Astrophysics</span>
                 <span class="article-time" data-utc="2026-06-10T18:12:10Z" title="18:12 UTC">18:12 UTC
                 </span>
             </div>
@@ -1277,13 +1277,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.universetoday.com/articles/this-is-how-supermassive-black-holes-feed-themselves" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="nasa">
+        <div class="article-card"
+             data-topics="satellites"
+             data-regions="usa">
             <div class="article-meta">
                 <span class="source-name">NASA Breaking News</span>
-                <span class="cat-badge cat-nasa">
-                    NASA
-                </span>
+                <span class="cat-badge cat-satellites" data-tooltip="Satellites &amp; Connectivity · USA">Satellites &amp; Connectivity</span>
                 <span class="article-time" data-utc="2026-06-10T18:09:55Z" title="18:09 UTC">18:09 UTC
                 </span>
             </div>
@@ -1293,13 +1292,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://science.nasa.gov/science-research/earth-science/nasa-noaa-to-hold-joint-session-at-23rd-symposium-on-operational-environmental-satellite-systems/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="science">
+        <div class="article-card"
+             data-topics="business,science,stations"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">Phys.org Space Exploration</span>
-                <span class="cat-badge cat-science">
-                    Science
-                </span>
+                <span class="cat-badge cat-business" data-tooltip="Business &amp; Funding · Science &amp; Astrophysics · Space Stations">Business &amp; Funding</span>
                 <span class="article-time" data-utc="2026-06-10T18:00:02Z" title="18:00 UTC">18:00 UTC
                 </span>
             </div>
@@ -1309,13 +1307,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://phys.org/news/2026-06-small-optical-component-telescopes-view.html" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="science,stations,entertainment"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">Space.com News</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-science" data-tooltip="Science &amp; Astrophysics · Space Stations · Pop Culture">Science &amp; Astrophysics</span>
                 <span class="article-time" data-utc="2026-06-10T18:00:00Z" title="18:00 UTC">18:00 UTC
                 </span>
             </div>
@@ -1325,13 +1322,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.space.com/astronomy/asteroids/the-asteroid-that-wiped-out-the-dinosaurs-may-have-created-a-vast-underground-habitat-for-life-that-lasted-8-million-years" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="business,science,defense,earth_observation"
+             data-regions="europe">
             <div class="article-meta">
                 <span class="source-name">ESA Top News</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-business" data-tooltip="Business &amp; Funding · Science &amp; Astrophysics · Defense &amp; Security · Earth Observation · Europe">Business &amp; Funding</span>
                 <span class="article-time" data-utc="2026-06-10T17:32:00Z" title="17:32 UTC">17:32 UTC
                 </span>
             </div>
@@ -1341,13 +1337,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.esa.int/About_Us/Corporate_news/ESA_at_ILA_2026_Day_1_highlights" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="moon,stations"
+             data-regions="usa">
             <div class="article-meta">
                 <span class="source-name">ArsTechnica Space</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-moon" data-tooltip="Moon &amp; Artemis · Space Stations · USA">Moon &amp; Artemis</span>
                 <span class="article-time" data-utc="2026-06-10T17:31:13Z" title="17:31 UTC">17:31 UTC
                 </span>
             </div>
@@ -1357,13 +1352,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://arstechnica.com/space/2026/06/we-managed-to-glean-some-interesting-details-about-the-artemis-iii-mission/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="entertainment"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">Space.com News</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-entertainment" data-tooltip="Pop Culture">Pop Culture</span>
                 <span class="article-time" data-utc="2026-06-10T17:30:00Z" title="17:30 UTC">17:30 UTC
                 </span>
             </div>
@@ -1373,13 +1367,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.space.com/entertainment/space-movies-shows/doctor-who-christmas-special-is-cancelled-as-russell-t-davies-departs-the-show-what-does-this-mean-for-the-future-of-doctor-who" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="nasa">
+        <div class="article-card"
+             data-topics="moon,stations"
+             data-regions="usa">
             <div class="article-meta">
                 <span class="source-name">NASA Breaking News</span>
-                <span class="cat-badge cat-nasa">
-                    NASA
-                </span>
+                <span class="cat-badge cat-moon" data-tooltip="Moon &amp; Artemis · Space Stations · USA">Moon &amp; Artemis</span>
                 <span class="article-time" data-utc="2026-06-10T17:00:02Z" title="17:00 UTC">17:00 UTC
                 </span>
             </div>
@@ -1389,13 +1382,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.nasa.gov/technology/tech-transfer-spinoffs/nasa-equips-astronauts-industry-with-robotic-intelligence/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="science,astronomy,entertainment"
+             data-regions="">
             <div class="article-meta">
                 <span class="source-name">Space.com News</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-science" data-tooltip="Science &amp; Astrophysics · Sky &amp; Observing · Pop Culture">Science &amp; Astrophysics</span>
                 <span class="article-time" data-utc="2026-06-10T17:00:00Z" title="17:00 UTC">17:00 UTC
                 </span>
             </div>
@@ -1405,13 +1397,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.space.com/stargazing/astrophotography/jupiter-and-venus-looked-spectacular-in-this-weeks-planetary-conjunction-here-are-our-favorite-photos" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="launches,moon,stations,entertainment"
+             data-regions="usa">
             <div class="article-meta">
                 <span class="source-name">Space.com News</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-launches" data-tooltip="Launches &amp; Missions · Moon &amp; Artemis · Space Stations · Pop Culture · USA">Launches &amp; Missions</span>
                 <span class="article-time" data-utc="2026-06-10T16:41:30Z" title="16:41 UTC">16:41 UTC
                 </span>
             </div>
@@ -1421,13 +1412,12 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.space.com/space-exploration/artemis/nasas-ambitious-artemis-3-mission-includes-3-giant-rocket-launches-2-private-moon-landers-and-1-big-question-can-it-all-work-together" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
-        
-        <div class="article-card" data-cat="general">
+        <div class="article-card"
+             data-topics="launches,business,science,stations"
+             data-regions="europe">
             <div class="article-meta">
                 <span class="source-name">ESA Top News</span>
-                <span class="cat-badge cat-general">
-                    General
-                </span>
+                <span class="cat-badge cat-launches" data-tooltip="Launches &amp; Missions · Business &amp; Funding · Science &amp; Astrophysics · Space Stations · Europe">Launches &amp; Missions</span>
                 <span class="article-time" data-utc="2026-06-10T16:25:00Z" title="16:25 UTC">16:25 UTC
                 </span>
             </div>
@@ -1437,6 +1427,7 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             
             <a href="https://www.esa.int/Science_Exploration/Space_Science/ESA_adopts_galactic_archaeology_mission_Arrakihs" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
+        
         
 
     </div>
@@ -1506,14 +1497,99 @@ document.querySelectorAll('.article-time[data-utc]').forEach(function(el) {
     setInterval(function() { el.textContent = timeAgo(); }, 60000);
 });
 
-// ── CATEGORY FILTER ──
-function filterCat(btn, cat) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.article-card').forEach(card => {
-        card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+// ── TOPIC / REGION FILTER ──
+(function() {
+    var currentTopic = 'all';
+    var chinaOn      = false;
+    var moreTopics   = ["astronomy", "defense", "satellites", "stations", "earth_observation", "policy", "entertainment"];
+
+    function applyFilters() {
+        document.querySelectorAll('.article-card').forEach(function(card) {
+            var topicsRaw  = card.dataset.topics  || '';
+            var regionsRaw = card.dataset.regions || '';
+            var topics  = topicsRaw  ? topicsRaw.split(',').map(function(s){ return s.trim(); }) : [];
+            var regions = regionsRaw ? regionsRaw.split(',').map(function(s){ return s.trim(); }) : [];
+            var isEntertainment = topics.indexOf('entertainment') !== -1;
+
+            var topicMatch;
+            if (currentTopic === 'all')          topicMatch = !isEntertainment;
+            else if (currentTopic === 'entertainment') topicMatch = isEntertainment;
+            else                                  topicMatch = topics.indexOf(currentTopic) !== -1;
+
+            var regionMatch = chinaOn ? (regions.indexOf('china') !== -1) : true;
+            card.style.display = (topicMatch && regionMatch) ? '' : 'none';
+        });
+        updateDayHeaders();
+    }
+
+    function updateDayHeaders() {
+        var container = document.querySelector('.stream-section .container');
+        if (!container) return;
+        var children = Array.from(container.children);
+        var currentHeader = null;
+        var visible = 0;
+
+        function flushHeader() {
+            if (!currentHeader) return;
+            currentHeader.style.display = visible > 0 ? '' : 'none';
+            var countEl = currentHeader.querySelector('.day-count');
+            if (countEl) countEl.textContent = visible + (visible === 1 ? ' article' : ' articles');
+        }
+
+        children.forEach(function(el) {
+            if (el.classList.contains('day-header')) {
+                flushHeader();
+                currentHeader = el;
+                visible = 0;
+            } else if (el.classList.contains('article-card')) {
+                if (el.style.display !== 'none') visible++;
+            }
+        });
+        flushHeader();
+    }
+
+    function updateTopicButtons() {
+        document.querySelectorAll('.filter-btn[data-filter]').forEach(function(btn) {
+            var f   = btn.dataset.filter;
+            var key = (f === 'all') ? 'all' : (f.indexOf('topic:') === 0 ? f.slice(6) : null);
+            btn.classList.toggle('active', key !== null && key === currentTopic);
+        });
+        var moreBtn = document.getElementById('filter-more-btn');
+        if (moreBtn) moreBtn.classList.toggle('active', moreTopics.indexOf(currentTopic) !== -1);
+    }
+
+    document.querySelectorAll('.filter-btn[data-filter]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var f = this.dataset.filter;
+            currentTopic = (f === 'all') ? 'all' : (f.indexOf('topic:') === 0 ? f.slice(6) : 'all');
+            updateTopicButtons();
+            applyFilters();
+            var dd = document.getElementById('filter-dropdown');
+            if (dd) dd.classList.remove('open');
+        });
     });
-}
+
+    var chinaBtn = document.getElementById('btn-china');
+    if (chinaBtn) {
+        chinaBtn.addEventListener('click', function() {
+            chinaOn = !chinaOn;
+            chinaBtn.classList.toggle('active', chinaOn);
+            applyFilters();
+        });
+    }
+
+    var moreBtn  = document.getElementById('filter-more-btn');
+    var dropdown = document.getElementById('filter-dropdown');
+    if (moreBtn && dropdown) {
+        moreBtn.addEventListener('click', function(e) { e.stopPropagation(); dropdown.classList.toggle('open'); });
+        dropdown.addEventListener('click', function(e) { e.stopPropagation(); });
+    }
+    document.addEventListener('click', function() {
+        if (dropdown) dropdown.classList.remove('open');
+    });
+
+    applyFilters();
+})();
 
 // ── WIREFRAME GLOBE WITH CONTINENTS ──
 (function() {
