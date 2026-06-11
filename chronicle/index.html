@@ -779,15 +779,54 @@ body { font-family: 'Titillium Web', sans-serif; background: var(--bg); color: v
 .article-meta { display:flex; align-items:center; gap:8px; margin-bottom:9px; flex-wrap:wrap; }
 .source-name { font-family:'Audiowide',sans-serif; font-size:9px; color:rgba(0,0,0,0.38); text-transform:uppercase; letter-spacing:0.06em; }
 
-.cat-badge { font-family:'Titillium Web',sans-serif; font-size:10px; padding:2px 9px; border-radius:10px; text-transform:uppercase; letter-spacing:0.06em; font-weight:700; }
-.cat-general  { background:rgba(100,100,110,0.08); color:#777; }
-.cat-launches { background:rgba(220,60,50,0.09);   color:#c0392b; }
-.cat-science  { background:rgba(40,130,210,0.1);   color:#2471a3; }
-.cat-analysis { background:rgba(140,80,170,0.1);   color:#7d3c98; }
-.cat-nasa     { background:rgba(39,174,96,0.1);    color:#1e8449; }
-.cat-earth    { background:rgba(20,170,140,0.1);   color:#148f77; }
-.cat-europe   { background:rgba(210,170,10,0.1);   color:#b7950b; }
-.cat-press    { background:rgba(150,150,150,0.08); color:#999; }
+.cat-badge {
+    font-family:'Titillium Web',sans-serif; font-size:10px; padding:2px 9px;
+    border-radius:10px; text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
+    position:relative; cursor:default;
+}
+.cat-badge[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: rgba(255,255,255,0.82);
+    border: 1px solid rgba(255,255,255,0.14);
+    padding: 4px 9px;
+    /* font-family inherits Titillium Web from .cat-badge */
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border-radius: 3px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.14s ease;
+    z-index: 300;
+    text-transform: none;
+}
+.cat-badge[data-tooltip]:hover::after { opacity: 1; }
+.cat-general       { background:rgba(100,100,110,0.08); color:#777; }
+.cat-launches      { background:rgba(220,60,50,0.09);   color:#c0392b; }
+.cat-science       { background:rgba(40,130,210,0.1);   color:#2471a3; }
+.cat-analysis      { background:rgba(140,80,170,0.1);   color:#7d3c98; }
+.cat-nasa          { background:rgba(39,174,96,0.1);    color:#1e8449; }
+.cat-earth         { background:rgba(20,170,140,0.1);   color:#148f77; }
+.cat-europe        { background:rgba(210,170,10,0.1);   color:#b7950b; }
+.cat-press         { background:rgba(150,150,150,0.08); color:#999; }
+/* ── topic badges ── */
+.cat-business      { background:rgba(26,127,90,0.1);    color:#1a7f5a; }
+.cat-moon          { background:rgba(100,100,115,0.1);  color:#5a5a6e; }
+.cat-mars          { background:rgba(210,100,30,0.1);   color:#bf6020; }
+.cat-defense       { background:rgba(80,90,100,0.1);    color:#4a5568; }
+.cat-astronomy     { background:rgba(120,60,200,0.1);   color:#7c3aed; }
+.cat-satellites    { background:rgba(0,150,175,0.1);    color:#0097af; }
+.cat-stations      { background:rgba(30,160,90,0.1);    color:#1a8f4a; }
+.cat-earthobs      { background:rgba(20,143,119,0.1);   color:#148f77; }
+.cat-policy        { background:rgba(23,68,138,0.1);    color:#17448a; }
+.cat-entertainment { background:rgba(150,150,150,0.1);  color:#999; }
+.cat-china         { background:rgba(190,30,50,0.1);    color:#be1e32; }
 
 .article-time { font-size:11px; color:rgba(0,0,0,0.55); margin-left:auto; font-family:'Titillium Web',sans-serif; white-space:nowrap; }
 .article-title { font-family:'Titillium Web',sans-serif; font-size:17px; font-weight:700; color:#1a1a1a; line-height:1.35; text-decoration:none; display:block; margin-bottom:7px; transition:color 0.15s; }
@@ -800,6 +839,32 @@ body { font-family: 'Titillium Web', sans-serif; background: var(--bg); color: v
 footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
 .footer-email { transition:all 0.3s ease; letter-spacing:0.05em; }
 .footer-email:hover { color:#00d0ff !important; }
+
+/* ── MORE▾ DROPDOWN ── */
+.filter-more-wrap { position:relative; }
+.filter-dropdown {
+    display:none;
+    position:absolute;
+    top:calc(100% + 6px);
+    left:0;
+    background:#fff;
+    border:1px solid rgba(0,0,0,0.12);
+    border-radius:8px;
+    padding:8px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.12);
+    z-index:200;
+    min-width:170px;
+    flex-direction:column;
+    gap:4px;
+}
+.filter-dropdown.open { display:flex; }
+.filter-dd-btn { width:100%; text-align:left; }
+.filter-divider { height:1px; background:rgba(0,0,0,0.08); margin:4px 0; }
+.filter-btn-popcult { color:#aaa; border-color:rgba(0,0,0,0.1); }
+.filter-btn-popcult:hover { color:#888; border-color:rgba(0,0,0,0.25); }
+.filter-btn-popcult.active { background:#888; border-color:#888; color:#fff; }
+.filter-btn-region.active { background:#be1e32; border-color:#be1e32; color:#fff; }
+.filter-sep { color:rgba(0,0,0,0.2); padding:0 4px; align-self:center; pointer-events:none; line-height:1; }
 
 /* ── RESPONSIVE ── */
 @media (max-width:900px) {
@@ -865,7 +930,7 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
         <span>21 SOURCES <span class="status-glow">ACTIVE</span></span>
         <span class="status-sep">|</span>
         <span>PARSER: <span class="status-glow">RUNNING</span></span>
-        <span class="status-right">LAST UPDATED AT <span class="status-glow">Jun 11, 2026 · 00:00 UTC
+        <span class="status-right">LAST UPDATED AT <span class="status-glow">Jun 11, 2026 · 05:00 UTC
         </span></span>
     </div>
 
@@ -885,11 +950,11 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
                 </div>
                 <div class="chr-cat">
                     <div class="chr-cat-dot"></div>
-                    <span>2305 ARTICLES TOTAL</span>
+                    <span>2306 ARTICLES TOTAL</span>
                 </div>
                 <div class="chr-cat">
                     <div class="chr-cat-dot"></div>
-                    <span>0 ARTICLES TODAY</span>
+                    <span>1 ARTICLES TODAY</span>
                 </div>
             </div>
 
@@ -969,6 +1034,22 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
         <h1 class="day-label" style="font-size:1.1rem; margin-bottom:6px; color:#1a1a1a;">SpaceEdu Chronicle</h1>
         <p class="article-summary" style="margin-bottom:0; color:#1a1a1a; max-width:100%;">SpaceEdu Chronicle is a live space news aggregator covering SpaceX launches, NASA missions, rocket launches and space industry updates from trusted sources worldwide. Updated every hour.</p>
 
+        
+        <div class="article-card" data-cat="nasa">
+            <div class="article-meta">
+                <span class="source-name">NASA Breaking News</span>
+                <span class="cat-badge cat-nasa">
+                    NASA
+                </span>
+                <span class="article-time" data-utc="2026-06-11T04:01:00Z" title="04:01 UTC">04:01 UTC
+                </span>
+            </div>
+            <a href="https://science.nasa.gov/earth/earth-observatory/air-pollutions-daily-pulse-over-the-northeast/" class="article-title" target="_blank" rel="noopener">Air Pollution’s Daily Pulse Over the Northeast</a>
+            
+            <p class="article-summary">The TEMPO mission helped scientists track morning nitrogen dioxide that contributed to afternoon ozone along the New York–Washington corridor in May 2026.</p>
+            
+            <a href="https://science.nasa.gov/earth/earth-observatory/air-pollutions-daily-pulse-over-the-northeast/" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
         
         <div class="article-card" data-cat="launches">
             <div class="article-meta">
@@ -1355,22 +1436,6 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
             <p class="article-summary">The European Space Agency’s (ESA) Science Programme Committee has adopted the  Arrakihs  mission. Planned for launch by the end of 2030, Arrakihs will capture the faint light from nearby galaxy haloes. By seeing the unseen, Arrakihs will dig up cosmic history and reveal how galaxies like our own for</p>
             
             <a href="https://www.esa.int/Science_Exploration/Space_Science/ESA_adopts_galactic_archaeology_mission_Arrakihs" class="read-more" target="_blank" rel="noopener">Read more →</a>
-        </div>
-        
-        <div class="article-card" data-cat="nasa">
-            <div class="article-meta">
-                <span class="source-name">NASA Breaking News</span>
-                <span class="cat-badge cat-nasa">
-                    NASA
-                </span>
-                <span class="article-time" data-utc="2026-06-10T16:05:29Z" title="16:05 UTC">16:05 UTC
-                </span>
-            </div>
-            <a href="https://www.nasa.gov/image-article/train-ride-to-nasa-kennedy-for-artemis-iii-booster-segments/" class="article-title" target="_blank" rel="noopener">Train Ride to NASA Kennedy for Artemis III Booster Segments</a>
-            
-            <p class="article-summary">The final booster motor segments for NASA’s SLS (Space Launch System) rocket that will help propel Artemis III astronauts on their journey to space shipped from Northrop Grumman’s Railyard Shipping Facility in Corinne, Utah on June 2. The eight booster motor segments are on their way to NASA’s Kenne</p>
-            
-            <a href="https://www.nasa.gov/image-article/train-ride-to-nasa-kennedy-for-artemis-iii-booster-segments/" class="read-more" target="_blank" rel="noopener">Read more →</a>
         </div>
         
 

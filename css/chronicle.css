@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --bg: #232323;
     --bg-banner: #232323;
     --bg-blue: #1d2951;
@@ -243,31 +243,33 @@ body { font-family: 'Titillium Web', sans-serif; background: var(--bg); color: v
 
 .article-meta { display:flex; align-items:center; gap:8px; margin-bottom:9px; flex-wrap:wrap; }
 .source-name { font-family:'Audiowide',sans-serif; font-size:9px; color:rgba(0,0,0,0.38); text-transform:uppercase; letter-spacing:0.06em; }
+
 .cat-badge {
-font-family:'Titillium Web',sans-serif; font-size:10px; padding:2px 9px;
-border-radius:10px; text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
-position:relative; cursor:default;
+    font-family:'Titillium Web',sans-serif; font-size:10px; padding:2px 9px;
+    border-radius:10px; text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
+    position:relative; cursor:default;
 }
 .cat-badge[data-tooltip]::after {
-content: attr(data-tooltip);
-position: absolute;
-bottom: calc(100% + 5px);
-left: 50%;
-transform: translateX(-50%);
-background: #1a1a1a;
-color: rgba(255,255,255,0.82);
-border: 1px solid rgba(255,255,255,0.14);
-padding: 4px 9px;
-font-size: 11px;
-font-weight: 400;
-letter-spacing: 0.03em;
-white-space: nowrap;
-border-radius: 3px;
-pointer-events: none;
-opacity: 0;
-transition: opacity 0.14s ease;
-z-index: 300;
-text-transform: none;
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: rgba(255,255,255,0.82);
+    border: 1px solid rgba(255,255,255,0.14);
+    padding: 4px 9px;
+    /* font-family inherits Titillium Web from .cat-badge */
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border-radius: 3px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.14s ease;
+    z-index: 300;
+    text-transform: none;
 }
 .cat-badge[data-tooltip]:hover::after { opacity: 1; }
 .cat-general       { background:rgba(100,100,110,0.08); color:#777; }
@@ -278,6 +280,7 @@ text-transform: none;
 .cat-earth         { background:rgba(20,170,140,0.1);   color:#148f77; }
 .cat-europe        { background:rgba(210,170,10,0.1);   color:#b7950b; }
 .cat-press         { background:rgba(150,150,150,0.08); color:#999; }
+/* ── topic badges ── */
 .cat-business      { background:rgba(26,127,90,0.1);    color:#1a7f5a; }
 .cat-moon          { background:rgba(100,100,115,0.1);  color:#5a5a6e; }
 .cat-mars          { background:rgba(210,100,30,0.1);   color:#bf6020; }
@@ -289,6 +292,7 @@ text-transform: none;
 .cat-policy        { background:rgba(23,68,138,0.1);    color:#17448a; }
 .cat-entertainment { background:rgba(150,150,150,0.1);  color:#999; }
 .cat-china         { background:rgba(190,30,50,0.1);    color:#be1e32; }
+
 .article-time { font-size:11px; color:rgba(0,0,0,0.55); margin-left:auto; font-family:'Titillium Web',sans-serif; white-space:nowrap; }
 .article-title { font-family:'Titillium Web',sans-serif; font-size:17px; font-weight:700; color:#1a1a1a; line-height:1.35; text-decoration:none; display:block; margin-bottom:7px; transition:color 0.15s; }
 .article-title:hover { color:var(--bg-blue); }
@@ -300,21 +304,23 @@ text-transform: none;
 footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
 .footer-email { transition:all 0.3s ease; letter-spacing:0.05em; }
 .footer-email:hover { color:#00d0ff !important; }
+
+/* ── MORE▾ DROPDOWN ── */
 .filter-more-wrap { position:relative; }
 .filter-dropdown {
-display:none;
-position:absolute;
-top:calc(100% + 6px);
-left:0;
-background:#fff;
-border:1px solid rgba(0,0,0,0.12);
-border-radius:8px;
-padding:8px;
-box-shadow:0 4px 16px rgba(0,0,0,0.12);
-z-index:200;
-min-width:170px;
-flex-direction:column;
-gap:4px;
+    display:none;
+    position:absolute;
+    top:calc(100% + 6px);
+    left:0;
+    background:#fff;
+    border:1px solid rgba(0,0,0,0.12);
+    border-radius:8px;
+    padding:8px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.12);
+    z-index:200;
+    min-width:170px;
+    flex-direction:column;
+    gap:4px;
 }
 .filter-dropdown.open { display:flex; }
 .filter-dd-btn { width:100%; text-align:left; }
@@ -324,6 +330,7 @@ gap:4px;
 .filter-btn-popcult.active { background:#888; border-color:#888; color:#fff; }
 .filter-btn-region.active { background:#be1e32; border-color:#be1e32; color:#fff; }
 .filter-sep { color:rgba(0,0,0,0.2); padding:0 4px; align-self:center; pointer-events:none; line-height:1; }
+
 /* ── RESPONSIVE ── */
 @media (max-width:900px) {
     .banner-main { flex-direction:column; padding:24px 16px 0; }
