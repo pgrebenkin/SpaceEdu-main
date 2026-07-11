@@ -1,0 +1,714 @@
+/* ==========================================================================
+   Galaxy Journal (blog) — shared styles for the index page and every
+   article page. Reuses --primary-color / --background-color2 / --font-*
+   variables already defined in css/style.css (loaded before this file).
+
+   Color scheme matches the rest of the site exactly: dark hero → WHITE
+   reading-content section → dark footer (inherited from body). See
+   #about (bg-white) in _src/index.html and .stream-section in
+   css/chronicle.css for the reference pattern — this is not a dark-mode
+   blog, only the hero banners are dark.
+   ========================================================================== */
+
+/* ---- hero banner shell (article + index page both use this class;
+   the actual per-article visual (gradient/illustration/etc.) is injected
+   inline in <head><style> from layout.json → hero.css, kept out of this
+   shared file on purpose so articles don't fight over one look).
+   Sized the same as .hero-section on the homepage — full first screen. ---- */
+.journal-hero-section {
+    background-color: var(--background-color2);
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.journal-hero-title-wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.journal-hero-title-wrapper h1 {
+    font-family: 'Audiowide', sans-serif;
+    font-size: clamp(32px, 6vw, 72px);
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+    color: var(--text-light);
+    margin-bottom: 16px;
+}
+
+.journal-byline {
+    font-family: var(--font-main2);
+    color: var(--text-light);
+    opacity: 0.75;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* ---- reading-content wrapper: WHITE, like #about / .stream-section.
+   Everything the reader actually reads (TOC + article body, index cards)
+   lives inside one of these. ---- */
+.journal-content-section {
+    background: #ffffff;
+    padding: 40px 0 64px;
+}
+
+/* ---- article layout: full-bleed 25/75 split (no Bootstrap .container —
+   Phil wants this edge-to-edge, unlike the homepage/Chronicle heroes)
+   TOC = 25% fixed-ish column on the left, content = remaining 75%.
+   ---- */
+.journal-article-layout {
+    display: flex;
+    align-items: flex-start;
+}
+
+.journal-toc-col {
+    flex: 0 0 25%;
+    max-width: 340px;
+    min-width: 260px;
+    position: sticky;
+    top: 60px; /* navbar height */
+    align-self: flex-start;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+    padding: 32px 24px;
+}
+
+.journal-toc-panel {
+    position: relative;
+    background: #f2f2f2;
+    border-radius: 8px;
+    padding: 20px 20px 20px 26px;
+}
+
+.journal-progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.journal-progress-bar {
+    width: 100%;
+    height: 0%;
+    background: #0d6efd;
+    transition: height 0.1s linear;
+}
+
+.journal-toc-label {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #555;
+    margin: 0 0 12px;
+}
+
+.journal-toc {
+    font-family: var(--font-main2);
+    font-size: 0.9rem;
+}
+
+.journal-toc ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.journal-toc a {
+    display: block;
+    padding: 5px 0;
+    color: rgba(0, 0, 0, 0.65);
+    opacity: 1;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    padding-left: 10px;
+    transition: color 0.15s, border-color 0.15s;
+    line-height: 1.35;
+}
+
+.journal-toc a:hover {
+    color: #000;
+    border-left-color: #0d6efd;
+}
+
+.journal-toc-toggle {
+    margin: 16px 24px 0;
+    color: #232323 !important;
+    border-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.journal-share {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.journal-share-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #555;
+    margin: 0 0 10px;
+}
+
+.journal-share-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.journal-share-buttons a,
+.journal-share-buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    color: #333;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.journal-share-buttons a:hover,
+.journal-share-buttons button:hover {
+    background: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+
+.journal-copy-link.copied {
+    background: #198754;
+    border-color: #198754;
+    color: #fff;
+}
+
+.journal-content-col {
+    flex: 1 1 75%;
+    min-width: 0;
+    font-family: var(--font-main2);
+    color: #232323;
+    line-height: 1.75;
+    font-size: 1.05rem;
+    padding: 40px 32px 40px 0;
+}
+
+/* text stays at a comfortable reading width; full-width figures are
+   allowed to escape this and fill the whole 75% column (see
+   .journal-figure--full-width below) — same pattern as Medium.com */
+.journal-content-col > *:not(.journal-figure) {
+    max-width: 720px;
+    margin-inline: auto;
+}
+/* .journal-figure (any placement) owns its own width entirely --
+   excluding by the base class avoids a specificity fight where this
+   720px rule would otherwise beat --centered/--float-*'s own max-width. */
+
+.journal-content-col h2 {
+    font-family: var(--font-heading);
+    color: #1a1a1a;
+    margin-top: 2.5rem;
+    font-size: clamp(22px, 3vw, 32px);
+}
+
+.journal-content-col h3 {
+    font-family: var(--font-heading);
+    color: #1a1a1a;
+    margin-top: 1.75rem;
+    font-size: clamp(18px, 2.4vw, 24px);
+}
+
+.journal-content-col a {
+    color: #1d2951;
+}
+
+.journal-content-col table {
+    width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.journal-content-col th,
+.journal-content-col td {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.journal-content-col th {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+@media (max-width: 991.98px) {
+    .journal-article-layout {
+        flex-direction: column;
+    }
+    .journal-toc-col {
+        position: static;
+        flex-basis: auto;
+        max-width: none;
+        width: 100%;
+        max-height: none;
+        padding: 16px 24px 0;
+    }
+    .journal-content-col {
+        padding: 24px;
+    }
+    .journal-content-col > *:not(.journal-figure) {
+        max-width: 720px;
+    }
+}
+
+/* ---- images / video: matches .mission-image-container img on the
+   homepage — rounded corners, faint white border, dark drop shadow.
+   NOT a solid white frame (that's invisible on this white background). ---- */
+.journal-figure {
+    margin: 2rem 0;
+}
+
+.journal-img,
+.journal-figure video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 4px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
+}
+
+.journal-figure--centered {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.journal-figure--full-width {
+    /* fills the whole 75% content column (not the 100vw viewport --
+       that caused horizontal scroll on mobile, and the 25% TOC column
+       needs to stay clear for the sidebar / future course banners) */
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+}
+
+.journal-figure--full-width .journal-img,
+.journal-figure--full-width video {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px; /* still fills the column, so a subtle radius reads better than 0 */
+}
+
+.journal-figure--float-left {
+    float: left;
+    max-width: 45%;
+    margin: 0.25rem 1.5rem 1rem 0;
+}
+
+.journal-figure--float-right {
+    float: right;
+    max-width: 45%;
+    margin: 0.25rem 0 1rem 1.5rem;
+}
+
+/* "contour" = tight wrap approximation. True per-pixel contour wrap needs
+   an alpha-masked source image + CSS shape-outside on that mask — out of
+   scope for v1. Ask Phil before using this on an image without soft edges. */
+.journal-figure--contour {
+    float: right;
+    max-width: 38%;
+    margin: 0.25rem 0 1rem 1.5rem;
+    shape-outside: margin-box;
+}
+
+@media (max-width: 767.98px) {
+    .journal-figure--float-left,
+    .journal-figure--float-right,
+    .journal-figure--contour {
+        float: none;
+        max-width: 100%;
+        margin: 1.5rem 0;
+    }
+}
+
+/* ---- index page: book-style stacked list, newest first. Matches
+   .article-card in css/chronicle.css (white bg, dark text, thin
+   separators, subtle hover) rather than inventing a new pattern. ---- */
+.journal-index-cards {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.journal-card {
+    display: flex;
+    gap: 24px;
+    padding: 20px 12px;
+    margin: 0 -12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    color: inherit;
+    border-radius: 4px;
+    transition: background 0.15s, padding-left 0.15s;
+}
+
+.journal-card:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.journal-card:first-child {
+    padding-top: 12px;
+}
+
+.journal-card-img {
+    flex: 0 0 200px;
+    width: 200px;
+    aspect-ratio: 3 / 2;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 4px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.journal-card-body {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.journal-card-title {
+    font-family: var(--font-heading);
+    color: #1a1a1a;
+    font-size: clamp(18px, 2.2vw, 24px);
+    margin: 0 0 8px;
+}
+
+.journal-card-summary {
+    font-family: var(--font-main2);
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0 0 8px;
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+.journal-card-date {
+    font-family: var(--font-main2);
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+@media (max-width: 575.98px) {
+    .journal-card {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .journal-card-img {
+        width: 100%;
+        aspect-ratio: 3 / 2;
+        height: auto;
+    }
+}
+
+/* ==========================================================================
+   Index page hero: one-time "crawl" intro, then settles into a normal
+   static H1 (same visual weight/height as every other page's hero — see
+   .journal-hero-section above). The static version is the one always in
+   the DOM — the crawl is a pure JS/CSS progressive enhancement layered
+   on top (see _src/journal/index.html).
+   ========================================================================== */
+
+.journal-hero-crawl {
+    /* ============================================================
+       CRAWL TUNING KNOBS -- this is the whole control panel for the
+       Star Wars-style intro below. Change values here only; the rules
+       further down just reference these variables.
+
+       Two things used to be tangled into one number (--crawl-window-
+       height): "how many lines are readable at once" and "how high up
+       the screen the text is even allowed to travel". Those are now
+       separate, on purpose -- the viewport is always the full hero
+       height (so the text can rise almost to the very top), and a
+       soft mask (a gradient, not a hard clip) controls how much of
+       that is actually legible at any moment, fading the rest into
+       the starfield rather than cutting it off.
+
+       --crawl-speed       : how fast the text rises, in pixels per
+           second (plain number, no unit). This -- NOT a fixed
+           duration -- is what drives timing now: JS measures how far
+           the text actually needs to travel to visually fade out
+           (see --crawl-sharp-zone / --crawl-fade-zone below), then
+           divides that distance by this speed to get the animation's
+           duration. A fixed duration paired with a distance that
+           changes (different content length, different fade zone,
+           etc.) is exactly what caused the earlier bugs: either the
+           animation finished traveling before the time was up (dead
+           silence while the clock kept running before H1 appeared),
+           or it got cut off while still visible. Tying duration to
+           actual distance/speed makes that class of bug impossible --
+           the animation is now always exactly as long as it needs to
+           be to reach the point where the text is already invisible.
+       --crawl-tilt        : how steeply the text leans back
+           (rotateX). Bigger = more dramatic 3D recede, but harder to
+           read. 0deg = flat, no 3D effect at all.
+       --crawl-perspective : "camera distance" for the 3D effect.
+           Smaller = more dramatic/warped, bigger = flatter and closer
+           to normal flat text.
+       --crawl-sharp-zone  : how tall the fully-readable band near the
+           bottom is, in PX (not %% on purpose -- line height in px is
+           roughly the same on phones and desktops, but a narrow phone
+           wraps every paragraph into 2-3x more lines, so a *percentage*
+           of a shorter mobile hero was covering way more lines than
+           the same percentage did on desktop. Fixed px keeps "how many
+           lines are crisp at once" consistent across screen sizes).
+           Bigger = more lines crisp at once.
+       --crawl-fade-zone   : how far above --crawl-sharp-zone the text
+           takes to fade out completely, in PX, same reasoning as
+           above. Bigger = a longer, more gradual fade; smaller = it
+           disappears into the dark sooner.
+       --crawl-end-margin  : extra px of travel *past* the point where
+           the text has already faded to fully invisible (per the mask
+           above), before the animation is considered "done" and the
+           static heading takes over. This is now a small safety
+           buffer, not a substitute for correct timing -- keep it
+           small (40-100px); it no longer needs to cover a long dead
+           stretch like it used to.
+       ============================================================ */
+    --crawl-speed: 42;
+    --crawl-tilt: 25deg;
+    --crawl-perspective: 400px;
+    --crawl-sharp-zone: 130px; /* same px value that 16% worked out to on desktop -- kept as-is since desktop was already confirmed good */
+    --crawl-fade-zone: 390px;  /* same as the old 46% on desktop */
+    --crawl-end-margin: 80px;
+
+    position: relative;
+    min-height: calc(100vh - 60px);
+    overflow: hidden;
+    background-color: var(--background-color2);
+}
+
+.journal-starfield {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.85;
+    background-repeat: no-repeat;
+    background-image:
+        radial-gradient(2.5px 2.5px at 33.1% 16.5%, #fff, transparent),
+        radial-gradient(1px 1px at 6.6% 80.8%, #fff, transparent),
+        radial-gradient(2px 2px at 37.1% 7.6%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 22.6% 10.3%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 8.7% 10.7%, #fff, transparent),
+        radial-gradient(1px 1px at 7.7% 56.3%, #fff, transparent),
+        radial-gradient(1px 1px at 62.5% 58.0%, #fff, transparent),
+        radial-gradient(1px 1px at 57.4% 40.1%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 6.5% 84.4%, #fff, transparent),
+        radial-gradient(2px 2px at 42.2% 53.9%, #fff, transparent),
+        radial-gradient(1px 1px at 31.6% 80.3%, #fff, transparent),
+        radial-gradient(1px 1px at 11.9% 56.8%, #fff, transparent),
+        radial-gradient(1px 1px at 37.8% 54.6%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 56.2% 61.4%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 67.3% 43.0%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 46.7% 90.7%, #fff, transparent),
+        radial-gradient(2.5px 2.5px at 30.8% 78.3%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 76.9% 9.9%, #fff, transparent),
+        radial-gradient(2.5px 2.5px at 52.4% 86.0%, #fff, transparent),
+        radial-gradient(1px 1px at 45.1% 60.5%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 13.3% 42.1%, #fff, transparent),
+        radial-gradient(1px 1px at 16.6% 48.9%, #fff, transparent),
+        radial-gradient(2px 2px at 94.4% 9.5%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 57.0% 86.0%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 34.7% 35.6%, #fff, transparent),
+        radial-gradient(1px 1px at 57.7% 45.8%, #fff, transparent),
+        radial-gradient(2.5px 2.5px at 92.7% 47.5%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 8.2% 72.2%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 64.1% 97.3%, #fff, transparent),
+        radial-gradient(2.5px 2.5px at 29.3% 39.0%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 35.3% 92.3%, #fff, transparent),
+        radial-gradient(1px 1px at 18.1% 13.2%, #fff, transparent),
+        radial-gradient(2.5px 2.5px at 22.9% 29.6%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 25.8% 39.5%, #fff, transparent),
+        radial-gradient(2px 2px at 9.7% 45.1%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 28.7% 15.1%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 84.9% 28.7%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 96.7% 67.5%, #fff, transparent),
+        radial-gradient(1px 1px at 93.9% 16.5%, #fff, transparent),
+        radial-gradient(1px 1px at 16.5% 65.2%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 48.6% 58.6%, #fff, transparent),
+        radial-gradient(2px 2px at 29.1% 16.0%, #fff, transparent),
+        radial-gradient(1px 1px at 37.4% 56.4%, #fff, transparent),
+        radial-gradient(2px 2px at 68.3% 51.5%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 64.9% 73.0%, #fff, transparent),
+        radial-gradient(2.5px 2.5px at 88.4% 76.9%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 78.6% 39.7%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 39.8% 48.2%, #fff, transparent),
+        radial-gradient(1px 1px at 8.0% 8.5%, #fff, transparent),
+        radial-gradient(2px 2px at 44.3% 12.6%, #fff, transparent),
+        radial-gradient(1px 1px at 7.0% 2.0%, #fff, transparent),
+        radial-gradient(2px 2px at 53.5% 93.1%, #fff, transparent),
+        radial-gradient(2px 2px at 4.4% 85.9%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 38.1% 62.9%, #fff, transparent),
+        radial-gradient(1px 1px at 59.8% 47.5%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 83.5% 97.3%, #fff, transparent),
+        radial-gradient(1px 1px at 48.1% 31.9%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 11.8% 34.9%, #fff, transparent),
+        radial-gradient(2px 2px at 47.9% 68.4%, #fff, transparent),
+        radial-gradient(2px 2px at 4.2% 93.3%, #fff, transparent);
+}
+
+/* ---- static heading: default visible state, identical treatment to
+   .hero-title-wrapper on the homepage ---- */
+.journal-hero-static {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    transition: opacity 0.8s ease;
+}
+
+.journal-hero-static .journal-hero-title-wrapper h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(40px, 8vw, 110px);
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    line-height: 0.92;
+    text-transform: uppercase;
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.08);
+    margin-bottom: 18px;
+}
+
+.journal-hero-static .journal-byline {
+    max-width: 620px;
+    margin: 0 auto;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: clamp(12px, 1.3vw, 15px);
+}
+
+/* ---- crawl: hidden by default (display:none inline, set by JS), only
+   ever shown when JS decided motion is OK ---- */
+/* ---- crawl geometry: the viewport spans the *entire* hero (so the
+   text is free to travel almost to the very top of the screen), and
+   line-count-at-once is controlled separately by the mask-image below
+   -- opaque near the bottom (--crawl-sharp-zone), fading to fully
+   transparent over --crawl-fade-zone above that. Scroll progress is
+   driven purely by `top`, a plain 2D layout property: 100% = fully
+   below the viewport (hidden), a large negative px = fully above it
+   (hidden). The tilt (rotateX) is a CONSTANT, unanimated 3D shape
+   applied once to .journal-crawl-text -- animating rotateX together
+   with a translate in the same transform is what caused the earlier
+   bug where the title got shoved permanently out of frame, so it's
+   kept deliberately separate from the `top` scroll. ---- */
+.journal-crawl-viewport {
+    display: none; /* JS sets to flex before playing the animation */
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    overflow: hidden;
+    perspective: var(--crawl-perspective);
+    perspective-origin: 50% 100%;
+    -webkit-mask-image: linear-gradient(to top,
+        #000 0%,
+        #000 var(--crawl-sharp-zone),
+        transparent calc(var(--crawl-sharp-zone) + var(--crawl-fade-zone)));
+    mask-image: linear-gradient(to top,
+        #000 0%,
+        #000 var(--crawl-sharp-zone),
+        transparent calc(var(--crawl-sharp-zone) + var(--crawl-fade-zone)));
+}
+
+.journal-crawl-text {
+    position: absolute;
+    left: 50%;
+    width: 92vw;
+    max-width: 1400px;
+    padding: 0 20px;
+    text-align: center;
+    transform: translateX(-50%) rotateX(var(--crawl-tilt));
+    transform-origin: 50% 100%;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    color: var(--text-light);
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.08);
+}
+
+.journal-crawl-title {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(48px, 9vw, 110px);
+    letter-spacing: 0.06em;
+    line-height: 0.92;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+}
+
+.journal-crawl-text p {
+    font-size: clamp(26px, 2.9vw, 34px);
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+    opacity: 0.9;
+    margin-bottom: 22px;
+}
+
+.journal-crawl-text.is-crawling {
+    animation: journal-crawl-scroll var(--crawl-computed-duration, 20s) linear forwards;
+}
+
+/* --crawl-start / --crawl-end / --crawl-computed-duration are all set
+   in JS right before the animation starts (see _src/journal/index.html),
+   computed from the actual rendered height of the text block, the
+   viewport, and the mask's fade boundary -- NOT guessed numbers.
+   Guessing a fixed distance/duration pair is exactly what caused the
+   earlier bugs: either the text got clipped while still visible, or it
+   finished fading out well before the animation's clock ran out,
+   leaving a stretch of nothing on screen before H1 finally appeared.
+   These px/s fallbacks only apply if the JS measurement never runs.
+
+   No opacity keyframes here on purpose: the mask-image on
+   .journal-crawl-viewport is what fades the text out as it rises, and
+   overflow:hidden on that same element is what hides it once it's
+   scrolled fully past the top. Animating opacity here too would fade
+   the text a second time on top of the mask's own fade. */
+@keyframes journal-crawl-scroll {
+    0%   { top: var(--crawl-start, 400px); }
+    100% { top: var(--crawl-end, -900px); }
+}
+
+@media (max-width: 575.98px) {
+    .journal-hero-crawl {
+        /* dvh, not vh: on phones vh is measured against the viewport
+           with the browser's address bar collapsed, which doesn't
+           match what's actually visible (and what JS measures) when
+           the page first loads -- that mismatch was quietly throwing
+           off the crawl's start/end px math on mobile. dvh tracks the
+           real, current visible area instead. */
+        min-height: 70dvh;
+        height: 70dvh;
+    }
+    /* .journal-crawl-viewport is NOT re-sized here: it's `inset: 0`
+       in the base rule, so it already stretches to match whatever
+       height .journal-hero-crawl ends up with above -- redeclaring a
+       height on it here would over-constrain the box (top + bottom +
+       height all set) and risk not actually matching its parent. */
+}
