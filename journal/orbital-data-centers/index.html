@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orbital Computing: Space-Based Data Centers, Math and Money</title>
+<meta name="description" content="Do orbital data centers make economic sense? We check the math on cooling, cost, and whether SpaceX, Google, and Starcloud can beat Earth's price.">
+<meta name="keywords" content="orbital data centers, space data centers, space-based data centers, space data centers economics, space based ai data centers, orbital computing, SpaceX orbital data center, data centers in space cooling, satellite data center cost">
+<link rel="canonical" href="https://spaceedu.org/journal/orbital-data-centers/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SpaceEdu">
+<meta property="og:url" content="https://spaceedu.org/journal/orbital-data-centers/">
+<meta property="og:title" content="Orbital Computing: Space-Based Data Centers, Math and Money">
+<meta property="og:description" content="Do orbital data centers make economic sense? We check the math on cooling, cost, and whether SpaceX, Google, and Starcloud can beat Earth's price.">
+<meta property="og:image" content="https://spaceedu.org/journal/orbital-data-centers/img/card.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Orbital Computing: Space-Based Data Centers, Math and Money">
+<meta name="twitter:description" content="Do orbital data centers make economic sense? We check the math on cooling, cost, and whether SpaceX, Google, and Starcloud can beat Earth's price.">
+<meta name="twitter:image" content="https://spaceedu.org/journal/orbital-data-centers/img/card.webp">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="preload" href="/css/bootstrap-icons.min.css" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/css/bootstrap-icons.min.css"></noscript>
+<link rel="preload" href="/css/fonts/bootstrap-icons.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400..900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400..900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"></noscript>
+<link rel="preload" href="/css/style.css" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+<link rel="preload" href="/css/journal.css" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/css/journal.css"></noscript>
+<link rel="icon" type="image/png" href="/img/favicon.png" sizes="32x32">
+<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Article",
+"headline": "Orbital Computing: Space-Based Data Centers, Math and Money",
+"description": "Do orbital data centers make economic sense? We check the math on cooling, cost, and whether SpaceX, Google, and Starcloud can beat Earth's price.",
+"author": {
+"@type": "Person",
+"name": "CosmoPhil for SpaceEdu"
+},
+"datePublished": "2026-07-10",
+"image": "https://spaceedu.org/journal/orbital-data-centers/img/card.webp",
+"mainEntityOfPage": "https://spaceedu.org/journal/orbital-data-centers/",
+"publisher": {
+"@type": "Organization",
+"name": "SpaceEdu"
+}
+}
+</script>
+<style>
+.journal-hero-section.jh-hero-orbit h1 {
+font-family: 'Orbitron', sans-serif;
+font-weight: 900;
+font-size: clamp(24px, 4.5vw, 56px);
+letter-spacing: 0.04em;
+line-height: 1.15;
+text-shadow: 0 0 30px rgba(255, 255, 255, 0.12);
+}
+.jh-orbit-scene {
+--jh-scene-size: min(2000px, 94vw);
+position: absolute;
+inset: 0;
+overflow: visible;
+pointer-events: none;
+z-index: 1;
+isolation: isolate;
+}
+.jh-earth-wrap {
+--jh-earth-size: calc(var(--jh-scene-size) * 0.5);
+--jh-earth-visible: 0.20;
+position: absolute;
+left: 50%;
+bottom: calc(var(--jh-earth-size) * (var(--jh-earth-visible) - 1));
+transform: translateX(-50%);
+width: var(--jh-earth-size);
+height: var(--jh-earth-size);
+z-index: 1;
+}
+.jh-earth-wrap canvas {
+display: block;
+width: 100%;
+height: 100%;
+}
+.jh-orbit-wrap {
+--jh-orbit-size: var(--jh-scene-size);
+--jh-orbit-visible: 0.20;
+position: absolute;
+left: 50%;
+bottom: calc(var(--jh-orbit-size) * (var(--jh-orbit-visible) - 1));
+transform: translateX(-50%);
+width: var(--jh-orbit-size);
+height: var(--jh-orbit-size);
+z-index: 2;
+}
+.jh-ring-svg {
+display: block;
+width: 100%;
+height: 100%;
+overflow: visible;
+}
+.jh-ring-dashed {
+fill: none;
+stroke: rgba(255, 255, 255, 0.5);
+stroke-width: 1;
+stroke-dasharray: 10 14;
+}
+.jh-ring-polygon {
+fill: none;
+stroke: #F0F070;
+stroke-width: 1;
+opacity: 0.9;
+filter: drop-shadow(0 0 4px rgba(240, 240, 112, 0.8));
+}
+.jh-sat {
+fill: #232323;
+stroke: #cccccc;
+stroke-width: 1.5;
+}
+@media (max-width: 991.98px) {
+.jh-orbit-scene { --jh-scene-size: min(1500px, 94vw); }
+}
+@media (max-width: 767.98px) {
+.jh-orbit-scene { --jh-scene-size: min(1050px, 94vw); }
+}
+@media (max-width: 575.98px) {
+.jh-orbit-scene { display: none; }
+}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<div class="container-fluid">
+<a class="navbar-brand" href="/">
+<img src="/img/spaceedu-site-logo-main-161-60.webp" alt="SpaceEdu Logo" class="nav-logo" width="161" height="60">
+</a>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+<div class="navbar-nav ms-auto">
+<a class="nav-link" href="/">Home</a>
+<a class="nav-link" href="/#about">About</a>
+<a class="nav-link" href="/chronicle">Chronicle</a>
+<a class="nav-link" href="/journal/">Galaxy Journal</a>
+<a class="nav-link" href="#contact">Contact</a>
+</div>
+</div>
+</div>
+</nav>
+<script>
+(function() {
+var path = window.location.pathname.replace(/\/$/, '') || '/';
+document.querySelectorAll('.navbar-nav .nav-link').forEach(function(link) {
+var href = link.getAttribute('href');
+if (!href || href.startsWith('#') || href.startsWith('/#')) return;
+var clean = href.replace(/\/$/, '') || '/';
+if (clean === path || (clean !== '/' && path.startsWith(clean + '/'))) {
+link.classList.add('active');
+}
+});
+})();
+</script>
+<section class="journal-hero-section jh-hero-orbit">
+<div class='journal-starfield' aria-hidden='true'></div>
+<div class='jh-orbit-scene' aria-hidden='true'>
+<div class='jh-earth-wrap'>
+<canvas id='jhEarthCanvas' width='1400' height='1400'></canvas>
+</div>
+<div class='jh-orbit-wrap'>
+<svg class='jh-ring-svg' viewBox='0 0 1000 1000' preserveAspectRatio='xMidYMid meet'>
+<circle class='jh-ring-dashed' cx='500' cy='500' r='430'></circle>
+<g class='jh-ring-rotator'>
+<polygon class='jh-ring-polygon' points='500,70 674.9,107.2 819.5,212.3 909.0,367.1 927.6,544.9 872.4,715.0 752.8,847.9 589.4,920.6 410.6,920.6 247.2,847.9 127.6,715.0 72.4,544.9 91.0,367.1 180.5,212.3 325.1,107.2'></polygon>
+<g transform='translate(500,70)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(674.9,107.2)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(819.5,212.3)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(909.0,367.1)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(927.6,544.9)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(872.4,715.0)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(752.8,847.9)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(589.4,920.6)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(410.6,920.6)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(247.2,847.9)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(127.6,715.0)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(72.4,544.9)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(91.0,367.1)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(180.5,212.3)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<g transform='translate(325.1,107.2)'><g><animateTransform attributeName='transform' type='rotate' from='0' to='-360' dur='34s' repeatCount='indefinite'></animateTransform><rect class='jh-sat' x='-6' y='-6' width='12' height='12'></rect></g></g>
+<animateTransform attributeName='transform' type='rotate' from='0 500 500' to='360 500 500' dur='34s' repeatCount='indefinite'></animateTransform>
+</g>
+</svg>
+</div>
+</div>
+<script>
+(function () {
+var canvas = document.getElementById('jhEarthCanvas');
+if (!canvas) return;
+var ctx = canvas.getContext('2d');
+var W = 1400, H = 1400;
+var cx = 700, cy = 700, R = 652;
+var CONTINENTS = [
+[[72,-68],[73,-95],[68,-140],[55,-132],[48,-124],[40,-124],[32,-117],
+[25,-110],[20,-105],[16,-92],[10,-83],[8,-77],[14,-83],[18,-88],
+[20,-87],[24,-82],[30,-81],[35,-76],[41,-70],[47,-53],[55,-58],[62,-64],[68,-65],[72,-68]],
+[[12,-72],[10,-62],[5,-52],[0,-50],[-5,-35],[-10,-37],[-23,-43],
+[-34,-52],[-55,-65],[-56,-68],[-46,-75],[-35,-73],[-20,-70],
+[-18,-81],[-5,-81],[5,-77],[10,-75],[12,-72]],
+[[83,-60],[83,-15],[76,-18],[72,-22],[68,-24],[65,-38],[65,-52],[70,-55],[76,-68],[83,-60]],
+[[71,28],[71,15],[65,14],[60,5],[58,-5],[52,-5],[48,-5],[44,0],
+[40,2],[38,15],[40,20],[38,26],[42,28],[46,30],[52,28],[58,24],[64,25],[70,22],[71,28]],
+[[37,10],[37,37],[22,37],[10,42],[0,42],[-5,40],[-10,40],
+[-15,35],[-20,35],[-35,27],[-34,18],[-22,14],[-10,13],
+[-5,8],[0,9],[5,1],[5,-5],[0,-8],[5,-17],[4,-3],
+[12,14],[20,15],[28,15],[30,32],[37,10]],
+[[72,140],[72,60],[65,50],[55,30],[50,30],[42,28],[38,36],
+[28,34],[20,38],[10,42],[5,78],[8,80],[15,80],[20,87],
+[25,90],[30,100],[35,105],[40,125],[45,135],[50,140],
+[55,155],[65,170],[72,170],[72,140]],
+[[-15,130],[-15,136],[-12,142],[-18,148],[-25,153],[-35,150],
+[-38,145],[-38,140],[-32,137],[-32,125],[-22,114],[-18,122],[-15,130]],
+];
+function pointInPoly(lat, lon, poly) {
+var inside = false;
+for (var i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+var xi = poly[i][0], yi = poly[i][1], xj = poly[j][0], yj = poly[j][1];
+if (((xi > lat) !== (xj > lat)) && lon < (yj - yi) * (lat - xi) / (xj - xi) + yi) inside = !inside;
+}
+return inside;
+}
+function isLand(lat, lon) {
+return CONTINENTS.some(function (p) { return pointInPoly(lat, lon, p); });
+}
+var LAND = {};
+for (var la = -90; la <= 90; la += 4)
+for (var lo = -180; lo < 180; lo += 4)
+LAND[la + ',' + lo] = isLand(la, lo);
+var lon0 = -20 * Math.PI / 180;
+var lat0 = 15 * Math.PI / 180;
+function project(latDeg, lonDeg) {
+var lat = latDeg * Math.PI / 180;
+var lon = lonDeg * Math.PI / 180;
+var cosC = Math.sin(lat0) * Math.sin(lat) + Math.cos(lat0) * Math.cos(lat) * Math.cos(lon - lon0);
+if (cosC < 0) return null;
+return {
+x: cx + R * Math.cos(lat) * Math.sin(lon - lon0),
+y: cy - R * (Math.cos(lat0) * Math.sin(lat) - Math.sin(lat0) * Math.cos(lat) * Math.cos(lon - lon0))
+};
+}
+function draw() {
+ctx.clearRect(0, 0, W, H);
+ctx.beginPath();
+ctx.arc(cx, cy, R, 0, Math.PI * 2);
+ctx.fillStyle = 'rgba(35, 35, 35, 1)';
+ctx.fill();
+for (var la = -90; la <= 90; la += 4) {
+for (var lo = -180; lo < 180; lo += 4) {
+var p = project(la, lo);
+if (!p) continue;
+var land = LAND[la + ',' + lo];
+ctx.beginPath();
+ctx.arc(p.x, p.y, land ? 3.5 : 1.5, 0, Math.PI * 2);
+ctx.fillStyle = land ? 'rgba(255,255,255,0.82)' : 'rgba(200,220,240,0.15)';
+ctx.fill();
+}
+}
+ctx.lineWidth = 1.6;
+for (var lat2 = -60; lat2 <= 60; lat2 += 30) {
+ctx.beginPath();
+ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+var first = true;
+for (var lo2 = -180; lo2 <= 180; lo2 += 2) {
+var pp = project(lat2, lo2);
+if (!pp) { first = true; continue; }
+first ? ctx.moveTo(pp.x, pp.y) : ctx.lineTo(pp.x, pp.y);
+first = false;
+}
+ctx.stroke();
+}
+for (var lo3 = -180; lo3 < 180; lo3 += 30) {
+ctx.beginPath();
+ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+var first2 = true;
+for (var la3 = -90; la3 <= 90; la3 += 2) {
+var pp2 = project(la3, lo3);
+if (!pp2) { first2 = true; continue; }
+first2 ? ctx.moveTo(pp2.x, pp2.y) : ctx.lineTo(pp2.x, pp2.y);
+first2 = false;
+}
+ctx.stroke();
+}
+ctx.beginPath();
+ctx.arc(cx, cy, R, 0, Math.PI * 2);
+ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+ctx.lineWidth = 2.5;
+ctx.stroke();
+}
+function animate() {
+draw();
+lon0 += 0.0004;
+requestAnimationFrame(animate);
+}
+animate();
+})();
+</script>
+<div class="journal-hero-title-wrapper">
+<h1>Orbital Computing: Space-Based Data Centers, Math and Money</h1>
+</div>
+</section>
+<section class="journal-content-section">
+<div class="journal-article-layout">
+<aside class="journal-toc-col">
+<button class="btn btn-sm btn-outline-secondary d-lg-none journal-toc-toggle" type="button"
+data-bs-toggle="collapse" data-bs-target="#journalToc" aria-expanded="false">
+Contents
+</button>
+<button class="journal-toc-fab d-lg-none" type="button"
+data-bs-toggle="collapse" data-bs-target="#journalToc" aria-expanded="false"
+aria-controls="journalToc" aria-label="Open table of contents">
+<i class="bi bi-list-ul"></i>
+</button>
+<div class="journal-toc-backdrop d-lg-none" id="journalTocBackdrop"></div>
+<div class="journal-toc-panel collapse d-lg-block" id="journalToc">
+<div class="journal-progress-track"><div class="journal-progress-bar" id="journalProgressBar"></div></div>
+<p class="journal-toc-label">Table of Contents</p>
+<nav class="journal-toc">
+<div class="toc">
+<ul>
+<li><a href="#1-introduction-artificial-intelligence-has-outgrown-its-planet">1. Introduction: Artificial Intelligence Has Outgrown Its Planet</a></li>
+<li><a href="#2-what-is-an-orbital-data-center">2. What Is an Orbital Data Center</a></li>
+<li><a href="#3-why-now-a-perfect-storm">3. Why Now: A Perfect Storm</a></li>
+<li><a href="#4-a-brief-history-of-the-idea-from-missile-defense-to-the-cloud">4. A Brief History of the Idea: From Missile Defense to the Cloud</a></li>
+<li><details class="journal-toc-item"><summary><a href="#5-how-it-works-the-physics-of-an-orbital-data-center">5. How It Works: The Physics of an Orbital Data Center</a></summary><ul>
+<li><a href="#51-power-a-sun-that-almost-never-sets">5.1 Power: A Sun That Almost Never Sets</a></li>
+<li><a href="#52-cooling-the-only-way-to-get-rid-of-heat-in-a-vacuum">5.2 Cooling: The Only Way to Get Rid of Heat in a Vacuum</a></li>
+<li><a href="#53-cooling-inside-the-node-why-not-boiling">5.3 Cooling Inside the Node: Why Not Boiling</a></li>
+<li><a href="#54-radiation-why-ai-chips-survive-where-ordinary-electronics-die">5.4 Radiation: Why AI Chips Survive Where Ordinary Electronics Die</a></li>
+<li><a href="#55-communication-lasers-instead-of-wires">5.5 Communication: Lasers Instead of Wires</a></li>
+<li><a href="#56-orbit-life-on-the-terminator-line">5.6 Orbit: Life on the Terminator Line</a></li>
+<li><a href="#57-latency-closer-than-alaska">5.7 Latency: Closer Than Alaska</a></li>
+<li><a href="#58-engineering-limits-resonance-drift-and-a-swarm-instead-of-a-station">5.8 Engineering Limits: Resonance, Drift, and a Swarm Instead of a Station</a></li>
+</ul></details></li>
+<li><a href="#6-where-this-is-actually-needed">6. Where This Is Actually Needed</a></li>
+<li><a href="#7-advantages-an-honest-comparison">7. Advantages: An Honest Comparison</a></li>
+<li><details class="journal-toc-item"><summary><a href="#8-challenges-and-risks-where-the-skepticism-is-justified">8. Challenges and Risks: Where the Skepticism Is Justified</a></summary><ul>
+<li><a href="#old-well-understood-risks">Old, Well-Understood Risks</a></li>
+<li><a href="#new-risks-in-2026-objections-that-grew-up-alongside-the-industry">New Risks in 2026: Objections That Grew Up Alongside the Industry</a></li>
+</ul></details></li>
+<li><a href="#9-from-argument-to-construction-spring-2026">9. From Argument to Construction: Spring 2026</a></li>
+<li><a href="#10-the-players-whos-building-the-orbital-cloud">10. The Players: Who's Building the Orbital Cloud</a></li>
+<li><details class="journal-toc-item"><summary><a href="#11-the-economics-an-honest-count">11. The Economics: An Honest Count</a></summary><ul>
+<li><a href="#the-calculator-that-ends-the-argument">The Calculator That Ends the Argument</a></li>
+<li><a href="#two-levers-not-one">Two Levers, Not One</a></li>
+<li><a href="#so-wheres-the-actual-crossover-point">So Where's the Actual Crossover Point</a></li>
+<li><a href="#a-third-voice-says-the-same-thing">A Third Voice Says the Same Thing</a></li>
+<li><a href="#the-ipo-caveat">The IPO Caveat</a></li>
+</ul></details></li>
+<li><a href="#12-the-future-to-the-moon-and-beyond">12. The Future: To the Moon and Beyond</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#faq">FAQ</a></li>
+<li><a href="#sources">Sources</a></li>
+</ul>
+</div>
+</nav>
+<div class="journal-share">
+<p class="journal-share-label">Share Article</p>
+<div class="journal-share-buttons">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fspaceedu.org%2Fjournal%2Forbital-data-centers%2F" target="_blank" rel="noopener" aria-label="Share on Facebook"><i class="bi bi-facebook"></i></a>
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fspaceedu.org%2Fjournal%2Forbital-data-centers%2F" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
+<a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fspaceedu.org%2Fjournal%2Forbital-data-centers%2F&text=Orbital%20Computing%3A%20Space-Based%20Data%20Centers%2C%20Math%20and%20Money" target="_blank" rel="noopener" aria-label="Share on X"><i class="bi bi-twitter-x"></i></a>
+<button type="button" class="journal-copy-link" data-url="https://spaceedu.org/journal/orbital-data-centers/" aria-label="Copy link"><i class="bi bi-link-45deg"></i></button>
+</div>
+</div>
+</div>
+</aside>
+<article class="journal-content-col">
+<h1 id="orbital-computing-space-based-data-centers-math-and-money">Orbital Computing: Space-Based Data Centers, Math and Money</h1>
+<p><em>CosmoPhil for SpaceEdu · July 10, 2026</em></p>
+<hr/>
+<h2 id="1-introduction-artificial-intelligence-has-outgrown-its-planet">1. Introduction: Artificial Intelligence Has Outgrown Its Planet</h2>
+<p>Artificial intelligence has outgrown the planet that gave birth to it. According to a report from the United Nations University Institute for Water, Environment and Health (UNU-INWEH), published in June 2026, global data center energy consumption could double by 2030 to reach <strong>945 TWh a year</strong> — comparable to Japan's entire annual electricity use — with AI's share of that number climbing from roughly 20% today to 40%. The same report estimates the associated cooling water draw at <strong>9.3 trillion liters</strong> a year — enough to cover the basic household needs of 1.3 billion people across sub-Saharan Africa for an entire year.</p>
+<p>The problem isn't that there's too little energy in principle. It's that there isn't enough of it <em>in the right place</em> — and this is no longer some abstraction on the 2030 horizon; it's already hitting businesses today. In spring 2026, the analytics firm SemiAnalysis surveyed more than fifty large enterprises and found that unlimited AI token usage — something companies like Meta were actively encouraging not long ago — had, within a matter of months, turned into hard budget caps. Limits range from $250 a month at one of the largest U.S. aerospace contractors to $2,000 at Stripe and Workday. Uber managed to burn through an entire year's AI coding-tool budget in just four months — and then capped spending at $1,500 per employee. This isn't a sign that demand for compute is collapsing. It's a sign that compute capacity is already, today, a scarce resource that has to be rationed.</p>
+<p>We've run into what engineers call the "energy wall": ground-based grids can't keep up with peak demand, permits for new capacity take years, and local residents are increasingly pushing back against new data centers — giant "farms" that eat up acres of land and millions of liters of cooling water. This pushback has a name: NIMBY, <em>Not In My Backyard</em>.</p>
+<p>At the end of 2025, one of the hosts of the podcast Hard Fork (The New York Times) half-joked that the next step would be a movement called NOMP — <em>Not On My Planet</em>: people who'd rather ship the whole loud, thirsty digital infrastructure off the planet entirely. The joke turned out to be prophetic. That's exactly where — beyond the atmosphere — Google, SpaceX, and a handful of startups that raised billions of dollars over the past year are now looking.</p>
+<p>In this piece, we'll work through how orbital compute infrastructure is actually built, why vacuum physics both helps and hurts servers at the same time, and under what conditions launching GPUs into space becomes economically justified. We'll trace the path from the earliest ideas about space-based power to spring 2026 — the moment the industry quietly moved from arguing over whether this is even possible to signing contracts and filing paperwork for tens of thousands of satellites.</p>
+<p>Let me state my position up front, so you know where I'm coming from: I'm not selling a dream, and I don't believe everything promised in a pitch deck is inevitable. But I'm an engineer, and there's one honest question I care about: <em>what here actually works according to physics, and what's just a premium on a stock valuation?</em> That's what I'll try to answer.</p>
+<p><figure class="journal-figure journal-figure--centered"><img alt="Illustration of a single orbital data center satellite above Earth's terminator line, painted in 1970s NASA space-art style" class="journal-img" height="1254" src="img/cover-satellite-terminator.webp" width="1254"/></figure></p>
+<hr/>
+<h2 id="2-what-is-an-orbital-data-center">2. What Is an Orbital Data Center</h2>
+<p>In the simplest sense, an orbital data center is server capacity mounted on artificial satellites. But "a server in a box, in orbit" is already yesterday's picture. The modern concept is much closer to a distributed supercomputer scattered across the sky.</p>
+<p>Technically, it's a network of nodes in low Earth orbit (LEO). Each node carries powerful processors (NVIDIA H100s or Google TPUs), power from solar panels, and massive radiators to shed heat. But the key piece is the link between them. Instead of copper wiring between racks, optical inter-satellite links (OISL) do the job, with throughput up to <strong>10 Tbit/s</strong>. That turns a "swarm" of individual satellites into a single virtual computer hovering over the planet.</p>
+<p>If a traditional cloud is physically tied to land, water, and power lines, an orbital cloud leans on two things Earth never has enough of: uninterrupted solar power and empty space with no unhappy neighbors. At its core, this isn't a new kind of computer — it's an attempt to move a computer somewhere with more room, a more reliable power outlet, and calmer nerves all around.</p>
+<hr/>
+<h2 id="3-why-now-a-perfect-storm">3. Why Now: A Perfect Storm</h2>
+<p>The idea of "servers in space" is old, but it's only been taken seriously since 2024–2026. Four factors lined up at once, and none of them alone would have been enough.</p>
+<p><strong>AI's energy hunger.</strong> Training modern models is measured in gigawatt-hours. On Earth, getting permission for that kind of capacity means years of hearings and lawsuits with local communities.</p>
+<p><strong>Water and land scarcity.</strong> Ground-based data centers drink millions of liters of water for evaporative cooling. In dry regions, that's already sparking protests — the same NIMBY dynamic.</p>
+<p><strong>The launch-cost revolution.</strong> The price of putting a kilogram into orbit has dropped from roughly $10,000 in the shuttle era to about <strong>$1,500</strong> on a Falcon 9. Starship's success promises to push that down to <strong>$200</strong> by the mid-2030s. Without this factor, the whole conversation would be pure fantasy — cheap launch is what moves the idea out of dreamland and into a spreadsheet.</p>
+<p><strong>Data that's already in space.</strong> Earth-observation satellites (SAR radar) generate up to <strong>10 GB of data per second</strong>. Sending that stream to Earth for processing is expensive and slow. It's cheaper to process it right there in orbit and send down a finished answer instead of raw material. This isn't a hypothetical anymore — it's existing demand: the market for this kind of processing already exists today; it just needs a cheap point of compute on-site.</p>
+<p>Put it all together, and space becomes the one place where AI can scale without years of permitting battles or draining rivers for cooling.</p>
+<hr/>
+<h2 id="4-a-brief-history-of-the-idea-from-missile-defense-to-the-cloud">4. A Brief History of the Idea: From Missile Defense to the Cloud</h2>
+<p>Orbital computing has two lineages — energy and military — and both are older than they look.</p>
+<p>The energy lineage doesn't start with data centers; it starts with power plants. In 1968, American engineer <strong>Peter Glaser</strong> was the first to formulate a rigorous engineering concept for a space-based solar power station (SBSP): put vast fields of solar panels into geostationary orbit and beam the generated power — on the order of 5–10 GW — down to Earth as a focused microwave beam. It was Glaser, not science fiction, who laid the technical groundwork for the whole idea of "energy from beyond the atmosphere." Mid-twentieth-century popular science literature carried the image of orbital industry for decades, but the patent and the math belong to him.</p>
+<p>The second lineage is military, and it's the one closer to computing. In the 1980s, under the Strategic Defense Initiative (SDI), came the <strong>Brilliant Pebbles</strong> project. The idea: instead of one bulky, centralized system, a swarm of thousands of small, autonomous interceptor satellites, each detecting, classifying, and tracking its own target. The real innovation wasn't the weapon — it was the idea of <strong>processing data right there in orbit</strong> instead of shuttling it to Earth and back, because there are no spare seconds when you're intercepting a missile. This was the first seed of space-based edge computing, half a century before the term became fashionable.</p>
+<p>In 2019, the U.S. Space Development Agency (SDA) revived that decentralized logic in the PWSA architecture — a layered network of satellites processing "sensor-to-shooter" data right in space. The same architecture underpins today's Golden Dome program.</p>
+<p>The history comes full circle nicely. Modern startups like Starcloud are solving the exact same problem military engineers set out to solve half a century ago: getting around the "bottleneck" of ground-based communication links by processing data where it's generated. The targets changed — from intercepting missiles to training language models. The principle didn't.</p>
+<div class="journal-triptych">
+<figure>
+<img alt="1968 concept illustration of Peter Glaser's space-based solar power station" src="img/history-glaser-1968.webp"/>
+<figcaption>1968 — Peter Glaser's SBSP concept</figcaption>
+</figure>
+<figure>
+<img alt="1980s illustration of Brilliant Pebbles interceptor satellite swarm" src="img/history-brilliant-pebbles-1980s.webp"/>
+<figcaption>1980s — Brilliant Pebbles interceptor swarm</figcaption>
+</figure>
+<figure>
+<img alt="2025 illustration of an early orbital AI compute satellite" src="img/history-starcloud-2025.webp"/>
+<figcaption>2025 — the first orbital AI compute satellites</figcaption>
+</figure>
+</div>
+<p class="triptych-note">All images: artist's concept, not photographs.</p>
+<hr/>
+<h2 id="5-how-it-works-the-physics-of-an-orbital-data-center">5. How It Works: The Physics of an Orbital Data Center</h2>
+<p>This is where the engineering starts — and it's exactly what separates a real project from a pretty rendering. Let's go system by system.</p>
+<h3 id="51-power-a-sun-that-almost-never-sets">5.1 Power: A Sun That Almost Never Sets</h3>
+<p>Space's main advantage is light. Without an atmosphere, solar radiation is <strong>36% more intense</strong> than at Earth's surface: a panel catches an unfiltered flux of about <strong>1,361 W/m²</strong>, with no clouds, dust, or dusk to speak of.</p>
+<p>Generated power is described simply:</p>
+<div class="arithmatex">\[P = I \times A\]</div>
+<p>where <span class="arithmatex">\(I\)</span> is solar irradiance and <span class="arithmatex">\(A\)</span> is panel area. But intensity is only a third of the story. The bigger win is elsewhere: on the right orbit, a panel is lit almost the entire time. On Earth, the average capacity factor for a solar plant in the U.S. is about <strong>24%</strong> (night, clouds, angle). In space, on a sun-synchronous orbit, it's <strong>over 95%</strong>.</p>
+<p>Multiply the two factors together — the intensity gain (×1.36) and the uptime gain (95% versus 24%, or nearly ×4) — and you get the number Google likes to cite: one square meter of panel in space produces roughly <strong>8 times more</strong> kilowatt-hours than the same panel on Earth. The rest of the way to that figure comes from the absence of seasonality, dust, and the morning "warm-up" every terrestrial system goes through. Space isn't a brighter bulb. Space is a bulb that's almost never switched off.</p>
+<h3 id="52-cooling-the-only-way-to-get-rid-of-heat-in-a-vacuum">5.2 Cooling: The Only Way to Get Rid of Heat in a Vacuum</h3>
+<p>This is where physics turns against us. On Earth, servers are cooled by air or water. In a vacuum, there's neither: convection doesn't exist, and the only way to shed heat is to <strong>radiate</strong> it away as infrared light.</p>
+<p>Radiative efficiency is described by the Stefan–Boltzmann law:</p>
+<div class="arithmatex">\[P = \sigma \varepsilon A T^4\]</div>
+<p>where <span class="arithmatex">\(\sigma\)</span> is the Stefan-Boltzmann constant, <span class="arithmatex">\(\varepsilon\)</span> is the surface's emissivity, <span class="arithmatex">\(A\)</span> is the radiator area, and <span class="arithmatex">\(T\)</span> is its temperature. The key term here is the fourth power of temperature. It works both for us and against us: to shed a lot of heat, a radiator has to be either very hot or very large.</p>
+<p>How large? For a <strong>1 GW</strong> data center at a "room temperature" radiator (300 K), you need <strong>2.18 to 2.56 km²</strong> of radiating surface — dozens of football fields, floating in space. You can save some area by running the radiator hotter, at 350 K: the area drops nearly in half, to ~1.18 km². But hotter hardware degrades faster — the first of many engineering trade-offs where physics forces a choice between "efficient" and "durable."</p>
+<p>It's worth pausing here to note that this isn't the only calculation of its kind, and four independent sources now converge on almost the same point. JPL physicist Slava Turyshev, in a separate academic paper (May 2026), derived the same radiator area from first principles for a 1 MW node and, extrapolating to 1 GW, arrived at <strong>2.5 km²</strong> — squarely inside our range. Space commentator Scott Manley, in a separate breakdown (June 2026), took a far more modest scale — 20 kW, the typical load of a single Starlink V3 satellite — and, using the same Stefan-Boltzmann law, found that an 80°C radiator would need about 23 m² across both sides of the bus, which almost fits within the satellite's own body without any extra deployable panels. Different scale, same law, same arithmetic. When independent calculations, done by different people using different methods at wildly different power scales, converge within a few percent rather than a factor of several — that's exactly what separates engineering from a nice slide deck.</p>
+<p>This, on top of everything, is a theoretical minimum. Engineer Andrew McCalip, who built a public model of an orbital data center, considers it more honest to account for the fact that a panel in space is heated not only by its own hardware but by reflected sunlight and infrared radiation from Earth itself. His calculation for 1 GW on a terminator orbit gives a radiator of about <strong>4 km²</strong> at an equilibrium temperature of 63°C — right up against silicon's 85°C limit. Real physics always demands more area than the ideal case.</p>
+<p>Curiously, real hardware unexpectedly flips this logic — in a good way. SpaceX's official specs for the AI1 satellite list a radiator of only <strong>110 m²</strong> for a 120–150 kW compute load. Extrapolated to 1 GW, that comes out to a laughably small <strong>0.7–0.9 km²</strong> compared to the previous paragraph — several times smaller than either the ideal calculation or McCalip's honest one. The answer isn't a violation of physics; it's architecture. The AI1 radiator is a separate part, not merged with the solar panel, and it radiates from both sides. It doesn't have to shed the absorbed solar flux the way a bifacial panel does in McCalip's model — only heat from its own chips. Splitting "catch the sun" and "shed the heat" across two different surfaces turned out to be more efficient than combining them into one — a small but genuine engineering lesson real hardware taught the theoretical model. We don't even have to guess what that comes out to in watts per square meter: Musk himself gave the figure directly in June 2026 — 1,400 W/m², double-sided, oriented edge-on to the Sun.</p>
+<p>And here's a problem physics created that engineering hasn't solved yet. A radiator the size of a dozen football fields is beautiful on paper, but <strong>no one has ever deployed a single rigid structure of that scale in space</strong>. The largest thing humanity has ever assembled in orbit is the ISS, built piece by piece over more than a decade — and it's only the size of a single football field including all its trusses and panels. There's no way to launch a single rigid radiator spanning square kilometers on one rocket — and, worse, no way to keep it in one piece once it's up there. A massive flexible structure in space flexes at the slightest disturbance — maneuvers, pump operation, heat cycling — and there's almost nothing in a vacuum to damp those oscillations. Left to accumulate, cyclic loads break thin trusses through fatigue failure: the same way a paperclip bent back and forth breaks not from force, but from repetition (more on this in section 5.8).</p>
+<p><figure class="journal-figure journal-figure--full-width"><img alt="Illustration comparing the scale of a giant orbital data center radiator panel to the tiny silhouette of the International Space Station floating in front of it" class="journal-img" decoding="async" height="941" loading="lazy" src="img/radiator-scale-vs-iss.webp" width="1672"/></figure></p>
+<p>So the industry took a detour. Since you can't build one giant node, you build <strong>many small ones</strong>. Instead of a single colossus with a sky-filling radiator, you deploy a swarm of dozens or hundreds of modest satellites, each with its own compact radiator, stitched together by lasers into one computer. That's exactly how Google's 81-satellite swarm works, and how SpaceX's and Cowboy's thousand-satellite constellations are built. A dramatic rendering of an orbital data center with a radiator spanning the whole sky is an illustration of a principle, not an engineering blueprint. Reality is more modest, and smarter: not one colossus, but a swarm.</p>
+<h3 id="53-cooling-inside-the-node-why-not-boiling">5.3 Cooling Inside the Node: Why Not Boiling</h3>
+<p>Radiators handle heat on the outside, but first it has to be collected from the chips and carried there. This is where immersion cooling comes in: boards are fully submerged in a dielectric fluid. But there's a question any careful reader will ask right away: why not boiling, if a boiling dielectric gives the best heat transfer on Earth?</p>
+<p>The reason is that boiling on Earth relies on buoyancy: a vapor bubble is lighter than the surrounding liquid, so it rises and detaches from the hot surface, clearing the way for fresh, cool liquid. In zero gravity, there's simply no buoyancy — and NASA experiments on the ISS show what happens without it: the bubble doesn't detach. Instead, it grows and merges with its neighbors into a stationary vapor film right on the chip's surface, insulating it from the liquid and driving the temperature sharply upward. In other words, open boiling in microgravity doesn't work better — it works noticeably worse than on Earth, and without forced circulation it can cause overheating instead of cooling.</p>
+<p><figure class="journal-figure journal-figure--centered"><img alt="Cutaway illustration of an orbital data center satellite showing its internal GPU immersion-cooling pump and a radiator panel with a coolant-loop cutaway" class="journal-img" decoding="async" height="1536" loading="lazy" src="img/immersion-cooling-cutaway.webp" width="1024"/></figure></p>
+<p>So the realistic architecture is a simple <strong>single-pump loop with no boiling</strong>: liquid is actively pumped past the submerged boards, picking up heat through ordinary heat transfer (warming, not boiling), and carries it to the radiator, where it cools and returns. The pump is literally doing the job gravity does for free on Earth. This is the same logic real orbital hardware already uses: the ISS pumps ammonia, Russian modules use glycol — an ordinary liquid loop, no phase change involved.</p>
+<h3 id="54-radiation-why-ai-chips-survive-where-ordinary-electronics-die">5.4 Radiation: Why AI Chips Survive Where Ordinary Electronics Die</h3>
+<p>Cosmic radiation causes "bit flips" — Single Event Upsets, random memory errors. You'd expect a commercial GPU in a vacuum to turn into a brick fast. But Google's tests showed the opposite: <strong>Trillium TPU</strong> chips under a 67 MeV proton beam survived a dose equivalent to <strong>five years</strong> at the target orbit (about 750 rad) without permanent failure. The first memory errors only began around 2,000 rad — nearly three times the projected five-year dose.</p>
+<p>But the more interesting part isn't the hardware's toughness — it's a property of the AI itself. A neural network with billions of parameters is <strong>naturally resistant to rare noise</strong>: a single bit flip drowns in the statistics of training, like a typo in a thick book. What would kill a precise banking calculation is just background noise to a model. Space turns out to be unexpectedly friendly to exactly this class of computing.</p>
+<h3 id="55-communication-lasers-instead-of-wires">5.5 Communication: Lasers Instead of Wires</h3>
+<p>Inside the swarm, satellites talk to each other over optical (laser) terminals. NASA has hit <strong>200 Gbit/s</strong> in experiments; Google has pushed lab lasers to <strong>1.6 Tbit/s</strong>. Optics gives you fiber-optic speed without the fiber — and that's exactly what stitches a scattered collection of satellites into a single computer.</p>
+<h3 id="56-orbit-life-on-the-terminator-line">5.6 Orbit: Life on the Terminator Line</h3>
+<p>The ideal spot for an orbital data center is a sun-synchronous "dawn-dusk" orbit at an altitude of <strong>600–800 km</strong>. It's a special case: the orbital plane stays perpendicular to the direction of the Sun, so the satellite always flies along the terminator — the line between day and night — crossing the equator at exactly 6 a.m. and 6 p.m. local time. To hold that geometry year-round, the orbit slowly precesses — by roughly one degree a day, exactly keeping pace with Earth's motion around the Sun.</p>
+<p>For the satellite itself, this means the Sun always hangs off to the side, just above the horizon, lighting the craft continuously — <strong>95–98% of the time</strong>. There's no such thing as a full 100%: around the solstices, in June and December, the tilt of Earth's axis briefly tucks the satellite into shadow for a few minutes each orbit. A slight skew to the orbit fixes most of this, but you still need to carry a small battery reserve. So the honest phrasing isn't "endless sun, 24/7" — it's "sun, almost all the time." A couple of percentage points sounds like nitpicking, but that's exactly where a mission's real power budget gets built.</p>
+<p>But the real gift of this orbit isn't energy — it's thermal stability. On an ordinary orbit, a satellite dives into shadow and pops back into light every ninety minutes or so, cooling to −100°C and heating to +100°C; materials are constantly contracting and expanding, and onboard systems bounce between heating and cooling. On a terminator orbit, there are no such thermal shocks: external conditions barely change. That lets you split the craft into two zones once and for all — a permanently warm sunlit side and a permanently cold shadow side. The shadow side, which never sees the Sun, becomes a standing radiator, continuously dumping the electronics' heat into space. Thanks to that stability, you can get away with passive thermal control — shields, coatings, radiating panels — instead of heavy, power-hungry active systems. An orbit that cools its own data center: a rare case where geometry works for the engineer instead of against him.</p>
+<figure class="journal-figure journal-figure--video"><video autoplay="" class="journal-img" decoding="async" loading="lazy" loop="" muted="" playsinline="" poster="img/terminator_orbit_poster.webp">
+<source src="img/terminator_orbit.webm" type="video/webm"/>
+<source src="img/terminator_orbit.mp4" type="video/mp4"/>
+Your browser does not support the video tag.
+</video></figure>
+<h3 id="57-latency-closer-than-alaska">5.7 Latency: Closer Than Alaska</h3>
+<p>Signal delay is pure geometry:</p>
+<div class="arithmatex">\[t = d / c\]</div>
+<p>where <span class="arithmatex">\(d\)</span> is distance and <span class="arithmatex">\(c\)</span> is the speed of light. To a satellite at 400–600 km, a signal takes roughly <strong>1–10 ms one way</strong>. The full "request → orbit → processing → response" cycle (round-trip time) comes out to about <strong>20–40 ms</strong> — Starlink-level, and good enough even for real-time applications.</p>
+<p>That said, not every estimate agrees so neatly. Professor Yonggang Wen (Nanyang Technological University), in an interview for Aerospace America, cites a very different figure for LEO — around <strong>800 ms</strong> round-trip — and adds that this is "more than sufficient for most modern AI workloads." The gap is almost two orders of magnitude, and it isn't an error on either side — it's a difference in assumptions. The pure speed-of-light number we calculated above gives single-digit milliseconds. The 800 ms figure appears to already fold in real network routing: queuing for a ground gateway, protocol overhead, waiting for a channel to free up (that "Γmax ceiling" from Turyshev's model, which comes up again in section 6). Both numbers are real — one just answers "how long does the signal take to travel," and the other answers "how long will a request actually wait in a congested network."</p>
+<p>Starcloud CEO Philip Johnston puts it this way: from a latency standpoint, a data center at 400 km isn't all that different from one in Alaska or Seattle. A signal to low orbit travels a shorter distance than it does through fiber between many pairs of Earth cities. But it's important not to confuse two different things here. Latency is travel time, and it's fine. The bottleneck is elsewhere — how much data per second you can actually push down the link from orbit to Earth. The best space-to-ground laser systems today manage about 200 Gbit/s — an order of magnitude below what terrestrial fiber can carry in terabits. It's like comparing a courier's speed to a semi-truck's cargo capacity: how fast it arrives isn't the question — how much it can carry in one trip is. A signal to orbit and back travels fast; downloading a genuinely large volume of data from up there is the bottleneck.</p>
+<h3 id="58-engineering-limits-resonance-drift-and-a-swarm-instead-of-a-station">5.8 Engineering Limits: Resonance, Drift, and a Swarm Instead of a Station</h3>
+<p>The bigger the structure, the trickier the physics gets. A radiator spanning square kilometers at 800 km altitude feels residual atmospheric drag — slow but relentless drift. And mechanical cooling pumps generate vibrations that are barely damped at all in a vacuum: there's no air to absorb the oscillation. In the worst case, vibration hits resonance and tears apart thin trusses — the same fatigue loading that makes it impossible to build a single giant rigid structure in the first place (for now).</p>
+<p>It was exactly this resonance problem that led Google, in Project Suncatcher, to abandon the idea of one giant station in favor of a <strong>swarm of 81 satellites</strong> flying in tight formation 100–200 meters apart. That solves the resonance problem but creates a new one: keeping dozens of craft in formation to within meters requires constant AI-driven control. A space computer that's needed, among other things, to keep itself from falling apart.</p>
+<p><figure class="journal-figure journal-figure--full-width"><img alt="Illustration of an orbital data center satellite swarm flying in formation, connected by lime-green laser links along Earth's horizon" class="journal-img" decoding="async" height="941" loading="lazy" src="img/satellite-swarm-train.webp" width="1672"/></figure></p>
+<hr/>
+<h2 id="6-where-this-is-actually-needed">6. Where This Is Actually Needed</h2>
+<p>Orbital data centers won't replace the world's servers — and they're not trying to. But there are niches where they're not a luxury, but the only sensible option.</p>
+<p><strong>Earth-observation data processing.</strong> Instead of transmitting terabytes of raw SAR radar imagery, onboard AI produces a finished answer straight away: "there's a wildfire here," "the harvest will run X tons." What comes down is the answer, not the raw material.</p>
+<p><strong>Batch AI training and inference.</strong> Workloads that don't need an instant response to a user fit orbital capacity perfectly. Starcloud has already trained a language model right in space (more on this below).</p>
+<p><strong>Space-native edge computing.</strong> Future Moon bases and Mars missions can't wait minutes for a signal from Earth — they need a computer next door.</p>
+<p><strong>Digital sovereignty.</strong> The European ASCEND project and Chinese programs both look at orbit as a way to shield data from terrestrial wars, blockades, and cyberattacks — infrastructure that's physically hard to reach.</p>
+<p>These four points share a common denominator, and JPL physicist Slava Turyshev formalized it well: applications don't split by industry, but by <strong>where orbit's value actually comes from</strong>. He identifies three classes (in his terminology, C1, C2, C3). Earth-observation processing and edge computing are a class where computation cuts the volume of data that has to come down to Earth at all — the value is in what happens on orbit, not in what gets downloaded. Building compute into existing communications networks (like Starlink) is a class where an orbital data center saves on infrastructure that's already flying up there anyway. And "ordinary" compute for terrestrial users — training models, running inference on request from Earth — is the hardest case, the third class: here, orbit gets no discount on data volume or shared infrastructure, and has to compete with ground-based data centers head-on. It's precisely this third class where the entire economic argument you'll find in section 11 plays out.</p>
+<hr/>
+<h2 id="7-advantages-an-honest-comparison">7. Advantages: An Honest Comparison</h2>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Terrestrial Data Center</th>
+<th style="text-align: left;">Orbital Data Center</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Power</strong></td>
+<td style="text-align: left;">Grid-dependent, often fossil fuel</td>
+<td style="text-align: left;">Sun &gt;95% of the time (dawn-dusk orbit)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cooling</strong></td>
+<td style="text-align: left;">Enormous water and electricity draw</td>
+<td style="text-align: left;">Passive radiation into vacuum</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Land use</strong></td>
+<td style="text-align: left;">Acres of expensive land, resident conflicts</td>
+<td style="text-align: left;">Free orbital space (for now)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Regulation</strong></td>
+<td style="text-align: left;">Years for permits, strict environmental rules</td>
+<td style="text-align: left;">Relative legal vacuum (for now)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Latency</strong></td>
+<td style="text-align: left;">5–100 ms (RTT)</td>
+<td style="text-align: left;">1–10 ms one way / ~20–40 ms RTT</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Maintenance</strong></td>
+<td style="text-align: left;">Components replaced over decades</td>
+<td style="text-align: left;">Repair currently impossible, nodes are disposable</td>
+</tr>
+</tbody>
+</table></div>
+<p>Take a look at the last row — it's often glossed over. In space, you gain on power and water, but you pay for it with <strong>the inability to fix anything</strong>. More on that in the next section.</p>
+<hr/>
+<h2 id="8-challenges-and-risks-where-the-skepticism-is-justified">8. Challenges and Risks: Where the Skepticism Is Justified</h2>
+<p>The more serious the industry gets, the more serious the objections become. That's a healthy sign: nobody bothers to criticize nonsense this specifically. Let's split the risks into "old" (engineering and economic) and "new" (which only surfaced in 2026, once the idea moved from concept to scale).</p>
+<h3 id="old-well-understood-risks">Old, Well-Understood Risks</h3>
+<p><strong>Launch cost.</strong> For space to match Earth on the cost of compute, you need to launch a kilogram for around <strong>$200</strong>. Today it's 7 to 10 times more expensive. All of the industry's optimism rests on one assumption: that Starship really does drive that number down.</p>
+<p><strong>Repair is impossible.</strong> A burned-out GPU in space can't be swapped out <em>in flight</em> today — a broken node simply gets shut down and written off. But for a swarm, that isn't fatal, because you're not repairing a single satellite — you're maintaining the constellation as a whole: a faulty node gets retired, and a replacement arrives on the next launch, without touching its neighbors. In that sense, a swarm doesn't behave like a single organism with a fixed lifespan — it behaves more like a jellyfish or a coral reef: individual cells die off and get replaced continuously, while the colony itself goes on existing indefinitely — as long as someone keeps feeding it new launches. That "immortality" has a price, but it isn't necessarily worse than Earth's: like a terrestrial data center, a swarm demands constant investment — just not in repairs, but in new launches. Which one ends up cheaper depends on which falls faster: the cost of launch and satellite hardware, or the cost of terrestrial energy and maintenance. That's not an engineering question — it's an economic one, and I'll work through the numbers in section 11.</p>
+<p><strong>Kessler syndrome.</strong> The filings from SpaceX (1 million), Blue Origin (51,600), Cowboy (20,000), Orbital (100,000+), and Chinese projects together create a genuine risk of cascading collisions — a chain reaction of debris that could shut off access to orbit for centuries. This isn't an alarmist scenario; it's calculated orbital dynamics, and the numbers are already concrete: Starlink carried out around 300,000 collision-avoidance maneuvers in 2025, and by some estimates, full deployment of all the constellations currently on file would require on the order of half a billion maneuvers a year. A full breakdown of Kessler syndrome is a topic for a separate article; here I'm flagging it as one risk among several, not as its own deep dive.</p>
+<p><strong>Launch ecology.</strong> Aluminum structures that burn up on deorbit seed the stratosphere with ozone-destroying nanoparticles. And soot from rockets at high altitude, according to the journal Earth's Future, traps heat <strong>500 times more effectively</strong> (per unit of mass) than soot at the surface — because up in the stratosphere, rain never washes it out. Models that call orbital computing "carbon-neutral" usually leave this factor out entirely.</p>
+<h3 id="new-risks-in-2026-objections-that-grew-up-alongside-the-industry">New Risks in 2026: Objections That Grew Up Alongside the Industry</h3>
+<p>While engineers were still arguing about soot, orbital data centers picked up critics from entirely different fields.</p>
+<p><strong>Astronomers are sounding the alarm.</strong> Professor Tony Tyson (UC Davis) warns that data-center satellites, with their giant panels and radiators, will be brighter than today's Starlink satellites, which already interfere with telescopes. At full deployment of a million craft, the sky's combined brightness could rival a glint from <strong>half a full Moon</strong> — with individual flares as bright as Venus. For ground-based optical astronomy, that would spell the end of many research programs: you simply can't hunt for supernovae in a sky streaked with bright trails.</p>
+<p><strong>The "privatization of the sky" and the Global South.</strong> Low Earth orbit is a shared resource of humanity — that's what the 1967 Outer Space Treaty says — but it's being filled by the decisions of a narrow circle of Western and Chinese corporations. Analysts at The Space Review warn that the more densely the Global North occupies LEO, the more expensive and dangerous it becomes for developing countries to launch their own satellites — for something as basic as agricultural monitoring. And history shows that access to private space infrastructure can be switched off for political reasons.</p>
+<p><strong>Space weather as a risk multiplier.</strong> A paradoxical risk: orbital data centers are supposed to take load off terrestrial networks, but while most AI capacity is still on Earth, those networks are becoming more fragile. A strong solar storm can induce currents in power lines and knock out high-voltage transformers that take months to replace. For data centers that need continuity, even a brief outage in the middle of training a model means losing an enormous amount of work. There's a flip side worth noting too: solar activity hits orbital craft directly as well — from onboard system failures to solar wind that destabilizes an entire constellation.</p>
+<p><strong>Maybe we just don't need it?</strong> The most uncomfortable objection isn't technical — it's logical. Kathleen Curlee (Georgetown, Center for Security and Emerging Technology) puts it bluntly: it would be greener and cheaper to just make terrestrial data centers cleaner than to haul the same task into space at triple the budget. Even NVIDIA — a company with something to gain either way — officially takes a measured position: orbital data centers, in its view, are more likely to complement terrestrial infrastructure than to replace it. That's exactly the conclusion this article arrived at on its own.</p>
+<hr/>
+<h2 id="9-from-argument-to-construction-spring-2026">9. From Argument to Construction: Spring 2026</h2>
+<p>The idea of orbital data centers had been discussed for years, always in the subjunctive mood — "if launch gets cheaper," "if cooling gets solved," "if there's demand." In spring 2026, the subjunctive quietly disappeared. While academic journals were still arguing about stratospheric soot and telescope interference, the industry stopped arguing and started buying hardware.</p>
+<p>One event marked the turning point. On May 6, orbital computing got its first external customer: Anthropic — the company behind the AI model Claude — struck a deal with SpaceX not just to lease ground-based capacity, but to jointly develop several gigawatts of compute in orbit. Up to that point, SpaceX had essentially been building space servers for itself. Now someone outside Musk's empire had agreed to pay for them — and that changes everything. By summer, the numbers stopped being guesswork: Anthropic pays roughly <strong>$1.25 billion a month</strong> for access to SpaceX's compute, and Google pays roughly <strong>$920 million a month</strong>. A technology built "for internal use" is easy to shut down. A technology someone is paying a billion dollars a month for is already too embarrassing to cancel.</p>
+<p>What followed came fast enough that the pace itself was diagnostic. Five days later, on May 11, the startup Cowboy Space — formerly Aetherflux, which started out in space-based solar power — raised $275 million at a $2 billion valuation, and three days after that had already filed with the FCC for a 20,000-satellite constellation called "Stampede." Their idea is the most radical of the bunch: don't launch a data center as a separate payload — turn the rocket's upper stage itself into a compute node, with the hull doubling as a radiator, staying to work wherever it ends up. By the end of May, Starcloud — already flight-proven — had ordered fifty laser terminals from SpaceX, a solid sign the company had moved from slide decks to actual assembly.</p>
+<p>By June, the race had picked up players building platforms rather than data centers themselves: Muon Space unveiled a "Starship-class" satellite platform designed specifically for orbital compute — already, tellingly, with orders from real customers. A new startup, Orbital, raised its first funding for a 100,000-satellite constellation. And right before its own IPO, SpaceX revealed the scale of its own ambitions: AI1 satellites with a seventy-meter solar-panel wingspan, the <strong>Gigasat</strong> factory in Bastrop, Texas, and a million-satellite constellation with an official name — <strong>Starmind</strong>.</p>
+<p>A first external customer. More than $450 million in fresh investment at just two companies. Regulatory filings for tens of thousands of satellites and concrete hardware orders. Whether all of this pays off is worth arguing about — and it should be argued about. But the question of whether it's possible at all quietly closed itself in spring 2026. While some were still proving orbital data centers impossible, others simply started building them.</p>
+<hr/>
+<h2 id="10-the-players-whos-building-the-orbital-cloud">10. The Players: Who's Building the Orbital Cloud</h2>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Company</th>
+<th style="text-align: left;">What It's Doing</th>
+<th style="text-align: left;">Scale / Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Starcloud</strong></td>
+<td style="text-align: left;">The flagship. Launched Starcloud-1 (60 kg, H100) on November 2, 2025</td>
+<td style="text-align: left;">5 GW by 2035; FCC filing for 88,000 satellites; Starcloud-2 (2027), -3 on Starship (2028)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Google (Suncatcher)</strong></td>
+<td style="text-align: left;">Betting on its own TPUs and an 81-satellite swarm</td>
+<td style="text-align: left;">Demo mission in 2027</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SpaceX (Starmind)</strong></td>
+<td style="text-align: left;">Integrated with Starlink V3; AI1 satellites: 70 m wingspan / 150 kW; Gigasat factory, Bastrop, Texas</td>
+<td style="text-align: left;">Up to 1 million craft; first AI1 units in 2027</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Blue Origin</strong></td>
+<td style="text-align: left;">"Project Sunrise" — a competing data-center constellation; separate TeraWave comms network</td>
+<td style="text-align: left;">51,600 satellites (FCC filing, March 2026)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cowboy Space</strong></td>
+<td style="text-align: left;">"The rocket is the data center," Stampede constellation</td>
+<td style="text-align: left;">20,000 satellites; 1 MW node by 2028</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Muon Space</strong></td>
+<td style="text-align: left;">Condor-Ultra, a "Starship-class" platform</td>
+<td style="text-align: left;">Launch in 2028, has customers</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Axiom Space</strong></td>
+<td style="text-align: left;">ISS-mounted data center prototype (AxDCU-1), fall 2025</td>
+<td style="text-align: left;">Commercial Orbital Data Center T1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Orbital</strong></td>
+<td style="text-align: left;">Production nodes built on NVIDIA Vera Rubin</td>
+<td style="text-align: left;">100,000+ satellites, demo in 2027</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ADA Space (China)</strong></td>
+<td style="text-align: left;">"Three-Body Computing Constellation" with Zhejiang Lab; first 12 satellites already flying</td>
+<td style="text-align: left;">2,800 satellites; first launch in May 2025</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>EU (ASCEND)</strong></td>
+<td style="text-align: left;">Feasibility study confirmed profitability with "clean" rockets</td>
+<td style="text-align: left;">2050 horizon</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Starcloud</strong> deserves its own callout, because it's no longer on paper. In November 2025, its 60-kilogram Starcloud-1, carrying an H100 GPU, didn't just survive the vacuum — it did something no one had done before: <strong>trained a language model right in orbit</strong> (as a demo, in Shakespearean English) and ran inference on Google's Gemini in space. That's the actual line between "possible" and "done."</p>
+<p>And separately — <strong>China</strong>, because here, unlike the Western filings-on-paper, satellites are already flying for real. The startup ADA Space, together with Zhejiang Lab, launched the first 12 satellites of its "Three-Body Computing Constellation" on May 14, <strong>2025</strong> — nearly a year before all the spring 2026 events chronicled above — with an eventual target of 2,800 AI-equipped satellites. Where the U.S. mostly has FCC filings and renderings for now, China already has working hardware in orbit. The Reds, it seems, are once again doing things their own way.</p>
+<hr/>
+<h2 id="11-the-economics-an-honest-count">11. The Economics: An Honest Count</h2>
+<p>Building a 1 GW orbital data center today costs, by aerospace engineer Andrew McCalip's calculation (Varda, February 2026), about <strong>$51 billion</strong> — against roughly $16 billion for a terrestrial equivalent of the same capacity over the same five-year span. A threefold gap. Here's where it comes from:</p>
+<p>That $51 billion covers a network of roughly 4,300 satellites, launching about 30 million kg of mass into orbit, and five years of operation — after which the whole thing gets written off and replaced with a new constellation. A terrestrial data center, for the same money, runs for decades and gets repaired piecemeal. Today, space isn't a way to save money — it's a way to <strong>get around</strong> the shortage of energy and land, at the cost of tripling your budget.</p>
+<h3 id="the-calculator-that-ends-the-argument">The Calculator That Ends the Argument</h3>
+<p>McCalip did something almost no one else in this debate has done: he actually ran the numbers. He built a public model that boils the entire argument down to one figure — the cost per watt of usable power, in orbit versus on the ground — and published it with open sliders. You can turn the dials yourself: launch cost, service life, specific power, hardware cost. His own conclusion is disarmingly honest: it's not an obvious dumb idea — but it's not a sure thing either.</p>
+<p>Here's what his model spits out for a 1 GW data center:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Scenario</th>
+<th style="text-align: left;">Orbit</th>
+<th style="text-align: left;">Earth</th>
+<th style="text-align: left;">Gap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Today</strong> (Falcon 9, ~$1,500/kg), 5 years</td>
+<td style="text-align: left;">$80.5 billion</td>
+<td style="text-align: left;">$16 billion</td>
+<td style="text-align: left;">×5.1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>With Starship</strong> (~$160/kg), 5 years</td>
+<td style="text-align: left;">$41 billion</td>
+<td style="text-align: left;">$16 billion</td>
+<td style="text-align: left;">×2.6</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>10-year horizon</strong> (nodes get replaced)</td>
+<td style="text-align: left;">$68 billion</td>
+<td style="text-align: left;">$17 billion</td>
+<td style="text-align: left;">×4.0</td>
+</tr>
+</tbody>
+</table></div>
+<p>There are three lessons hiding here. First: cheap launch helps, but not proportionally. Launch cost drops by nearly an order of magnitude — from today's ~$1,500/kg on Falcon 9 to the ~$160/kg promised by Starship — while the final cost of orbit only drops by half, from $80 to $41 billion. It comes down to the structure of the budget: even at today's expensive launch prices, launch isn't the dominant line item, and as it gets cheaper, its share shrinks even further — of that $41 billion, launch itself accounts for only about $5 billion, while the lion's share, over $23 billion, goes to satellite hardware. Cheaper rockets close roughly half the gap with Earth, but not all of it.</p>
+<p>The second lesson is harsher: the longer the time horizon, the worse it looks for space. A terrestrial data center lasts decades and gets patched piece by piece; an orbital one is disposable, and over a ten-year span you have to redeploy it from scratch — the gap doesn't shrink, it grows to fourfold. That's the exact opposite of the intuition that says "build it once, then collect free sunlight forever."</p>
+<p>The third lesson is in McCalip's own conclusion: at this kind of economics, only a company with everything vertically integrated — from rocket to satellite — with no markup at any handoff, can pull this off. Buy your launch, bus, power system, and deployment separately, and the margin stacked at every interface eats you alive.</p>
+<p>Don't believe the numbers? Don't argue — move the sliders yourself: the model is open (<strong><a href="https://andrewmccalip.com/space-datacenters">andrewmccalip.com/space-datacenters</a></strong>). That's the right way to have this argument — not "space is cool," but "here are the numbers, show me where I'm wrong."</p>
+<h3 id="two-levers-not-one">Two Levers, Not One</h3>
+<p>It's worth chasing the uncomfortable question all the way to the end. What if launch were free? Strip the launch line out of the Starship scenario entirely, and orbit still runs around $36 billion against $16 billion on the ground — more than double. Cheap rockets alone don't solve the problem: the bulk of the budget is satellite hardware ($23.6 billion) and its periodic replacement ($11.6 billion), and those line items don't see the price of launch at all.</p>
+<p>So what scenario actually closes the gap? Running McCalip's model with two simultaneous shifts — launch drops to <strong>$209/kg</strong> (between Falcon 9 and Starship), and satellite hardware cost drops from $22 to <strong>$5 per watt</strong> — puts orbit at <strong>$15.6 billion against $15.9 billion</strong> on the ground. Actual parity — orbit even slightly cheaper.</p>
+<p>That's the real threshold — not one number, but a pair of conditions that both have to hit at once. Launch needs to fall several times over — from today's ~$1,500/kg on Falcon 9 to whatever level Starship ultimately delivers. And satellite hardware needs to get nearly five times cheaper than today's Starlink-class cost, down to a price comparable to an assembly-line car, not a hand-built aerospace product. Google's optimistic $200/kg threshold, which the industry likes to throw around, appears to be only half the equation; the other half requires industrializing the manufacture of the satellites themselves — something moving slower, and less visibly, than progress on launch price.</p>
+<p>Is there any progress on this today? Partly, yes. SpaceX's official specs for the AI1 satellite put its specific power at about <strong>70 W/kg</strong> — nearly double the default assumption in McCalip's model (37 W/kg). Running the model with that real figure does bring the cost of orbit down from $51 to $44 billion, and combined with an optimistic Starship launch price, down to $39.5 billion (narrowing the gap with Earth from ×3.2 to ×2.5). That's not a hypothesis — it's a verifiable fact about real hardware. But notice: the full-parity scenario above didn't actually require that kind of progress in specific power at all — it stayed close to the model's default there. Parity, in that case, was delivered entirely by the hardware price dropping from $22 to $5 per watt. The two levers are independent, and we now have real data on one of them but not the other: SpaceX doesn't disclose AI1's cost in dollars per watt. Progress is already visible on specific power; the decisive question — whether the hardware itself gets just as much cheaper — remains open.</p>
+<p>And here's where the joke stops being a joke. Moving <em>both</em> levers at once — the price of the rocket and the price of the satellite — is only possible for whoever owns both factories, with no markup at the seam between them. Vertical integration isn't a nice corporate phrase; it's the only known way to control both of the variables the whole outcome depends on. Today, there's essentially one company in the world like that. Guess which one.</p>
+<h3 id="so-wheres-the-actual-crossover-point">So Where's the Actual Crossover Point</h3>
+<p>By Google's Project Suncatcher model (November 2025), orbit matches Earth once launch hits around <strong>$200/kg</strong> — below that threshold, space-based compute becomes cheaper, because once deployed, the energy up there is effectively free. But when that threshold arrives is a matter of belief, not calculation, and the forecasts diverge wildly:</p>
+<ul>
+<li><strong>Google</strong> — a baseline scenario: parity at $200/kg and roughly 180 Starship launches a year by 2035.</li>
+<li><strong>Musk</strong> — aggressive: cheaper than Earth in as little as three years, at $100/kg.</li>
+<li><strong>Starcloud</strong> — total cost of ownership (accounting for savings on land, water, taxes, and red tape) could already be 10 times lower than Earth's today.</li>
+<li><strong>McCalip</strong> — sober: still three times more expensive for now, but even "mediocre economics" is justified if you're building infrastructure meant to last decades.</li>
+</ul>
+<p>The same set of facts produces a spread from "three years away" to "by 2050." That's an honest picture of an immature market: the physics is settled; the economics is still arguing with itself.</p>
+<h3 id="a-third-voice-says-the-same-thing">A Third Voice Says the Same Thing</h3>
+<p>Google and McCalip are, respectively, industry and an independent engineer-enthusiast. It's worth checking with a third method, further still from any commercial stake in the outcome. Slava Turyshev, a physicist at NASA's Jet Propulsion Laboratory, arrives in his own academic paper at a conclusion nearly identical to ours: orbital computing for terrestrial users is physically possible, but doesn't economically close under current assumptions, and needs several parameters to shift at once, not just one. Three independent methods, three different authors, one and the same qualitative conclusion — exactly what you want to lean on when physics meets money.</p>
+<p>But two honest inconsistencies surface in the details, and they're worth stating plainly rather than glossing over.</p>
+<p><strong>Launch cost.</strong> Turyshev cites SpaceX's official price sheet: $74 million for 22,000 kg of Falcon 9's maximum payload capacity — that's <strong>$3,364 per kilogram</strong>. That's notably more than the $1,500/kg we've used throughout this piece as a typical current price. There isn't just one gap here, but two, and it's worth spelling them out honestly. $3,364/kg is the price-sheet rate for a one-off customer buying the whole rocket at full payload capacity — that's the sticker price if you don't know anyone at SpaceX. $1,500/kg is a more realistic price for a customer using rideshare launches or volume discounts, closer to what recurring large customers actually pay — and it's the figure used throughout the rest of this piece. And the $160–210/kg that shows up in optimistic Starship scenarios isn't today's price at all — it's a bet on a future that hasn't happened yet. Three numbers answering three different questions, and it's more useful to hold all three in your head than to collapse them into one convenient one.</p>
+<p><strong>Satellite specific power.</strong> Turyshev's conservative physics, which explicitly accounts for all the mass no one else bothers to count — radiation shielding, maneuvering propellant, avionics — gives a range of <strong>17–29 W/kg</strong> for a complete satellite. SpaceX's official specs for AI1 claim <strong>70 W/kg</strong>, 2.4 to 4 times better. That doesn't necessarily mean someone's wrong. Either SpaceX has genuinely beaten the conservative technological assumptions of an academic model — entirely plausible for a company mass-producing satellites rather than building them one at a time — or the official AI1 figure doesn't include some of the "fixed mass" an honest model is obligated to account for. The truth is probably somewhere in the middle — but until SpaceX discloses the full AI1 spec, there's no precise answer, and an honest article has to admit that rather than pick whichever number is convenient.</p>
+<p><figure class="journal-figure journal-figure--full-width"><img alt="Illustration of a CRT computer terminal inside a NASA-style mission control room, displaying a cost-parity readout comparing orbital and terrestrial data center economics" class="journal-img" decoding="async" height="941" loading="lazy" src="img/economics-parity-crt-terminal.webp" width="1672"/></figure></p>
+<h3 id="the-ipo-caveat">The IPO Caveat</h3>
+<p>There's an uncomfortable fact that can't be sidestepped. SpaceX's loudest announcements — the million-satellite Starmind constellation, the Gigasat factory, the AI1 satellites — dropped <strong>a few days before its IPO</strong> on June 13, 2026, and analysts draw a direct line between the two. The offering priced at $135 a share, raised $75 billion (the largest IPO in history), and by the close of the first day of trading the stock was up 19%, pushing the company's valuation to <strong>$2.1–2.3 trillion</strong>. Bolting "AI infrastructure" onto the business model clearly worked in the valuation's favor: investors are more eager to buy an "AI infrastructure giant" than a "rocket company." Even Jeff Bezos, himself a proponent of orbital computing, called what's happening an <strong>"industrial bubble"</strong> in the spirit of the dot-com era. That doesn't mean the technology is fake — the dot-com bubble left a real internet behind it. But telling physics apart from a premium on market cap is an honest observer's job.</p>
+<hr/>
+<h2 id="12-the-future-to-the-moon-and-beyond">12. The Future: To the Moon and Beyond</h2>
+<p>Beyond orbit lies the Moon. The startup <strong>Lonestar</strong> already delivered the first 8 TB SSD to lunar orbit in early 2025. The Moon looks like an ideal "cold storage" location: no wars, no cyberattacks, no natural disasters, and stable shadow for natural cooling. In parallel, the project <strong>Aetherflux</strong> (now part of Cowboy's history) and others are working on beaming solar power from space down to Earth — which would close the energy loop on the whole structure.</p>
+<p>And here's the real reason this is worth watching. Orbital data centers aren't about hiding humanity inside a computational cloud. Quite the opposite. This is the first infrastructure we're building in space <strong>not to explore space, but because space is simply more convenient</strong>. And that's a different class of presence altogether. It's one thing to fly to orbit for a flag and a soil sample. It's another to move industry there because it's cheaper and cleaner. That's exactly how every frontier in history has actually been settled — not by the pathos of pioneers, but by dull economics that, at some point, makes "there" cheaper than "here."</p>
+<p>Tsiolkovsky wrote that humanity cannot live in the cradle forever. It's curious that the first step out of it is being taken not by people, but by their machines — clearing the road, in effect. A server in orbit doesn't inspire the way a bootprint on Mars does. But it's exactly these unglamorous building blocks — cheap launch, laser links, a square-kilometer radiator — that add up to the infrastructure without which a bootprint on Mars stays a single flag, not the start of a road.</p>
+<hr/>
+<h2 id="conclusion">Conclusion</h2>
+<p>Orbital data centers today sit roughly where personal computers did in the mid-1970s: expensive, complicated, and serious people rolling their eyes. The difference is that two forces hard to argue with are working in this scenario's favor — the physics of vacuum, and the economics of reusable rockets.</p>
+<p>I won't try to predict whether this first wave pays off or collapses along with the "industrial bubble" Bezos is talking about. Immature markets are immature precisely because the physics is already settled while the economics is still arguing with itself. But the direction is visible without guesswork: over two months in spring 2026, this topic went from "is this even possible" to filings for tens of thousands of satellites and a first external paying customer. That doesn't look like hype that deflates in a quarter.</p>
+<p>And if you look far enough out, here's what's curious. We're used to thinking of space settlement as a feat of heroism — a flag, a boot print, a heroic first mover. This one, it seems, is starting differently: with the unglamorous realization that a server in orbit is simply more convenient than a server in the desert. The cradle Tsiolkovsky wrote about isn't being left with fanfare — humanity is sending its computations ahead first, to build the infrastructure. Well, every road starts with someone laying the first cable. Even if that cable is a laser beam between two satellites over the night side of Earth.</p>
+<hr/>
+<h2 id="faq">FAQ</h2>
+<p><strong>How do you cool servers in a vacuum if there's no air?</strong>
+Heat is collected from the chips by liquid and radiated into space as infrared light through radiators. A 1 GW node needs about 2.5 km² of radiating surface; for giant 5 GW nodes (Starcloud's plan), the whole structure spans 4×4 km.</p>
+<p><strong>Won't ordinary GPUs fry from radiation?</strong>
+Google's tests (Trillium chips) showed resilience equivalent to five years of mission life. And rare memory errors aren't critical for a neural network — it's inherently resistant to noise.</p>
+<p><strong>How do you fix servers in orbit?</strong>
+Right now, you don't — satellites are disposable, with a roughly 5-year lifespan. Down the line, Axiom Space is counting on robots and modular replacement.</p>
+<p><strong>What's the latency like?</strong>
+Around 1–10 ms one way to the satellite, ~20–40 ms for a full round trip — Starlink-level, good enough for real-time use.</p>
+<p><strong>How much does launch cost today, and what does it need to be?</strong>
+Around $1,500/kg right now. The break-even threshold, by Google's estimate, is around $200/kg.</p>
+<p><strong>Is this a real business, or a pre-IPO bubble?</strong>
+Both, at the same time. Demand is real (Anthropic, the energy shortage), the technology works (Starcloud-1), but part of the valuation is a premium on market cap. Even Bezos calls it an "industrial bubble" — which doesn't rule out working infrastructure surviving once the bubble pops.</p>
+<p><strong>What about space debris?</strong>
+The main risk. Hundreds of thousands of satellites, without a new disposal system, could trigger Kessler syndrome and shut down orbit for a long time.</p>
+<p><strong>Why is all of this happening right now?</strong>
+Four factors lined up: AI's energy hunger, land and water scarcity, cheap launch (Falcon 9, Starship), and data streams that are simply easier to process in orbit.</p>
+<hr/>
+<h2 id="sources">Sources</h2>
+<p><strong>Calculations and academic publications:</strong></p>
+<ol>
+<li>Andrew McCalip. <em>Economics of Orbital vs Terrestrial Data Centers</em> — public model and thermal analysis.
+<a href="https://andrewmccalip.com/space-datacenters" rel="noopener" target="_blank">https://andrewmccalip.com/space-datacenters</a> · code: <a href="https://github.com/andrewmccalip/thoughts" rel="noopener" target="_blank">https://github.com/andrewmccalip/thoughts</a></li>
+<li>Google Research. <em>Project Suncatcher</em> — techno-economic case for orbital TPU-based computing (November 2025).</li>
+<li>P. E. Glaser. <em>Power from the Sun: Its Future</em> // Science, 1968 — the first engineering concept for SBSP.</li>
+<li>C. R. Barker, E. A. Marais et al. <em>Radiative Forcing and Ozone Depletion of a Decade of Satellite Megaconstellation Missions</em> // Earth's Future, 14(5): e2025EF007229 (May 14, 2026) — the climate effect of soot from megaconstellation launches (stratospheric black carbon).
+<a href="https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2025EF007229" rel="noopener" target="_blank">https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2025EF007229</a></li>
+<li>S. G. Turyshev (Jet Propulsion Laboratory, Caltech). <em>Orbital Data Centers: Spacecraft Constraints and Economic Viability</em> (May 1, 2026) — an independent academic model, first-principles physics.
+<a href="https://arxiv.org/abs/2604.27197" rel="noopener" target="_blank">https://arxiv.org/abs/2604.27197</a></li>
+<li>Scott Manley. <em>Can We Actually Cool Data Centers In Space?</em> (YouTube, June 2026) — an independent first-principles radiator calculation for a Starlink V3-class satellite (20 kW), Stefan-Boltzmann law.
+<a href="https://youtu.be/FlQYU3m1e80" rel="noopener" target="_blank">https://youtu.be/FlQYU3m1e80</a></li>
+<li>UNU-INWEH (United Nations University Institute for Water, Environment and Health). Report on the water, carbon, and land footprint of data centers (June 3, 2026).
+<a href="https://www.eurekalert.org/news-releases/1128642" rel="noopener" target="_blank">https://www.eurekalert.org/news-releases/1128642</a> · overview: <a href="https://earth.org/9-3-trillion-liters-of-water-un-report-exposes-unfathomable-footprint-of-data-centers-as-ai-booms/" rel="noopener" target="_blank">https://earth.org/9-3-trillion-liters-of-water-un-report-exposes-unfathomable-footprint-of-data-centers-as-ai-booms/</a></li>
+<li>SemiAnalysis. <em>TokenBudgeting: Our Conversations with Enterprises on Token Spend</em> (June 2026) — a survey of 50+ enterprises on AI token budgets.
+<a href="https://newsletter.semianalysis.com/p/tokenbudgeting-our-conversations" rel="noopener" target="_blank">https://newsletter.semianalysis.com/p/tokenbudgeting-our-conversations</a></li>
+</ol>
+<p><strong>Industry timeline (Spring 2026):</strong></p>
+<ol start="9">
+<li>SpaceNews — Anthropic weighs using SpaceX's orbital data center satellites (May 6, 2026).
+<a href="https://spacenews.com/anthropic-to-consider-using-spacex-orbital-data-center-satellites/" rel="noopener" target="_blank">https://spacenews.com/anthropic-to-consider-using-spacex-orbital-data-center-satellites/</a></li>
+<li>SpaceNews — Cowboy Space raises $275 million (May 11, 2026).
+<a href="https://spacenews.com/cowboy-raises-275-million-to-build-rockets-with-orbital-data-center-upper-stages/" rel="noopener" target="_blank">https://spacenews.com/cowboy-raises-275-million-to-build-rockets-with-orbital-data-center-upper-stages/</a></li>
+<li>SpaceNews — Cowboy files with the FCC for a 20,000-satellite "Stampede" constellation (May 14, 2026).
+<a href="https://spacenews.com/cowboy-files-plans-for-up-to-20000-orbital-data-centers/" rel="noopener" target="_blank">https://spacenews.com/cowboy-files-plans-for-up-to-20000-orbital-data-centers/</a></li>
+<li>SpaceNews — Starcloud orders Starlink laser terminals (May 26, 2026).
+<a href="https://spacenews.com/starcloud-orders-starlink-lasers-for-orbital-data-center-network/" rel="noopener" target="_blank">https://spacenews.com/starcloud-orders-starlink-lasers-for-orbital-data-center-network/</a></li>
+<li>SpaceNews — Muon Space unveils the Condor-Ultra platform (June 3, 2026).
+<a href="https://spacenews.com/muon-space-unveils-starship-class-satellite-platform-for-orbital-data-centers/" rel="noopener" target="_blank">https://spacenews.com/muon-space-unveils-starship-class-satellite-platform-for-orbital-data-centers/</a></li>
+<li>SpaceNews — Orbital raises $5 million (June 9, 2026).
+<a href="https://spacenews.com/orbital-raises-5-million-to-join-orbital-data-center-race/" rel="noopener" target="_blank">https://spacenews.com/orbital-raises-5-million-to-join-orbital-data-center-race/</a></li>
+<li>Space.com — SpaceX's plan for 1 million AI satellites (June 11, 2026).
+<a href="https://www.space.com/space-exploration/satellites/elon-musk-wants-to-put-1-million-ai-satellites-in-space-heres-how-spacex-could-do-it" rel="noopener" target="_blank">https://www.space.com/space-exploration/satellites/elon-musk-wants-to-put-1-million-ai-satellites-in-space-heres-how-spacex-could-do-it</a></li>
+<li>SpaceNews — astronomers warn about the threat orbital data centers pose to observations (June 12, 2026).
+<a href="https://spacenews.com/astronomers-fear-orbital-data-centers-will-interfere-with-observations/" rel="noopener" target="_blank">https://spacenews.com/astronomers-fear-orbital-data-centers-will-interfere-with-observations/</a></li>
+<li>The Space Review — orbital AI and the Global South's exclusion problem (June 15, 2026).
+<a href="https://www.thespacereview.com/article/5242/1" rel="noopener" target="_blank">https://www.thespacereview.com/article/5242/1</a></li>
+<li>Tom's Hardware — the Gigasat factory in Bastrop, AI1 specifications (June 2026).
+<a href="https://www.tomshardware.com/tech-industry/big-tech/spacex-unveils-11-million-square-foot-gigasat-factory-a-new-manufacturing-facility-for-space-based-data-centers-aims-for-1-gw-year-of-space-ai-compute-by-late-2027-from-its-satellites" rel="noopener" target="_blank">https://www.tomshardware.com/tech-industry/big-tech/spacex-unveils-11-million-square-foot-gigasat-factory-a-new-manufacturing-facility-for-space-based-data-centers-aims-for-1-gw-year-of-space-ai-compute-by-late-2027-from-its-satellites</a></li>
+<li>Elon Musk, Ian Dahl (SpaceX). <em>Interview: Elon Musk on SpaceX Plans</em> (X/YouTube, June 8–9, 2026) — direct quote: AI1 radiator at 1,400 W/m², double-sided, edge-on to the Sun.
+<a href="https://singjupost.com/interview-elon-musk-on-spacex-plans-transcript/" rel="noopener" target="_blank">https://singjupost.com/interview-elon-musk-on-spacex-plans-transcript/</a></li>
+<li>Basenor — confirmed Anthropic payment for SpaceX compute, $1.25 billion/month (June 2026).
+<a href="https://www.basenor.com/blogs/news/spacex-expands-its-mission-to-include-ai-what-that-really-means" rel="noopener" target="_blank">https://www.basenor.com/blogs/news/spacex-expands-its-mission-to-include-ai-what-that-really-means</a> · Google's payment, $920 million/month: <a href="https://finance.biggo.com/news/28f5cfef-0e13-4f43-9804-f92b4d62f1a1" rel="noopener" target="_blank">https://finance.biggo.com/news/28f5cfef-0e13-4f43-9804-f92b4d62f1a1</a></li>
+<li>Notebookcheck — SpaceX names its constellation "Starmind" (June 2026).
+<a href="https://www.notebookcheck.net/SpaceX-names-its-AI-Orbital-Data-Center-satellite-constellation.1328148.0.html" rel="noopener" target="_blank">https://www.notebookcheck.net/SpaceX-names-its-AI-Orbital-Data-Center-satellite-constellation.1328148.0.html</a></li>
+<li>DataCenterDynamics — HiCloud's underwater data center off Shanghai, 24 MW (May 2026).
+<a href="https://www.datacenterdynamics.com/en/news/hiclouds-offshore-wind-powered-underwater-data-center-up-and-running-off-coast-of-shanghai-china/" rel="noopener" target="_blank">https://www.datacenterdynamics.com/en/news/hiclouds-offshore-wind-powered-underwater-data-center-up-and-running-off-coast-of-shanghai-china/</a></li>
+<li>Hard Fork (The New York Times) — discussion of NIMBY/NOMP (November 2025).</li>
+<li>SpaceNews — how space weather could bust the AI boom (June 24, 2026).
+<a href="https://spacenews.com/how-space-weather-could-bust-the-ai-boom/" rel="noopener" target="_blank">https://spacenews.com/how-space-weather-could-bust-the-ai-boom/</a></li>
+<li>Jonathan O'Callaghan. <em>Inside the Space Data Race</em> // Aerospace America, AIAA (July 2026) — quotes from Yonggang Wen (800 ms latency), Kathleen Curlee (CSET), NVIDIA's position, Starlink collision-avoidance maneuver statistics.
+<a href="https://aerospaceamerica.aiaa.org/features/inside-the-space-data-race/" rel="noopener" target="_blank">https://aerospaceamerica.aiaa.org/features/inside-the-space-data-race/</a></li>
+<li>SpaceNews — Blue Origin joins the orbital data center race, files for a 51,600-satellite "Project Sunrise" (March 19, 2026).
+<a href="https://spacenews.com/blue-origin-joins-the-orbital-data-center-race/" rel="noopener" target="_blank">https://spacenews.com/blue-origin-joins-the-orbital-data-center-race/</a></li>
+<li>SpaceNews — China launches the first of 2,800 satellites for an orbital AI computing constellation, ADA Space and Zhejiang Lab (May 14, 2025).
+<a href="https://spacenews.com/china-launches-first-of-2800-satellites-for-ai-space-computing-constellation/" rel="noopener" target="_blank">https://spacenews.com/china-launches-first-of-2800-satellites-for-ai-space-computing-constellation/</a></li>
+</ol>
+<p><em>Full details on SpaceX's IPO (June 13, 2026, $135/share, $75 billion) — MLQ News: <a href="https://mlq.ai/news/spacex-unveils-11m-sq-ft-gigasat-factory-in-bastrop-texas-for-orbital-ai-data-centers/" rel="noopener" target="_blank">https://mlq.ai/news/spacex-unveils-11m-sq-ft-gigasat-factory-in-bastrop-texas-for-orbital-ai-data-centers/</a></em></p>
+</article>
+</div>
+</section>
+<footer id="contact" class="py-3 my-4">
+<div class="container">
+<div class="row align-items-center">
+<div class="col-md-4 d-flex align-items-center">
+<a href="/">
+<img src="/img/spaceedu-site-logo-main-161-60.webp" alt="SpaceEdu Logo" class="nav-logo" style="filter: brightness(1); opacity: 1;" width="161" height="60">
+</a>
+</div>
+<div class="col-md-4 text-center">
+<a href="mailto:connect@spaceedu.org" class="footer-email text-white text-decoration-none">
+<i class="bi bi-envelope me-2"></i>connect@spaceedu.org</a>
+</div>
+<div class="col-md-4 d-flex justify-content-end">
+<ul class="nav list-unstyled">
+<li class="ms-3">
+<a class="text-white" href="https://www.facebook.com/spaceedu" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+<i class="bi bi-facebook" style="font-size: 2.0rem;"></i>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="mt-3 text-center text-white small" style="font-size: 0.8rem; opacity: 0.8;">
+© <span id="copyright-year">2018-2026</span> SpaceEdu Project. All rights reserved.
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+var el = document.getElementById('copyright-year');
+if (el) el.textContent = '2018-' + new Date().getFullYear();
+});
+</script>
+<script>
+MathJax = { options: { renderActions: { assistiveMml: [] } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<script>
+(function () {
+var bar = document.getElementById('journalProgressBar');
+var article = document.querySelector('.journal-content-col');
+function updateProgress() {
+if (!bar || !article) return;
+var rect = article.getBoundingClientRect();
+var total = article.offsetHeight - window.innerHeight;
+var scrolled = -rect.top;
+var pct = total > 0 ? Math.min(100, Math.max(0, (scrolled / total) * 100)) : 0;
+bar.style.height = pct + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+window.addEventListener('resize', updateProgress);
+updateProgress();
+var copyBtn = document.querySelector('.journal-copy-link');
+if (copyBtn) {
+copyBtn.addEventListener('click', function () {
+navigator.clipboard.writeText(copyBtn.dataset.url).then(function () {
+copyBtn.classList.add('copied');
+setTimeout(function () { copyBtn.classList.remove('copied'); }, 1500);
+});
+});
+}
+var tocPanel = document.getElementById('journalToc');
+var tocBackdrop = document.getElementById('journalTocBackdrop');
+if (tocPanel && tocBackdrop) {
+tocPanel.addEventListener('show.bs.collapse', function (e) {
+if (e.target !== tocPanel) return;
+tocBackdrop.classList.add('show');
+});
+tocPanel.addEventListener('hidden.bs.collapse', function (e) {
+if (e.target !== tocPanel) return;
+tocBackdrop.classList.remove('show');
+});
+tocBackdrop.addEventListener('click', function () {
+var collapse = bootstrap.Collapse.getOrCreateInstance(tocPanel);
+collapse.hide();
+});
+tocPanel.querySelectorAll('a').forEach(function (link) {
+link.addEventListener('click', function () {
+if (window.innerWidth >= 992) return;
+var collapse = bootstrap.Collapse.getOrCreateInstance(tocPanel);
+collapse.hide();
+});
+});
+}
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
