@@ -930,7 +930,7 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
         <span>21 SOURCES <span class="status-glow">ACTIVE</span></span>
         <span class="status-sep">|</span>
         <span>PARSER: <span class="status-glow">RUNNING</span></span>
-        <span class="status-right">LAST UPDATED AT <span class="status-glow">Nov 05, 2026 · 21:00 UTC
+        <span class="status-right">LAST UPDATED AT <span class="status-glow">Nov 05, 2026 · 22:00 UTC
         </span></span>
     </div>
 
@@ -950,11 +950,11 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
                 </div>
                 <div class="chr-cat">
                     <div class="chr-cat-dot"></div>
-                    <span>7966 ARTICLES TOTAL</span>
+                    <span>7969 ARTICLES TOTAL</span>
                 </div>
                 <div class="chr-cat">
                     <div class="chr-cat-dot"></div>
-                    <span>38 ARTICLES TODAY</span>
+                    <span>41 ARTICLES TODAY</span>
                 </div>
             </div>
 
@@ -1040,9 +1040,54 @@ footer { background:var(--bg); font-family:'Audiowide',sans-serif; }
         <div class="day-header" style="margin-top:0">
             <span class="day-label">Thursday, November 5</span>
             <div class="day-line"></div>
-            <span class="day-count">38 articles</span>
+            <span class="day-count">41 articles</span>
         </div>
 
+        <div class="article-card"
+             data-topics="business,defense,satellites"
+             data-regions="">
+            <div class="article-meta">
+                <span class="source-name">SpaceNews</span>
+                <span class="cat-badge cat-business" data-tooltip="Business &amp; Funding · Defense &amp; Security · Satellites &amp; Connectivity">Business &amp; Funding</span>
+                <span class="article-time" data-utc="2026-11-05T21:45:00Z" title="21:45 UTC">21:45 UTC
+                </span>
+            </div>
+            <a href="https://spacenews.com/cesiumastro-secures-730-million-in-janus-henderson-led-series-d-at-a-valuation-above-4-5-billion-unveils-synchronicity-satellite-constellation-following-fully-successful-element-1-mission/" class="article-title" target="_blank" rel="noopener">CesiumAstro Secures $730 Million in Janus Henderson-Led Series D at a Valuation Above $4.5 Billion; Unveils Synchronicity Satellite Constellation Following Fully Successful Element-1 Mission</a>
+            
+            <p class="article-summary">CesiumAstro Inc., a global leader in space and defense communications systems and satellites, today announced the closing of $730 million in Series D financing, valuing the company at more than […]</p>
+            
+            <a href="https://spacenews.com/cesiumastro-secures-730-million-in-janus-henderson-led-series-d-at-a-valuation-above-4-5-billion-unveils-synchronicity-satellite-constellation-following-fully-successful-element-1-mission/" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
+        <div class="article-card"
+             data-topics="science"
+             data-regions="usa">
+            <div class="article-meta">
+                <span class="source-name">Sky and Telescope</span>
+                <span class="cat-badge cat-science" data-tooltip="Science &amp; Astrophysics · USA">Science &amp; Astrophysics</span>
+                <span class="article-time" data-utc="2026-11-05T21:11:45Z" title="21:11 UTC">21:11 UTC
+                </span>
+            </div>
+            <a href="https://skyandtelescope.org/astronomy-news/nasa-moves-ahead-with-ultraviolet-space-telescope/" class="article-title" target="_blank" rel="noopener">NASA Moves Ahead with Ultraviolet Space Telescope</a>
+            
+            <p class="article-summary">A new ultraviolet space telescope will fill a gap in the spectrum, bearing witness to cosmic cataclysms and probing the evolution of the early universe</p>
+            
+            <a href="https://skyandtelescope.org/astronomy-news/nasa-moves-ahead-with-ultraviolet-space-telescope/" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
+        <div class="article-card"
+             data-topics="science"
+             data-regions="">
+            <div class="article-meta">
+                <span class="source-name">NPR Space</span>
+                <span class="cat-badge cat-science" data-tooltip="Science &amp; Astrophysics">Science &amp; Astrophysics</span>
+                <span class="article-time" data-utc="2026-11-05T21:05:29Z" title="21:05 UTC">21:05 UTC
+                </span>
+            </div>
+            <a href="https://www.npr.org/2026/11/05/nx-s1-6027893/white-dwarf-stars-come-in-a-surprising-number-of-colors-study-finds" class="article-title" target="_blank" rel="noopener">White dwarf stars come in a surprising number of colors, study finds</a>
+            
+            <p class="article-summary">Turns out these remnants of dying stars are not all white – a new study finds that they can come in a wide array of colors, from salmon pink to chartreuse.</p>
+            
+            <a href="https://www.npr.org/2026/11/05/nx-s1-6027893/white-dwarf-stars-come-in-a-surprising-number-of-colors-study-finds" class="read-more" target="_blank" rel="noopener">Read more →</a>
+        </div>
         <div class="article-card"
              data-topics="launches"
              data-regions="usa">
@@ -1686,7 +1731,7 @@ document.querySelectorAll('.article-time[data-utc]').forEach(function(el) {
     var currentTopic = 'all';
     var chinaOn      = false;
     var moreTopics         = ["astronomy", "defense", "satellites", "stations", "earth_observation", "policy", "entertainment", "shopping"];
-    var hideByDefaultTopics = ["entertainment", "jobs", "shopping"];
+    var hideByDefaultTopics = ["reviews", "entertainment", "jobs", "shopping"];
 
     function applyFilters() {
         document.querySelectorAll('.article-card').forEach(function(card) {
